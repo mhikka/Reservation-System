@@ -6,23 +6,18 @@
     </nav>
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            <SidePanelUser>
+            <SidePanelAdmin>
                 <hr>
-            </SidePanelUser>
+            </SidePanelAdmin>
             <div class="col text-start">
                 <h1 class="font-weight-light pt-4 ms-3">
                     Reservation
                 </h1>
                   
                 <hr style="background-color: black; height: 2px;">
-                <div @click="check" v-if="gapiLoaded === true">
+                <div @click="check">
                     <ejs-schedule height="575px" currentView="Month" v-model:selectedDate="schedulerSelectedDate" id="calendar">
                     </ejs-schedule>
-                </div>
-                <div v-else>
-                    <div class="float-start">
-                        Please wait ...
-                    </div>
                 </div>
             </div>
         </div>
@@ -103,11 +98,11 @@
                                     </div>
                                     <div class="form-group pb-2">
                                         <label for="exampleInputPassword1" class="float-start">Time</label>
-                                        <input v-model="time" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the time here (E.g. 1:00 AM - 2:00 PM)">
+                                        <input v-model="time" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the time here">
                                     </div>
                                     <div class="form-group pb-2">
                                         <label for="exampleInputPassword1" class="float-start">Organization/Department</label>
-                                        <input v-model="org_dept" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your organization/department here">
+                                        <input v-model="org_dept" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your mobile number here">
                                     </div>
                                     <div class="form-group pb-3">
                                         <label for="exampleInputPassword1" class="float-start">Description</label>
@@ -143,7 +138,7 @@
                                     {{equip.items}}
                                 </div>
                                 <div class="col-8">
-                                    <input type="number" class="form-control" id="input_q" min="1" :v-model="values_of_q" :placeholder="equip.q">
+                                    <input type="number" class="form-control" id="input_q" :v-model="values_of_q" :placeholder="equip.q">
                                 </div>
                             </div>
                             <div class="col d-flex justify-content-start fw-bold pb-2 pt-3">
@@ -152,7 +147,7 @@
                             <input class="form-control" type="file" id="formFileDisabled">
 
                             <div class="pt-5">
-                                <button class="btn btn-primary float-start" type="submit" @click="setAppointment">
+                                <button class="btn btn-primary float-start" type="submit" @click="nextPage">
                                     Set Appointment
                                 </button>
                             </div>
@@ -167,14 +162,14 @@
 <script>
 import { ScheduleComponent, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-vue-schedule";
 import AdminModal from "@/components/AdminModal.vue";
-import SidePanelUser from "@/components/SidePanelUser.vue";
+import SidePanelAdmin from "@/components/SidePanelAdmin.vue";
 import Parse from 'parse';
 
 const gapi = window.gapi;
 export default{
     components: {
         'ejs-schedule': ScheduleComponent,
-        AdminModal, SidePanelUser,
+        AdminModal, SidePanelAdmin,
     },
     provide: {
         schedule: [Day, Week, WorkWeek, Month, Agenda]
@@ -207,11 +202,6 @@ export default{
             equipments_arr: [],
 
             values_of_q: '',
-
-            gapiLoaded: false,
-            google_user: '',
-
-            equipment_list: [],
         }
     },
 
@@ -233,45 +223,18 @@ export default{
         nextPage(){
             this.next_page = true;
             this.next_page_1 = false;
-        },
-
-        setAppointment(){
-            console.log("Full Name: ", this.profileFullName);
+            console.log("Full Name: ", this.full_name);
             console.log("Email: ", this.user_email);
             console.log("Mobile Number: ", this.mobile_number);
             console.log("Time: ", this.time);
             console.log("Org/Dept: ", this.org_dept);
             console.log("Venue: ", this.venue);
             console.log("Description: ", this.desc);
+            console.log("Values of Q: ", this.values_of_q);
 
             let i_q = document.querySelectorAll('[id="input_q"]');
             const q_i = [...i_q].map(input => input.value);
-            console.log("Values of Q: ", q_i);
-            for(let i = 0; i < q_i.length; i++){
-                this.equipment_list.push(parseInt(q_i[i]));
-            }
-
-            const equip_obj = JSON.stringify(this.equipment_list);
-            const Request = Parse.Object.extend("Request");
-            // for(let i = 0; i < q_i.length; i++){
-                const request = new Request();
-
-                request.set("date", this.date);
-                request.set("full_name", this.profileFullName);
-                request.set("email", this.user_email);
-                request.set("mobile_number", this.mobile_number);
-                request.set("time", this.time);
-                request.set("org_dept", this.org_dept);
-                request.set("venue", this.venue);
-                request.set("description", this.desc);
-                request.set("equipments", equip_obj);
-                request.set("status", "Pending");
-
-                request.save().then((request) => {
-                    console.log("Success", request);
-                    this.open_modal = false;
-                });
-            // }
+            console.log(q_i);
         },
 
         nextPage_1(){
@@ -298,29 +261,20 @@ export default{
 
         homePage(){
             this.$router.push({name: 'adminHome'})
-        },
+        }
     },
 
     mounted: async function(){
-        try{
-            gapi.load("client:auth2", function () {
-                gapi.auth2.getAuthInstance();
-            });
+        console.log(ScheduleComponent);
+        gapi.load("client:auth2", function () {
+            gapi.auth2.getAuthInstance();
+        });
 
-            const googleUser = gapi.auth2.getAuthInstance();
-            this.google_user = googleUser;
-            console.log(googleUser);
-            this.profileFullName = googleUser.currentUser.get().getBasicProfile().getName();
-            this.user_email = googleUser.currentUser.get().getBasicProfile().getEmail();
-            console.log(this.profileFullName);
-
-            if(googleUser){
-                this.gapiLoaded = true;
-            }
-        } catch(error) {
-            console.log(error);
-        }
-            
+        const googleUser = gapi.auth2.getAuthInstance();
+        console.log(googleUser);
+        this.profileFullName = googleUser.currentUser.get().getBasicProfile().getName();
+        this.user_email = googleUser.currentUser.get().getBasicProfile().getEmail();
+        console.log(this.profileFullName);
 
         const Equipments = Parse.Object.extend("Equipments");
         const equipments = new Parse.Query(Equipments);
@@ -329,7 +283,6 @@ export default{
             this.equipments_arr.push({
                 items: equip[i].get("Items"),
                 q:"Quantity Available: " + ' ' + equip[i].get("Quantity"),
-                num: equip[i].get("Quantity"),
             })
         }
     }

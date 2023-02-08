@@ -6,89 +6,39 @@
     </nav>
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" style="background-color: #414141;">
-                <div class="d-flex flex-column align-items-center align-items-sm-center px-3 pt-2 text-white min-vh-100">
-                    <div class="pt-3 pb-5">
-                        <img src="../assets/Ateneo_de_Naga_University_logo.png" width="120" height="120" class="d-inline-block align-top" alt="">
-                    </div>
-                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                        <li class="pb-3">
-                            <a href="" class="nav-link align-middle px-0 text-light">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
-                                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
-                                </svg> 
-                                <span class="ms-1 d-none d-sm-inline">
-                                    Home
-                                </span>
-                            </a>
-                        </li>
-                        <li class="pb-3" @click="reservationPage">
-                            <a href="" data-bs-toggle="collapse" class="nav-link px-0 align-middle  text-light">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-calendar-week" viewBox="0 0 16 16">
-                                    <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
-                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                                </svg> 
-                                <span class="ms-1 d-none d-sm-inline">
-                                    Reserve
-                                </span>
-                            </a>
-                        </li>
-                        <li class="pb-3">
-                            <a href="" class="nav-link px-0 align-middle text-light">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
-                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                    <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
-                                </svg>
-                                <span class="ms-1 d-none d-sm-inline">About</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <hr>
-                    <!-- <div class="dropdown pb-4">
-                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                            <span class="d-none d-sm-inline mx-1">loser</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                            <li><a class="dropdown-item" href="#">New project...</a></li>
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Sign out</a></li>
-                        </ul>
-                    </div> -->
-                </div>
-            </div>
+            <SidePanelUser>
+                <hr>
+            </SidePanelUser>
             <div class="col text-start">
                 <h1 class="font-weight-light pt-4 ms-3">
                     Home
                 </h1>
                 <hr style="background-color: black; height: 2px;">
                 <div class="row">
-                    <div class="col">
-                        <div class="card" style="height: 370px;">
+                    <div class="col pb-2">
+                        <div class="card" style="height: auto;">
                             <div class="card-header text-start">
                                 Request Dashboard
                             </div>
-                            <div class="card-body text-start">
-                                <div class="card">
-                                    <div class="card-body bg-danger rounded text-light" @click="open_modal">
-                                        <h4>Rejected</h4>
-                                        This is some text within a card body.
+                            <div class="scrollable">
+                                <div class="text-start p-2" v-for="details in request_arr.slice().reverse()" :key="details">
+                                    <div class="card" v-if="details.status === 'Unavailable'">
+                                        <div class="card-body bg-danger rounded text-light" @click="open_modal(details.id)">
+                                            <h4>{{details.status}}</h4>
+                                            {{details.venue}}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-body bg-primary rounded text-light">
-                                        <h4>Approved</h4>
-                                        This is some text within a card body.
+                                    <div class="card" v-else-if="details.status === 'Approved'" @click="open_modal(details.id)">
+                                        <div class="card-body bg-primary rounded text-light">
+                                            <h4>{{details.status}}</h4>
+                                            {{details.venue}}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-body bg-secondary rounded text-light">
-                                        <h4>Pending</h4>
-                                        This is some text within a card body.
+                                    <div class="card" v-else-if="details.status === 'Pending'" @click="open_modal(details.id)">
+                                        <div class="card-body bg-secondary rounded text-light">
+                                            <h4>{{details.status}}</h4>
+                                            {{details.venue}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -96,103 +46,341 @@
                     </div>
                 </div>
             </div>
-                
         </div>
     </div>
     <footer class="page-footer fluid-bottom border-top border-secondary" style="background-color: #414141;">
         <div class="footer-copyright text-start py-3 text-light ms-2">
-            © 2023 Copyright:
+            <small>
+                © 2023 Copyright:
             <a href="/" class="text-light"> Ateneo de Naga University</a>
+            </small>
         </div>
     </footer>
 
     <div v-if="pop === true">
-        <PopUpModal>
-            <div class="col-sm pt-2">
-                <!-- <h4 class="fw-bold">Request</h4>
-                <hr stlye="background-color: black"> -->
-                <div class="row justify-content-end">
-                    <div class="col-4">
-                        <h4 class="fw-bold">Request</h4>
-                        <hr stlye="background-color: black">
-                    </div>
-                    <div class="col-4">
-                        <button @click="close_modal" class="btn btn-outline-danger">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="text-start">
-                    <div class="card">
-                        <div class="card-body bg-danger rounded text-light" @click="open_modal">
-                            <h4 class="fw-bold">Rejected | Event date: January 1, 2023</h4>
-                            <div class="pt-3 text-start">
-                                <div class="row">
-                                    <div class="col">
-                                        <h5 class="fw-bold">Venue</h5>
-                                    </div>
-                                    <div class="col">   
-                                        <h5 class="fw-bold">Time</h5>
-                                    </div>
+        <AdminModal>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row justify-content-end">
+                        <div class="col-sm pt-2">
+                            <!-- <h4 class="fw-bold">Request</h4>
+                            <hr stlye="background-color: black"> -->
+                            <div class="row justify-content-end">
+                                <div class="col-4">
+                                    <h4 class="fw-bold">Request</h4>
+                                    <hr stlye="background-color: black">
+                                </div>
+                                <div class="col-4">
+                                    <button @click="close_modal" class="btn btn-outline-danger">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
 
-                            <div class="pt-1 text-start">
-                                <div class="row">
-                                    <div class="col">
-                                        <h6>Richie Fernando</h6>
-                                    </div>
-                                    <div class="col">   
-                                        <h6>11:00AM - 1:30PM</h6>
+                            <div class="text-start" v-for="details in request_arr.slice().reverse()" :key="details">
+                                <div class="card" v-if="details.status === 'Unavailable' && passed_id === details.id">
+                                    <div class="card-body bg-danger rounded text-light" @click="open_modal">
+                                        <h4 class="fw-bold">{{details.status}} | Event date: {{details.date}}</h4>
+                                        <div class="pt-3 text-start">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h5 class="fw-bold">Venue</h5>
+                                                </div>
+                                                <div class="col">   
+                                                    <h5 class="fw-bold">Time</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="pt-1 text-start">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h6>{{details.venue}}</h6>
+                                                </div>
+                                                <div class="col">   
+                                                    <h6>{{details.time}}</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="pt-3">
+                                            <h5 class="fw-bold">Description</h5>
+                                            <p>{{details.desc}}</p>
+                                        </div>
+
+                                        <div class="pt-3 text-start">
+                                            <h5 class="fw-bold">Equipments</h5>
+                                            <ul style="list-style: none">
+                                                <li>
+                                                    Microphone - 4pcs
+                                                </li>
+                                                <li>
+                                                    Speakers - 3pcs
+                                                </li>
+                                                <li>
+                                                    Mic stand - 10pcs
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="card" v-else-if="details.status === 'Approved' && passed_id === details.id">
+                                    <div class="card-body bg-primary rounded text-light" @click="open_modal">
+                                        <h4 class="fw-bold">{{details.status}} | Event date: {{details.date}}</h4>
+                                        <div class="pt-3 text-start">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h5 class="fw-bold">Venue</h5>
+                                                </div>
+                                                <div class="col">   
+                                                    <h5 class="fw-bold">Time</h5>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                            <div class="pt-3">
-                                <h5 class="fw-bold">Description</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-                                    labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-                                    laboris nisi ut aliquip ex.
-                                </p>
-                            </div>
+                                        <div class="pt-1 text-start">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h6>{{details.venue}}</h6>
+                                                </div>
+                                                <div class="col">   
+                                                    <h6>{{details.time}}</h6>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                            <div class="pt-3 text-start">
-                                <h5 class="fw-bold">Equipments</h5>
-                                <ul style="list-style: none">
-                                    <li>
-                                        Microphone - 4pcs
-                                    </li>
-                                    <li>
-                                        Speakers - 3pcs
-                                    </li>
-                                    <li>
-                                        Mic stand - 10pcs
-                                    </li>
-                                </ul>
+                                        <div class="pt-3">
+                                            <h5 class="fw-bold">Description</h5>
+                                            <p>{{details.desc}}</p>
+                                        </div>
+
+                                        <div class="pt-3 text-start">
+                                            <h5 class="fw-bold">Equipments</h5>
+                                            <ul style="list-style: none">
+                                                <li>
+                                                    Microphone - 4pcs
+                                                </li>
+                                                <li>
+                                                    Speakers - 3pcs
+                                                </li>
+                                                <li>
+                                                    Mic stand - 10pcs
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card border border-none" v-if="details.status === 'Pending' && passed_id === details.id">
+                                    <div class="card-body bg-secondary rounded text-light" @click="open_modal">
+                                        <h4 class="fw-bold">{{details.status}} | Event date: {{details.date}}</h4>
+                                        <div class="pt-3 text-start">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h5 class="fw-bold">Venue</h5>
+                                                </div>
+                                                <div class="col">   
+                                                    <h5 class="fw-bold">Time</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="pt-1 text-start">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h6>{{details.venue}}</h6>
+                                                </div>
+                                                <div class="col">   
+                                                    <h6>{{details.time}}</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="pt-3">
+                                            <h5 class="fw-bold">Description</h5>
+                                            <p>{{details.desc}}</p>
+                                        </div>
+
+                                        <div class="pt-3 text-start">
+                                            <h5 class="fw-bold">Equipments</h5>
+                                            <ul style="list-style: none">
+                                                <li>
+                                                    Microphone - 4pcs
+                                                </li>
+                                                <li>
+                                                    Speakers - 3pcs
+                                                </li>
+                                                <li>
+                                                    Mic stand - 10pcs
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="pt-2">
+                                        <button class="btn btn-primary float-start" type="submit" @click="editPage(details.id)">
+                                            Edit
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </PopUpModal>
+        </AdminModal>
     </div>
 
+
+    <div v-if="edit_page === true">
+        <AdminModal>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row justify-content-end" v-for="details in request_arr.slice().reverse()" :key="details">
+                        <div v-if="passed_id === details.id">
+                            <div class="container">
+                                <div class="row pt-3">
+                                    <div class="col-4" v-if="next_page === true">
+                                        <button @click="back_btn" class="btn btn-outline-none text-dark">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="col-4" v-else>
+                                        <button @click="back_btn" class="btn btn-outline-none text-dark">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="col-4 pt-2">
+                                        <h6 class="fw-bold">Edit Request</h6>
+                                        <hr stlye="background-color: black">
+                                    </div>
+                                    <div class="col-4">
+                                        <button @click="close_edit" class="btn btn-outline-none text-danger">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container pb-3" v-if="next_page === false">
+                                <form>
+                                    <h5 class="fw-bolder d-flex justify-content-start pb-3">Personal Details</h5>
+                                    <div class="form-group pb-2">
+                                        <label for="exampleInputEmail1" class="float-start">Full Name</label>
+                                        <input v-model="details.fullName" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your full name here">
+                                    </div>
+                                    <div class="form-group pb-2">
+                                        <label for="exampleInputPassword1" class="float-start">Email</label>
+                                        <input v-model="details.email" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your email here">
+                                    </div>
+                                    <div class="form-group pb-5">
+                                        <label for="exampleInputPassword1" class="float-start">Mobile Number</label>
+                                        <input v-model="details.mobile_number" type="number" class="form-control" id="exampleInputPassword1" placeholder="Enter your mobile number here">
+                                    </div>
+                                </form>
+                                <button class="btn btn-primary float-start" type="submit" @click="nextPage">
+                                    Next
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div v-else class="pb-3">
+                                <div v-if="next_page_1 === false">
+                                    <form>
+                                        <h5 class="fw-bolder d-flex justify-content-start pb-3">Reservation Details</h5>
+                                        <div class="form-group pb-2">
+                                            <label for="exampleInputEmail1" class="float-start">Date</label>
+                                            <input v-model="details.date" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter the date here">
+                                        </div>
+                                        <div class="form-group pb-2">
+                                            <label for="exampleInputPassword1" class="float-start">Time</label>
+                                            <input v-model="details.time" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the time here (E.g. 1:00 AM - 2:00 PM)">
+                                        </div>
+                                        <div class="form-group pb-2">
+                                            <label for="exampleInputPassword1" class="float-start">Organization/Department</label>
+                                            <input v-model="details.orgDept" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your organization/department here">
+                                        </div>
+                                        <div class="form-group pb-3">
+                                            <label for="exampleInputPassword1" class="float-start">Description</label>
+                                            <input v-model="details.desc" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter description of your event here">
+                                        </div>
+                                        <div class="form-group pb-5 m-50">
+                                            <label for="exampleInputPassword1" class="float-start me-3">Venue</label>
+                                            <select name="plan" id="venue" v-model="venue" class="btn btn-sm border float-start">
+                                                <option value="" disabled selected>List of Venues</option>
+                                                <option value="JOBL Conference Room 1st Floor">JOBL Conference Room 1st Floor</option>
+                                                <option value="Consultation Room 1"><small>Consultation Room 1</small></option>
+                                                <option value="Consultation Room 2"><small>Consultation Room 2</small></option>
+                                                <option value="Library - Multipurpose Room"><small>Library - Multipurpose Room</small></option>
+                                                <option value="Library: Fr. A.M. BAUTISTA - Viewing Room"><small>Library: Fr. A.M. BAUTISTA -
+                                                    Viewing Room</small></option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                    <br class="pt-2">
+                                    <button class="btn btn-primary float-start" type="submit" @click="nextPage_1">
+                                        Next
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div v-if="next_page_1 === true && next_page === true">
+                                <h5 class="fw-bolder d-flex justify-content-start pb-3">Equipments</h5>
+                                <div class="row" v-for="equip in equipments_arr" :key="equip">
+                                    <div class="col-4">
+                                        {{equip.items}}
+                                    </div>
+                                    <div class="col-8">
+                                        <input type="number" class="form-control" id="input_q" min="1" :v-model="details.equipments" :placeholder="equip.q">
+                                    </div>
+                                </div>
+                                <div class="col d-flex justify-content-start fw-bold pb-2 pt-3">
+                                    <label for="formGroupExampleInput">Related Documents</label>
+                                </div>
+                                <input class="form-control" type="file" id="formFileDisabled">
+
+                                <div class="pt-5">
+                                    <button class="btn btn-primary float-start" type="submit" @click="updateAppointment(details.id)">
+                                        Set Appointment
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </AdminModal>
+    </div>
 </template>
 
 <script>
-import PopUpModal from "@/components/PopUpModal.vue";
+import AdminModal from "@/components/AdminModal.vue";
+import SidePanelUser from "@/components/SidePanelUser.vue";
+import Parse from 'parse';
 
 export default{
     components: {
-        PopUpModal,
+        AdminModal, SidePanelUser,
     },
 
     data(){
         return{
             pop: false,
+            request_arr: [],
+            passed_id: '',
+            edit_page: false,
+            next_page: false,
+            next_page_1: false,
+            equipments_arr: [],
         }
     },
     methods: {
@@ -200,14 +388,89 @@ export default{
             this.$router.push({name: 'reservation'})
         },
 
-        open_modal(){
+        open_modal(id){
             this.pop = true;
+            console.log(id);
+            this.passed_id = id;
         },
 
         close_modal(){
             this.pop = false;
+            this.passed_id = '';
         },
+
+        editPage(id){
+            this.edit_page = true;
+            this.pop = false;
+            this.passed_id = id;
+        },
+
+        nextPage(){
+            this.next_page = true;
+            this.next_page_1 = false;
+        },
+
+        nextPage_1(){
+            this.next_page_1 = true;
+        },
+
+        back_btn(){
+            this.next_page = false;
+            this.next_page_1 = false;
+        },
+
+        close_edit(){
+            this.edit_page = false;
+            this.next_page = false;
+            this.passed_id = '';
+        },
+
+        updateAppointment(id){
+            console.log(id);
+        }
+    },
+
+    mounted: async function(){
+        const Request = Parse.Object.extend("Request");
+        const request = new Parse.Query(Request);
+        const query = await request.find();
+
+        for(let i = 0; i < query.length; i++){
+            this.request_arr.push({
+                id: query[i].id,
+                date: query[i].get("date"),
+                fullName: query[i].get("full_name"),
+                email: query[i].get("email"),
+                mobile_number: query[i].get("mobile_number"),
+                time: query[i].get("time"),
+                orgDept: query[i].get("org_dept"),
+                venue: query[i].get("venue"),
+                desc: query[i].get("description"),
+                equipments: query[i].get("equipments"),
+                status: query[i].get("status"),
+            })
+        }
+
+        const Equipments = Parse.Object.extend("Equipments");
+        const equipments = new Parse.Query(Equipments);
+        const equip = await equipments.find();
+        for(let i = 0; i < equip.length; i++){
+            this.equipments_arr.push({
+                items: equip[i].get("Items"),
+                q:"Quantity Available: " + ' ' + equip[i].get("Quantity"),
+                num: equip[i].get("Quantity"),
+            })
+        }
+
+        console.log(this.request_arr);
     }
 }
 
 </script>
+<style scoped>
+.scrollable{
+  overflow-y: auto;
+  max-height: 525px;
+}
+
+</style>
