@@ -75,6 +75,9 @@
                     </div> -->
                 </div>
             </div>
+            <SidePanelAdmin>
+                <hr>
+            </SidePanelAdmin>
             <div class="col text-start">
                 <h1 class="font-weight-light pt-4 ms-3">
                     Home
@@ -110,19 +113,19 @@
                     </div>
                 </div>
             </div>
-                
-        </div>
+        </div>  
     </div>
     <footer class="page-footer fluid-bottom border-top border-secondary" style="background-color: #414141;">
         <div class="footer-copyright text-start py-3 text-light ms-2">
-            © 2023 Copyright:
+            <small>
+                © 2023 Copyright:
             <a href="/" class="text-light"> Ateneo de Naga University</a>
+            </small>
         </div>
     </footer>
 
     <div v-if="pop === true">
         <PopUpModal>
-    
             <div class="col-sm pt-2">
                 <!-- <h4 class="fw-bold">Request</h4>
                 <hr stlye="background-color: black"> -->
@@ -139,7 +142,7 @@
                         <hr stlye="background-color: black">
                     </div>
                     <div class="col-4">
-                        <button @click="close_modal" class="btn btn-outline-secondary">
+                        <button @click="close_modal" class="btn btn-outline-danger">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
                                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                             </svg>
@@ -148,8 +151,8 @@
                 </div>
 
                 <div class="text-start">
-                    <div class="card">
-                        <div class="card-body bg-white rounded text-dark" @click="open_modal">
+                    <div>
+                        <div>
                             <div class="container pb-5" v-if="next_page === false">
                                 <div class="row pb-3">
                                     <h5 class="fw-bolder d-flex justify-content-start pb-1">Personal Details</h5>
@@ -166,7 +169,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="pt-1 text-start">
+                                        <div class="pt-1 pb-3 text-start">
                                             <div class="row">
                                                 <div class="col">
                                                     <input type="text"  v-model="fullName" class="form-control" id="formGroupExampleInput" placeholder="Enter the date here" disabled>
@@ -181,7 +184,7 @@
                                         </div>
                                 </div>
                                 
-                                <div class="row pb-3">
+                                <div class="row pb-4">
                                     <h5 class="fw-bolder d-flex justify-content-left pb-1">Reservation Details</h5>
                                         <div class="pt-1 text-start">
                                             <div class="row">
@@ -209,7 +212,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="pt-1 text-start">
+                                        <div class="pt-4 text-start">
                                             <div class="row">
                                                 <div class="col">
                                                     <h6 class="fw-bold">Equipments</h6>
@@ -236,14 +239,16 @@
                                             </div>
                                         </div>
                                 </div>
-                                <button class="btn btn-primary float-start" type="submit" @click="nextPage">
-                                    Next
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                                    </svg>
-                                </button>
+                                <div class="pt-3 pb-1">
+                                    <button class="btn btn-primary float-start" type="submit" @click="nextPage">
+                                        Next
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                                        </svg>
+                                    </button>
+                                </div>
                             </div> 
-                            <div v-else class="pb-5">
+                            <div v-else class="pb-3">
                                 <div class="col d-flex justify-content-start fw-bold pb-2">
                                     <h6 class="fw-bold">Related Documents</h6>
                                 </div>
@@ -269,18 +274,17 @@
                     </div>
                 </div>
             </div>
-            
         </PopUpModal>
     </div>
-
 </template>
 
 <script>
 import PopUpModal from "@/components/PopUpModal.vue";
+import SidePanelAdmin from "@/components/SidePanelAdmin.vue";
 
 export default{
     components: {
-        PopUpModal,
+        PopUpModal, SidePanelAdmin,
     },
 
     data(){
@@ -302,7 +306,7 @@ export default{
     },
     methods: {
         reservationPage(){
-            this.$router.push({name: 'reservation'})
+            this.$router.push({name: 'adminReservation'})
         },
 
         historyPage(){
@@ -323,7 +327,7 @@ export default{
 
         close_modal(){
             this.pop = false;
-            this.open_modal = false;
+            // this.open_modal = false;
             this.next_page = false;
         },
     }

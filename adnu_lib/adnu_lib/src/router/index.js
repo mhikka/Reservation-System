@@ -5,6 +5,8 @@ import ReservationPage from '../views/ReservationPage.vue'
 import AdminHome from '../views/AdminHome.vue'
 import HistoryLogs from '../views/HistoryLogs.vue'
 import AboutPage from '../views/AboutPage.vue'
+import AdminCalendar from '../views/AdminCalendar.vue'
+import PageReload from '../views/PageReload.vue'
 
 const routes = [
     {
@@ -19,7 +21,7 @@ const routes = [
     },
     {
         path: '/u/reservation',
-        name: 'reservation',
+        name: 'userReservation',
         component: ReservationPage,
     },
     {
@@ -36,8 +38,18 @@ const routes = [
         path: '/about',
         name: 'about',
         component: AboutPage,
-    }
+    },
+    {
 
+        path: '/a/reservation',
+        name: 'adminReservation',
+        component: AdminCalendar,
+    },
+    {
+        path: '/u/reservation',
+        name: 'reload',
+        component: PageReload,
+    },
 ]
 
 const router = createRouter({

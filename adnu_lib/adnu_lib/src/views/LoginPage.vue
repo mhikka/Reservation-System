@@ -6,30 +6,13 @@
     </nav>
 
     <div class="container">
-        <div class="row">
-            <div class="col pt-5 pb-5">
-                <!-- <div class="card" style="height: 350px; width: 700px">
-                    <div class="card-header text-start">
-                        Today | January 18, 2023
-                    </div>
-                    <div class="card-body text-start">
-                        <blockquote class="blockquote mb-0">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                            Integer posuere erat a ante.
-                        </p>
-                        <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer> -->
-                        <!-- </blockquote>
-                    </div>
-                </div> -->
-                <div class="pe-5">
-                    <ejs-schedule height="375px" width="700px" currentView="Day" class="rounded">
-                    </ejs-schedule>
-                </div>
+        <div class="row pt-4 pb-4">
+            <div class="col-md-6 mt-md-0 mt-3">
+                <ejs-schedule height="375px" width="auto" currentView="Day" class="rounded">
+                </ejs-schedule>
             </div>
-            <div class="col pt-5">
-                <!-- <HelloWorld/> -->
-                <div class="float-end">
+            <div class="col-md-3 mx-auto pt-4">
+                <div>
                     <div class="">
                         <img src="../assets/Ateneo_de_Naga_University_logo.png" width="80" height="80" class="d-inline-block align-top" alt="">
                     </div>
@@ -107,24 +90,68 @@
         <!-- Footer Links -->
 
             <!-- Copyright -->
-            <div class="footer-copyright text-center py-3 text-light">© 2023 Copyright:
-                <a href="/"> Ateneo de Naga University</a>
+            <div class="footer-copyright text-center py-3 text-light">
+                <small>
+                    © 2023 Copyright:
+                <a href="/" class="text-light"> Ateneo de Naga University</a>
+                </small>
             </div>
             <!-- Copyright -->
     </footer>
     <!-- Footer -->
+
+    <div v-if="popup_admin === true">
+        <AdminModal>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row justify-content-end">
+                        <div class="col-4">
+                            <div class="pt-2">
+                                Adminstrator Key
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <button class="btn btn-outline-none text-danger" @click="close_popup">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    <h5 class="card-title">Enter your Administrator Key</h5>
+                    <div class="pt-2 pb-2">
+                        <input v-if="admin_invalid === false" type="password" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" v-model="AdminKey" placeholder="Admin Key">
+                        <!-- <input  type="password" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" v-model="AdminKey" placeholder="Master Key"> -->
+                        <input v-else type="password" class="form-control is-invalid" id="validationServer04" v-model="AdminKey" placeholder="Admin Key" required>
+                        <div class="invalid-feedback">
+                            Please provide a valid Key.
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-light me-1" @click="not_admin">Not an Admin?</button>
+
+                    <button class="btn btn-primary" @click="continue_admin">Continue as Admin</button>
+                </div>
+            </div>
+        </AdminModal>
+    </div>
 </template>
 
 <script>
 // import HelloWorld from '@/components/HelloWorld.vue';
 import { ScheduleComponent, Day, Agenda } from "@syncfusion/ej2-vue-schedule";
+import AdminModal from "@/components/AdminModal.vue";
 
 const gapi = window.gapi;
 export default{
     name: 'LoginPage',
     // components: {HelloWorld},
     components: {
-        'ejs-schedule': ScheduleComponent
+        'ejs-schedule': ScheduleComponent,
+        AdminModal,
     },
     provide: {
         schedule: [Day, Agenda]
@@ -139,6 +166,12 @@ export default{
             profileId: '',
             currentUser: '',
             gapiLoaded: false,
+
+            popup_admin: false,
+            api_successs: false,
+
+            AdminKey: '',
+            admin_invalid: false,
         }
     },
     methods: {
@@ -154,16 +187,59 @@ export default{
                 this.profileId = googleUser.getBasicProfile().getId();   //tw.lv.ZX;
                 console.log(googleUser);
                 if(googleUser){
-                    this.$router.push({name: 'home'});
+                    // this.$router.push({name: 'home'});
+                    console.log("First name: ", this.profileFirstname);
+                    console.log("Last name: ", this.profileLastname);
+                    console.log("Full name: ", this.profileFullname);
+                    console.log("Image: ", this.profileImage);
+                    console.log("Email: ", this.profileEmail);
+                    console.log("ID: ", this.profileId);
+                    this.api_successs = true;
+                }
+
+                if(googleUser.getBasicProfile() != null && this.api_successs === true){
+                    console.log("Success");
+                    // this.popUpAdmin;
+                    this.popup_admin = true;
+                } else {
+                    console.log("fail");
                 }
             // } catch(error) {
             //     console.log(error);
             // }
+        },
+
+        popUpAdmin(){
+            this.popup_admin = true;
+        },
+
+        admin(){
+            this.$router.push({name: 'home'});
+        },
+
+        close_modal(){
+            this.popup_admin = false;
+        },
+
+        continue_admin(){
+            if(this.AdminKey === 'ABC123'){
+                this.$router.push({name: 'adminHome'});
+            } else {
+                this.admin_invalid = true;
+            }
+        },
+
+        not_admin(){
+            this.$router.push({name: 'home'});
+        },
+
+        close_popup(){
+            this.popup_admin = false;
         }
     },
 
     mounted: async function(){
-        // try{
+        try{
             gapi.load("client:auth2", function () {
                 gapi.auth2.getAuthInstance();
             });
@@ -174,9 +250,9 @@ export default{
             this.currentUser = googleUser.currentUser.get().getBasicProfile().getName();
             this.gapiLoaded = true;
             
-        // } catch(error){
-        //     console.log(error);
-        // }
+        } catch(error){
+            console.log(error);
+        }
     }
 
 }
