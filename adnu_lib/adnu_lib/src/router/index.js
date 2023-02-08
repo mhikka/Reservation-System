@@ -3,6 +3,8 @@ import LoginPage from '../views/LoginPage.vue'
 import UserHome from '../views/UserHome.vue'
 import ReservationPage from '../views/ReservationPage.vue'
 import AdminHome from '../views/AdminHome.vue'
+import HistoryLogs from '../views/HistoryLogs.vue'
+import AboutPage from '../views/AboutPage.vue'
 
 const routes = [
     {
@@ -21,10 +23,21 @@ const routes = [
         component: ReservationPage,
     },
     {
-        path: '/a/Home',
+        path: '/a/home',
         name: 'adminHome',
         component: AdminHome,
+    },
+    {
+        path: '/a/history',
+        name: 'history',
+        component: HistoryLogs,
+    },
+    {
+        path: '/about',
+        name: 'about',
+        component: AboutPage,
     }
+
 ]
 
 const router = createRouter({
