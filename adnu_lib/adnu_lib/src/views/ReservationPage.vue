@@ -126,6 +126,23 @@
                                                 Viewing Room</small></option>
                                         </select>
                                     </div>
+                                    <div class="form-group pb-5 m-50">
+                                        <label for="exampleInputPassword1" class="float-start me-3">Semester</label>
+                                        <select name="plan" id="venue" v-model="semester" class="btn btn-sm border float-start">
+                                            <option value="" disabled selected>List of Semesters</option>
+                                            <option value="1st Semester">1st Semester</option>
+                                            <option value="2nd Semester"><small>2nd Semester</small></option>
+                                            <option value="Intersession"><small>Intersession</small></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group pb-5 m-50">
+                                        <label for="exampleInputPassword1" class="float-start me-3">Form Remarks</label>
+                                        <select name="plan" id="venue" v-model="remarks" class="btn btn-sm border float-start">
+                                            <option value="" disabled selected>List of Remarks</option>
+                                            <option value="Tentative">Tentative</option>
+                                            <option value="Final"><small>Final</small></option>
+                                        </select>
+                                    </div>
                                 </form>
                                 <br class="pt-2">
                                 <button class="btn btn-primary float-start" type="submit" @click="nextPage_1">
@@ -214,6 +231,9 @@ export default{
             google_user: '',
 
             equipment_list: [],
+
+            semester: '',
+            remarks: '',
         }
     },
 
@@ -245,6 +265,8 @@ export default{
             console.log("Org/Dept: ", this.org_dept);
             console.log("Venue: ", this.venue);
             console.log("Description: ", this.desc);
+            console.log("Semester: ", this.semester);
+            console.log("Remarks: ", this.remarks);
 
             let i_q = document.querySelectorAll('[id="input_q"]');
             const q_i = [...i_q].map(input => input.value);
@@ -253,7 +275,7 @@ export default{
                 this.equipment_list.push(parseInt(q_i[i]));
             }
 
-            const equip_obj = JSON.stringify(this.equipment_list);
+            // const equip_obj = JSON.stringify(this.equipment_list);
             const Request = Parse.Object.extend("Request");
             // for(let i = 0; i < q_i.length; i++){
                 const request = new Request();
@@ -265,8 +287,10 @@ export default{
                 request.set("time", this.time);
                 request.set("org_dept", this.org_dept);
                 request.set("venue", this.venue);
+                request.set("semester", this.semester);
+                request.set("remarks", this.remarks);
                 request.set("description", this.desc);
-                request.set("equipments", equip_obj);
+                request.set("equipments", this.equipment_list);
                 request.set("status", "Pending");
 
                 request.save().then((request) => {

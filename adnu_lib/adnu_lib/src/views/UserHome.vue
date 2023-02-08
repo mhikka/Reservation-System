@@ -22,7 +22,7 @@
                             </div>
                             <div class="scrollable">
                                 <div class="text-start p-2" v-for="details in request_arr.slice().reverse()" :key="details">
-                                    <div class="card" v-if="details.status === 'Unavailable'">
+                                    <div class="card" v-if="details.status === 'Cancelled'">
                                         <div class="card-body bg-danger rounded text-light" @click="open_modal(details.id)">
                                             <h4>{{details.status}}</h4>
                                             {{details.venue}}
@@ -80,7 +80,7 @@
                             </div>
 
                             <div class="text-start" v-for="details in request_arr.slice().reverse()" :key="details">
-                                <div class="card" v-if="details.status === 'Unavailable' && passed_id === details.id">
+                                <div class="card" v-if="details.status === 'Cancelled' && passed_id === details.id">
                                     <div class="card-body bg-danger rounded text-light" @click="open_modal">
                                         <h4 class="fw-bold">{{details.status}} | Event date: {{details.date}}</h4>
                                         <div class="pt-3 text-start">
@@ -312,7 +312,7 @@
                                         </div>
                                         <div class="form-group pb-5 m-50">
                                             <label for="exampleInputPassword1" class="float-start me-3">Venue</label>
-                                            <select name="plan" id="venue" v-model="venue" class="btn btn-sm border float-start">
+                                            <select name="plan" id="venue" v-model="details.venue" class="btn btn-sm border float-start">
                                                 <option value="" disabled selected>List of Venues</option>
                                                 <option value="JOBL Conference Room 1st Floor">JOBL Conference Room 1st Floor</option>
                                                 <option value="Consultation Room 1"><small>Consultation Room 1</small></option>
@@ -340,7 +340,9 @@
                                         {{equip.items}}
                                     </div>
                                     <div class="col-8">
-                                        <input type="number" class="form-control" id="input_q" min="1" :v-model="details.equipments" :placeholder="equip.q">
+                                        <div v-for="val in fetched_val" :key="val">
+                                            <input type="number" class="form-control" min="1" :v-model="val" :placeholder="equip.q">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col d-flex justify-content-start fw-bold pb-2 pt-3">
@@ -349,7 +351,8 @@
                                 <input class="form-control" type="file" id="formFileDisabled">
 
                                 <div class="pt-5">
-                                    <button class="btn btn-primary float-start" type="submit" @click="updateAppointment(details.id)">
+                                    <button class="btn btn-primary float-start" type="submit" 
+                                    @click="updateAppointment(details.id, details.fullName, details.email, details.mobile_number, details.time, details.orgDept, details.venue, details.desc, details.equipments, details.status)">
                                         Set Appointment
                                     </button>
                                 </div>
@@ -381,6 +384,9 @@ export default{
             next_page: false,
             next_page_1: false,
             equipments_arr: [],
+
+            fetched_val: [],
+            val_arr: [],
         }
     },
     methods: {
@@ -397,6 +403,7 @@ export default{
         close_modal(){
             this.pop = false;
             this.passed_id = '';
+            this.fetched_val = [];
         },
 
         editPage(id){
@@ -412,6 +419,15 @@ export default{
 
         nextPage_1(){
             this.next_page_1 = true;
+            for(let i = 0; i < this.request_arr.length; i++){
+                if(this.request_arr[i].id === this.passed_id){
+                    console.log(this.request_arr[i].equipments);
+                    this.fetched_val.push(this.request_arr[i].equipments);
+                    for(let j = 0; j < this.fetched_val.length; j++){
+                        console.log(this.fetched_val[j]);
+                    }
+                }
+            }
         },
 
         back_btn(){
@@ -425,8 +441,17 @@ export default{
             this.passed_id = '';
         },
 
-        updateAppointment(id){
+        updateAppointment(id, name, email, number, time, orgDept, venue, desc, equip, status){
             console.log(id);
+            console.log(name);
+            console.log(email);
+            console.log(number);
+            console.log(time);
+            console.log(orgDept);
+            console.log(venue);
+            console.log(desc);
+            console.log(equip);
+            console.log(status);
         }
     },
 

@@ -3,6 +3,8 @@ import LoginPage from '../views/LoginPage.vue'
 import UserHome from '../views/UserHome.vue'
 import ReservationPage from '../views/ReservationPage.vue'
 import AdminHome from '../views/AdminHome.vue'
+import HistoryLogs from '../views/HistoryLogs.vue'
+import AboutPage from '../views/AboutPage.vue'
 import AdminCalendar from '../views/AdminCalendar.vue'
 import PageReload from '../views/PageReload.vue'
 
@@ -28,6 +30,17 @@ const routes = [
         component: AdminHome,
     },
     {
+        path: '/a/history',
+        name: 'history',
+        component: HistoryLogs,
+    },
+    {
+        path: '/about',
+        name: 'about',
+        component: AboutPage,
+    },
+    {
+
         path: '/a/reservation',
         name: 'adminReservation',
         component: AdminCalendar,
