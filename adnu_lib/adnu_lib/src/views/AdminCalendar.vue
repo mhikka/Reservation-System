@@ -16,8 +16,9 @@
                   
                 <hr style="background-color: black; height: 2px;">
                 <div @click="check">
-                    <ejs-schedule height="575px" currentView="Month" v-model:selectedDate="schedulerSelectedDate" id="calendar">
-                    </ejs-schedule>
+                    <!-- <ejs-schedule height="575px" currentView="Month" v-model:selectedDate="schedulerSelectedDate" id="calendar">
+                    </ejs-schedule> -->
+                    <VueCal />
                 </div>
             </div>
         </div>
@@ -160,19 +161,20 @@
 </template>
 
 <script>
-import { ScheduleComponent, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-vue-schedule";
+// import { ScheduleComponent, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-vue-schedule";
 import AdminModal from "@/components/AdminModal.vue";
 import SidePanelAdmin from "@/components/SidePanelAdmin.vue";
+import VueCal from "@/components/VueCal.vue"
 import Parse from 'parse';
 
 const gapi = window.gapi;
 export default{
     components: {
-        'ejs-schedule': ScheduleComponent,
-        AdminModal, SidePanelAdmin,
+        // 'ejs-schedule': ScheduleComponent,
+        AdminModal, SidePanelAdmin, VueCal
     },
     provide: {
-        schedule: [Day, Week, WorkWeek, Month, Agenda]
+        // schedule: [Day, Week, WorkWeek, Month, Agenda]
     },
     data(){
         return{
@@ -265,7 +267,7 @@ export default{
     },
 
     mounted: async function(){
-        console.log(ScheduleComponent);
+        // console.log(ScheduleComponent);
         gapi.load("client:auth2", function () {
             gapi.auth2.getAuthInstance();
         });
