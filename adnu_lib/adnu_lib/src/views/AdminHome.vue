@@ -239,6 +239,10 @@ export default{
         reservationPage(){
             this.$router.push({name: 'adminReservation'})
         },
+
+        historyPage(){
+            this.$router.push({name: 'history'})
+        },
         
         nextPage(){
             this.next_page = true;
