@@ -7,6 +7,9 @@ import HistoryLogs from '../views/HistoryLogs.vue'
 import AboutPage from '../views/AboutPage.vue'
 import AdminCalendar from '../views/AdminCalendar.vue'
 import PageReload from '../views/PageReload.vue'
+import AboutPageUser from '../views/AboutPageUser.vue'
+import InventoryPage from '../views/InventoryPage.vue'
+import AdvisoryPage from '../views/AdvisoryPage.vue'
 
 const routes = [
     {
@@ -35,15 +38,29 @@ const routes = [
         component: HistoryLogs,
     },
     {
-        path: '/about',
+        path: '/a/about',
         name: 'about',
         component: AboutPage,
     },
     {
-
+        path: '/u/about',
+        name: 'aboutUser',
+        component: AboutPageUser,
+    },
+    {
         path: '/a/reservation',
         name: 'adminReservation',
         component: AdminCalendar,
+    },
+    {
+        path: '/a/inventory',
+        name: 'inventory',
+        component: InventoryPage,
+    },
+    {
+        path: '/a/advisory',
+        name: 'advisory',
+        component: AdvisoryPage,
     },
     {
         path: '/u/reservation',

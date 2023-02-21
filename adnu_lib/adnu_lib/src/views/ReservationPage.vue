@@ -106,12 +106,20 @@
                                         <input v-model="time" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the time here (E.g. 1:00 AM - 2:00 PM)">
                                     </div>
                                     <div class="form-group pb-2">
-                                        <label for="exampleInputPassword1" class="float-start">Organization/Department</label>
-                                        <input v-model="org_dept" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your organization/department here">
+                                        <label for="exampleInputPassword1" class="float-start">Organization</label>
+                                        <input v-model="org" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your organization here">
+                                    </div>
+                                    <div class="form-group pb-2">
+                                        <label for="exampleInputPassword1" class="float-start">Department</label>
+                                        <input v-model="dept" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your department here">
                                     </div>
                                     <div class="form-group pb-3">
                                         <label for="exampleInputPassword1" class="float-start">Description</label>
                                         <input v-model="desc" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter description of your event here">
+                                    </div>
+                                    <div class="form-group pb-3">
+                                        <label for="exampleInputPassword1" class="float-start">Academic Year</label>
+                                        <input v-model="acad_year" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the academic year (E.g. 2023-2024)">
                                     </div>
                                     <div class="form-group pb-5 m-50">
                                         <label for="exampleInputPassword1" class="float-start me-3">Venue</label>
@@ -166,7 +174,7 @@
                             <div class="col d-flex justify-content-start fw-bold pb-2 pt-3">
                                 <label for="formGroupExampleInput">Related Documents</label>
                             </div>
-                            <input class="form-control" type="file" id="formFileDisabled">
+                            <input class="form-control" type="file" id="FileUpload">
 
                             <div class="pt-5">
                                 <button class="btn btn-primary float-start" type="submit" @click="setAppointment">
@@ -186,6 +194,7 @@ import { ScheduleComponent, Day, Week, WorkWeek, Month, Agenda } from "@syncfusi
 import AdminModal from "@/components/AdminModal.vue";
 import SidePanelUser from "@/components/SidePanelUser.vue";
 import Parse from 'parse';
+import $ from 'jquery';
 
 const gapi = window.gapi;
 export default{
@@ -207,7 +216,8 @@ export default{
             user_email: '',
             mobile_number: '',
             time: '',
-            org_dept: '',
+            org: '',
+            dept: '',
             venue: '',
             desc: '',
             isOpen: false,
@@ -232,6 +242,9 @@ export default{
 
             semester: '',
             remarks: '',
+            newdate: '',
+
+            acad_year: '',
         }
     },
 
@@ -260,11 +273,25 @@ export default{
             console.log("Email: ", this.user_email);
             console.log("Mobile Number: ", this.mobile_number);
             console.log("Time: ", this.time);
-            console.log("Org/Dept: ", this.org_dept);
+            console.log("Org: ", this.org);
+            console.log("Dept: ", this.dept);
             console.log("Venue: ", this.venue);
             console.log("Description: ", this.desc);
             console.log("Semester: ", this.semester);
             console.log("Remarks: ", this.remarks);
+
+            var dateObj = new Date();
+            var month = dateObj.getUTCMonth() + 1; //months from 1-12
+            var day = dateObj.getUTCDate();
+            var year = dateObj.getUTCFullYear();
+
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            this.newdate = monthNames[month - 1] + " " + day + ", " + year;
+            const new_month = monthNames[month - 1];
+            console.log(this.newdate);
 
             let i_q = document.querySelectorAll('[id="input_q"]');
             const q_i = [...i_q].map(input => input.value);
@@ -273,29 +300,57 @@ export default{
                 this.equipment_list.push(parseInt(q_i[i]));
             }
 
-            // const equip_obj = JSON.stringify(this.equipment_list);
-            const Request = Parse.Object.extend("Request");
-            // for(let i = 0; i < q_i.length; i++){
-                const request = new Request();
+            const equip_obj = JSON.stringify(this.equipment_list);
+            
+            const fileUploadControl = $("#FileUpload")[0];
+            console.log(fileUploadControl);
+            if(fileUploadControl.files.length > 0){
+                const file = fileUploadControl.files[0];
+                const name = file.name;
+                console.log("Upload: ", name);
 
-                request.set("date", this.date);
-                request.set("full_name", this.profileFullName);
-                request.set("email", this.user_email);
-                request.set("mobile_number", this.mobile_number);
-                request.set("time", this.time);
-                request.set("org_dept", this.org_dept);
-                request.set("venue", this.venue);
-                request.set("semester", this.semester);
-                request.set("remarks", this.remarks);
-                request.set("description", this.desc);
-                request.set("equipments", this.equipment_list);
-                request.set("status", "Pending");
+                const parseFile = new Parse.File(name, file);
+                parseFile.save().then((parseFile) => {
+                    const Request = Parse.Object.extend("Request");
+                    const request = new Request();
 
-                request.save().then((request) => {
-                    console.log("Success", request);
-                    this.open_modal = false;
-                });
-            // }
+                    request.set("date", this.date);
+                    request.set("full_name", this.profileFullName);
+                    request.set("email", this.user_email);
+                    request.set("mobile_number", this.mobile_number);
+                    request.set("time", this.time);
+                    request.set("org", this.org);
+                    request.set("dept", this.dept);
+                    request.set("venue", this.venue);
+                    request.set("semester", this.semester);
+                    request.set("academic_year", this.acad_year);
+                    request.set("remarks", this.remarks);
+                    request.set("description", this.desc);
+                    request.set("filename", name);
+                    request.set("equipments", equip_obj);
+                    request.set("filUploaded", parseFile);
+                    request.set("url", parseFile._url);
+                    request.set("status", "Pending");
+                    request.set("month", new_month);
+                    request.set("day", day);
+                    request.set("year", year);
+
+                    request.save().then((request) => {
+                        console.log("Success", request);
+                        this.open_modal = false;
+                        this.date = '';
+                        this.mobile_number = '';
+                        this.time = '';
+                        this.org = '';
+                        this.dept = '';
+                        this.venue = '';
+                        this.semester = '';
+                        this.remarks = '';
+                        this.desc = '';
+                        return request.save();
+                    });
+                })
+            }
         },
 
         nextPage_1(){
@@ -314,6 +369,15 @@ export default{
         close_modal(){
             this.open_modal = false;
             this.next_page = false;
+            this.date = '';
+            this.mobile_number = '';
+            this.time = '';
+            this.org = '';
+            this.dept = '';
+            this.venue = '';
+            this.semester = '';
+            this.remarks = '';
+            this.desc = '';
         },
 
         reservationPage(){
@@ -340,9 +404,12 @@ export default{
 
             if(googleUser){
                 this.gapiLoaded = true;
+            } else {
+                this.$router.push({name: 'Login'});
             }
         } catch(error) {
             console.log(error);
+            this.$router.push({name: 'Login'});
         }
             
 

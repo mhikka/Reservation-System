@@ -26,7 +26,9 @@
                         </button>
                     </div>
                     <h6 class="text-weight-normal mt-5">
-                        Contact ADNU Library for more information
+                        <a href="mailto:adnulibrary@gbox.adnu.edu.ph" class="text-dark" style="text-decoration: none;">
+                            Contact ADNU Library for more information
+                        </a>
                     </h6>
                 </div>
             </div>
