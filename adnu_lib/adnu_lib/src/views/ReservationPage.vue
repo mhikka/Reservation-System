@@ -16,8 +16,9 @@
                   
                 <hr style="background-color: black; height: 2px;">
                 <div @click="check" v-if="gapiLoaded === true">
-                    <ejs-schedule height="575px" currentView="Month" v-model:selectedDate="schedulerSelectedDate" id="calendar">
-                    </ejs-schedule>
+                    <!-- <ejs-schedule height="575px" currentView="Month" v-model:selectedDate="schedulerSelectedDate" id="calendar">
+                    </ejs-schedule> -->
+                    <VueCal />
                 </div>
                 <div v-else>
                     <div class="float-start">
@@ -190,20 +191,21 @@
 </template>
 
 <script>
-import { ScheduleComponent, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-vue-schedule";
+// import { ScheduleComponent, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-vue-schedule";
 import AdminModal from "@/components/AdminModal.vue";
 import SidePanelUser from "@/components/SidePanelUser.vue";
+import VueCal from "@/components/VueCal.vue"
 import Parse from 'parse';
 import $ from 'jquery';
 
 const gapi = window.gapi;
 export default{
     components: {
-        'ejs-schedule': ScheduleComponent,
-        AdminModal, SidePanelUser,
+        // 'ejs-schedule': ScheduleComponent,
+        AdminModal, SidePanelUser, VueCal
     },
     provide: {
-        schedule: [Day, Week, WorkWeek, Month, Agenda]
+        // schedule: [Day, Week, WorkWeek, Month, Agenda]
     },
     data(){
         return{

@@ -15,9 +15,16 @@
                 </h1>
                   
                 <hr style="background-color: black; height: 2px;">
+<<<<<<< HEAD
                 <div @click="check" v-if="gapiLoaded === true">
                     <ejs-schedule height="575px" currentView="Month" v-model:selectedDate="schedulerSelectedDate" id="calendar">
                     </ejs-schedule>
+=======
+                <div @click="check">
+                    <!-- <ejs-schedule height="575px" currentView="Month" v-model:selectedDate="schedulerSelectedDate" id="calendar">
+                    </ejs-schedule> -->
+                    <VueCal />
+>>>>>>> f49f10fadc5aca9abb8d807e0ee4478be1d0225f
                 </div>
                 <div v-else>
                     <div class="float-start">
@@ -190,20 +197,21 @@
 </template>
 
 <script>
-import { ScheduleComponent, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-vue-schedule";
+// import { ScheduleComponent, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-vue-schedule";
 import AdminModal from "@/components/AdminModal.vue";
 import SidePanelAdmin from "@/components/SidePanelAdmin.vue";
+import VueCal from "@/components/VueCal.vue"
 import Parse from 'parse';
 import $ from 'jquery';
 
 const gapi = window.gapi;
 export default{
     components: {
-        'ejs-schedule': ScheduleComponent,
-        AdminModal, SidePanelAdmin,
+        // 'ejs-schedule': ScheduleComponent,
+        AdminModal, SidePanelAdmin, VueCal
     },
     provide: {
-        schedule: [Day, Week, WorkWeek, Month, Agenda]
+        // schedule: [Day, Week, WorkWeek, Month, Agenda]
     },
     data(){
         return{
@@ -381,10 +389,17 @@ export default{
     },
 
     mounted: async function(){
+<<<<<<< HEAD
         try{
             gapi.load("client:auth2", function () {
                 gapi.auth2.getAuthInstance();
             });
+=======
+        // console.log(ScheduleComponent);
+        gapi.load("client:auth2", function () {
+            gapi.auth2.getAuthInstance();
+        });
+>>>>>>> f49f10fadc5aca9abb8d807e0ee4478be1d0225f
 
             const googleUser = gapi.auth2.getAuthInstance();
             this.google_user = googleUser;
