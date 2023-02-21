@@ -15,22 +15,19 @@
                 </h1>
                   
                 <hr style="background-color: black; height: 2px;">
-<<<<<<< HEAD
-                <div @click="check" v-if="gapiLoaded === true">
-                    <ejs-schedule height="575px" currentView="Month" v-model:selectedDate="schedulerSelectedDate" id="calendar">
-                    </ejs-schedule>
-=======
-                <div @click="check">
+                <!-- <div @click="check"> -->
                     <!-- <ejs-schedule height="575px" currentView="Month" v-model:selectedDate="schedulerSelectedDate" id="calendar">
                     </ejs-schedule> -->
-                    <VueCal />
->>>>>>> f49f10fadc5aca9abb8d807e0ee4478be1d0225f
-                </div>
-                <div v-else>
-                    <div class="float-start">
-                        Please wait ...
+                    <div @click="check" v-if="gapiLoaded === true">
+                        <!-- <ejs-schedule height="575px" currentView="Month" v-model:selectedDate="schedulerSelectedDate" id="calendar">
+                        </ejs-schedule> -->
+                        <VueCal />
                     </div>
-                </div>
+                    <div v-else>
+                        <div class="float-start">
+                            Please wait ...
+                        </div>
+                    </div>
             </div>
         </div>
     </div>
@@ -389,17 +386,11 @@ export default{
     },
 
     mounted: async function(){
-<<<<<<< HEAD
         try{
             gapi.load("client:auth2", function () {
                 gapi.auth2.getAuthInstance();
             });
-=======
         // console.log(ScheduleComponent);
-        gapi.load("client:auth2", function () {
-            gapi.auth2.getAuthInstance();
-        });
->>>>>>> f49f10fadc5aca9abb8d807e0ee4478be1d0225f
 
             const googleUser = gapi.auth2.getAuthInstance();
             this.google_user = googleUser;
