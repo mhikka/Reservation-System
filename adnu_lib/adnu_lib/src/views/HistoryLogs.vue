@@ -41,13 +41,13 @@
                                 <div class="text-start p-2">
                                     <div v-for="details in request_arr.slice().reverse()" :key="details">
                                         <div class="card pb-2" v-if="details.status === 'Approved'">
-                                            <div class="card-body bg-primary rounded text-light">
+                                            <div class="card-body rounded text-light apprv">
                                                 <h4>{{ details.status }}</h4>
                                                 {{ details.venue }}
                                             </div>
                                         </div>
                                         <div class="card pb-2" v-else-if="details.status === 'Unavailable'">
-                                            <div class="card-body bg-danger rounded text-light" @click="open_modal">
+                                            <div class="card-body rounded text-light unvble" @click="open_modal">
                                                 <h4>{{ details.status }}</h4>
                                                 {{ details.venue }}
                                             </div>
@@ -130,7 +130,7 @@
                                             </div>
                                             <label for="inputEmail3" class="float-start">Academic Year: </label>
                                             <div class="col-8 pb-2">
-                                                <input type="number" v-model="acad_year" class="form-control form-control-sm" id="inputEmail3" placeholder="Academic Year">
+                                                <input type="text" v-model="acad_year" class="form-control form-control-sm" id="inputEmail3" placeholder="(E.g. 2023-2024)">
                                             </div>
                                         </div>
                                         <div v-else-if="filter === 'Status'">
@@ -304,6 +304,7 @@ export default{
             this.venue = '';
             this.month = '';
             this.input_year = '';
+            this.acad_year = '';
         },
 
         dl_Report(){
@@ -319,9 +320,9 @@ export default{
                 for(let i = 0; i < query.length; i++){
                     const obj = query[i];
                     this.venue_report.push([obj.get("date"), obj.get("full_name"), 
-                    obj.get("email"), obj.get("mobile_number"), obj.get("time"), 
+                    obj.get("email"), obj.get("mobile_number"), obj.get("time_start") + " - " + obj.get("time_end"), 
                     obj.get("org"), obj.get("dept"), obj.get("venue"), obj.get("semester"), 
-                    obj.get("remarks"), obj.get("description"), obj.get("status")],);
+                    obj.get("remarks"), obj.get("description"), obj.get("status"), obj.get("academic_year")],);
                 }
             });
             this.venueReport();
@@ -331,14 +332,14 @@ export default{
             const Request = Parse.Object.extend("Request");
             const request = new Parse.Query(Request);
             request.equalTo(this.var_semester, this.semester);
-            request.equalTo(this.var_ay, this.var_ay);
+            request.equalTo(this.var_ay, this.acad_year);
             request.find().then((query) => {
                 for(let i = 0; i < query.length; i++){
                     const obj = query[i];
                     this.semester_report.push([obj.get("date"), obj.get("full_name"), 
-                    obj.get("email"), obj.get("mobile_number"), obj.get("time"), 
+                    obj.get("email"), obj.get("mobile_number"), obj.get("time_start") + " - " + obj.get("time_end"), 
                     obj.get("org"), obj.get("dept"), obj.get("venue"), obj.get("semester"), 
-                    obj.get("remarks"), obj.get("description"), obj.get("status")],);
+                    obj.get("remarks"), obj.get("description"), obj.get("status"), obj.get("academic_year")],);
                 }
             });
             this.semesterReport();
@@ -352,9 +353,9 @@ export default{
                 for(let i = 0; i < query.length; i++){
                     const obj = query[i];
                     this.status_report.push([obj.get("date"), obj.get("full_name"), 
-                    obj.get("email"), obj.get("mobile_number"), obj.get("time"), 
+                    obj.get("email"), obj.get("mobile_number"), obj.get("time_start") + " - " + obj.get("time_end"), 
                     obj.get("org"), obj.get("dept"), obj.get("venue"), obj.get("semester"), 
-                    obj.get("remarks"), obj.get("description"), obj.get("status")],);
+                    obj.get("remarks"), obj.get("description"), obj.get("status"), obj.get("academic_year")],);
                 }
             });
             this.statusReport();
@@ -374,9 +375,9 @@ export default{
                         // if(this.month === query[i].get("month") && this.input_year === query[i].get("year")){
                             const obj = query[i];
                             this.month_year_report.push([obj.get("date"), obj.get("full_name"), 
-                            obj.get("email"), obj.get("mobile_number"), obj.get("time"), 
+                            obj.get("email"), obj.get("mobile_number"), obj.get("time_start") + " - " + obj.get("time_end"), 
                             obj.get("org"), obj.get("dept"), obj.get("venue"), obj.get("semester"), 
-                            obj.get("remarks"), obj.get("description"), obj.get("status")],);
+                            obj.get("remarks"), obj.get("description"), obj.get("status"), obj.get("academic_year")],);
                         // }
                     }
                 });
@@ -390,7 +391,7 @@ export default{
 
         venueReport(){
             var arrResults = [
-                ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status"],
+                ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status", "Academic Year"],
             ];
             console.log(this.venue_report.length);
             if(this.venue_report.length != 0){
@@ -428,7 +429,7 @@ export default{
 
         semesterReport(){
             var arrResults = [
-                ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status"],
+                ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status", "Academic Year"],
             ];
             console.log(this.semester_report);
             if(this.semester_report.length != 0){
@@ -466,7 +467,7 @@ export default{
 
         statusReport(){
             var arrResults = [
-                ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status"],
+                ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status", "Academic Year"],
             ];
             console.log(this.status_report);
             if(this.status_report.length != 0){
@@ -504,7 +505,7 @@ export default{
         generateResult(){
             if(this.allowed_dl === true){
                 var arrResults = [
-                    ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status"],
+                    ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status", "Academic Year"],
                 ];
                 console.log(this.reports_arr)
                 for(let i = 0; i < this.reports_arr.length; i++){
@@ -536,7 +537,7 @@ export default{
 
         month_yearReport(){
             var arrResults = [
-                ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status"],
+                ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status", "Academic Year"],
             ];
             console.log(this.month_year_report);
             if(this.month_year_report.length != 0){
@@ -612,9 +613,9 @@ export default{
             })
 
             this.reports_arr.push([query[i].get("date"), query[i].get("full_name"), 
-            query[i].get("email"), query[i].get("mobile_number"), query[i].get("time"), 
+            query[i].get("email"), query[i].get("mobile_number"), query[i].get("time_start") + " - " + query[i].get("time_end"), 
             query[i].get("org"), query[i].get("dept"), query[i].get("venue"), query[i].get("semester"), 
-            query[i].get("remarks"), query[i].get("description"), query[i].get("status")],);
+            query[i].get("remarks"), query[i].get("description"), query[i].get("status"), query[i].get("academic_year")],);
         }
 
         const Equipments = Parse.Object.extend("Equipments");
@@ -636,6 +637,18 @@ export default{
 .scrollable{
   overflow-y: auto;
   max-height: 525px;
+}
+
+.pend{
+    background-color: #003E6F;
+}
+
+.apprv{
+    background-color: #00588C;
+}
+
+.unvble{
+    background-color: #C3C3C9;
 }
 
 </style>

@@ -53,7 +53,7 @@
                                                             </h1>
                                                             <div v-for="details in request_arr" :key="details" class="ps-5 pe-5">
                                                                 <h2>{{details.venue}}</h2>
-                                                                <h4 class="pb-4">{{newdate}} | {{details.time}}</h4>
+                                                                <h4 class="pb-4">{{newdate}} | {{details.time_s}} - {{details.time_e}}</h4>
                                                             </div>
                                                             <h4 class="pt-5">Posted by:</h4>
                                                             <img src="../assets/lib_logo.png" style="max-width: 50%; top: -50px; left: -50px;" class="text-right">
@@ -162,7 +162,8 @@ export default{
                     fullName: query[i].get("full_name"),
                     email: query[i].get("email"),
                     mobile_number: query[i].get("mobile_number"),
-                    time: query[i].get("time"),
+                    time_s: query[i].get("time_start"),
+                    time_e: query[i].get("time_end"),
                     orgDept: query[i].get("org_dept"),
                     org: query[i].get("org"),
                     dept: query[i].get("dept"),

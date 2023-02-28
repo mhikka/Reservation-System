@@ -56,7 +56,7 @@
     overflow-y: auto;
     backdrop-filter: blur(5px);
     background-color: rgba(0, 0, 0, 0.507);
-    z-index: 1;
+    z-index: 3;
 }
 .vue-modal-inner{
     max-width: 700px;

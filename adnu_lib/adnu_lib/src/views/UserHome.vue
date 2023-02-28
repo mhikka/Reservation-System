@@ -24,19 +24,19 @@
                                 <div v-if="request_loaded === true">
                                     <div class="text-start p-2" v-for="details in request_arr.slice().reverse()" :key="details">    
                                         <div class="card" v-if="details.status === 'Unavailable'">
-                                            <div class="card-body bg-danger rounded text-light" @click="open_modal(details.id)">
+                                            <div class="card-body rounded text-light unvble" @click="open_modal(details.id)">
                                                 <h4>{{details.status}}</h4>
                                                 {{details.venue}}
                                             </div>
                                         </div>
                                         <div class="card" v-else-if="details.status === 'Approved'" @click="open_modal(details.id)">
-                                            <div class="card-body bg-primary rounded text-light">
+                                            <div class="card-body rounded text-light apprv">
                                                 <h4>{{details.status}}</h4>
                                                 {{details.venue}}
                                             </div>
                                         </div>
                                         <div class="card" v-else-if="details.status === 'Pending'" @click="open_modal(details.id)">
-                                            <div class="card-body bg-secondary rounded text-light">
+                                            <div class="card-body rounded text-light pend">
                                                 <h4>{{details.status}}</h4>
                                                 {{details.venue}}
                                             </div>
@@ -88,7 +88,7 @@
 
                             <div class="text-start" v-for="details in request_arr.slice().reverse()" :key="details">
                                 <div class="card" v-if="details.status === 'Unavailable' && passed_id === details.id">
-                                    <div class="card-body bg-danger rounded text-light">
+                                    <div class="card-body rounded text-light unvble">
                                         <h4 class="fw-bold">{{details.status}} | Event date: {{details.date}}</h4>
                                         <div class="pt-3 text-start">
                                             <div class="row">
@@ -128,7 +128,7 @@
                                     </div>
                                 </div>
                                 <div class="card" v-else-if="details.status === 'Approved' && passed_id === details.id">
-                                    <div class="card-body bg-primary rounded text-light">
+                                    <div class="card-body rounded text-light apprv">
                                         <h4 class="fw-bold">{{details.status}} | Event date: {{details.date}}</h4>
                                         <div class="pt-3 text-start">
                                             <div class="row">
@@ -168,7 +168,7 @@
                                     </div>
                                 </div>
                                 <div class="card border border-none" v-if="details.status === 'Pending' && passed_id === details.id">
-                                    <div class="card-body bg-secondary rounded text-light">
+                                    <div class="card-body rounded text-light pend">
                                         <h4 class="fw-bold">{{details.status}} | Event date: {{details.date}}</h4>
                                         <div class="pt-3 text-start">
                                             <div class="row">
@@ -287,9 +287,15 @@
                                             <label for="exampleInputEmail1" class="float-start">Date</label>
                                             <input v-model="details.date" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter the date here">
                                         </div>
-                                        <div class="form-group pb-2">
-                                            <label for="exampleInputPassword1" class="float-start">Time</label>
-                                            <input v-model="details.time" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the time here (E.g. 1:00 AM - 2:00 PM)">
+                                        <div class="row g-3">
+                                            <div class="form-group pb-2 col-sm">
+                                                <label for="exampleInputPassword1" class="float-start">Starting Time</label>
+                                                <input v-model="details.time_s" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the time here">
+                                            </div>
+                                            <div class="form-group pb-2 col-sm">
+                                                    <label for="exampleInputPassword1" class="float-start">Ending Time</label>
+                                                    <input v-model="details.time_e" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the ending time here">
+                                            </div>
                                         </div>
                                         <div class="form-group pb-2">
                                             <label for="exampleInputPassword1" class="float-start">Organization</label>
@@ -640,7 +646,8 @@ export default{
                     fullName: query[i].get("full_name"),
                     email: query[i].get("email"),
                     mobile_number: query[i].get("mobile_number"),
-                    time: query[i].get("time"),
+                    time_s: query[i].get("time_start"),
+                    time_e: query[i].get("time_end"),
                     orgDept: query[i].get("org_dept"),
                     org: query[i].get("org"),
                     dept: query[i].get("dept"),
@@ -677,6 +684,17 @@ export default{
 .scrollable{
   overflow-y: auto;
   max-height: 525px;
+}
+.pend{
+    background-color: #003E6F;
+}
+
+.apprv{
+    background-color: #00588C;
+}
+
+.unvble{
+    background-color: #C3C3C9;
 }
 
 </style>

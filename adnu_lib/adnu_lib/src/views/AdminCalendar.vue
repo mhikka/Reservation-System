@@ -105,9 +105,15 @@
                                         <label for="exampleInputEmail1" class="float-start">Date</label>
                                         <input v-model="date" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter the date here">
                                     </div>
-                                    <div class="form-group pb-2">
-                                        <label for="exampleInputPassword1" class="float-start">Time</label>
-                                        <input v-model="time" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the time here (E.g. 1:00 AM - 2:00 PM)">
+                                    <div class="row g-3">
+                                        <div class="form-group pb-2 col-sm">
+                                            <label for="exampleInputPassword1" class="float-start">Starting Time</label>
+                                            <input v-model="timeStart" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the time here">
+                                        </div>
+                                        <div class="form-group pb-2 col-sm">
+                                                <label for="exampleInputPassword1" class="float-start">Ending Time</label>
+                                                <input v-model="timeEnd" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the ending time here">
+                                        </div>
                                     </div>
                                     <div class="form-group pb-2">
                                         <label for="exampleInputPassword1" class="float-start">Organization</label>
@@ -197,7 +203,7 @@
 // import { ScheduleComponent, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-vue-schedule";
 import AdminModal from "@/components/AdminModal.vue";
 import SidePanelAdmin from "@/components/SidePanelAdmin.vue";
-import VueCal from "@/components/VueCal.vue"
+import VueCal from "@/components/VueCal.vue";
 import Parse from 'parse';
 import $ from 'jquery';
 
@@ -250,6 +256,9 @@ export default{
 
             newdate: '',
             acad_year: '',
+
+            timeStart: '',
+            timeEnd: '',
         }
     },
 
@@ -323,7 +332,8 @@ export default{
                     request.set("full_name", this.profileFullName);
                     request.set("email", this.user_email);
                     request.set("mobile_number", this.mobile_number);
-                    request.set("time", this.time);
+                    request.set("time_start", this.timeStart);
+                    request.set("time_end", this.timeEnd);
                     request.set("org", this.org);
                     request.set("dept", this.dept);
                     request.set("venue", this.venue);
