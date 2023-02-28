@@ -21,25 +21,32 @@
                                 Request Dashboard
                             </div>
                             <div class="scrollable">
-                                <div class="text-start p-2" v-for="details in request_arr.slice().reverse()" :key="details">
-                                    <div class="card" v-if="details.status === 'Cancelled'">
-                                        <div class="card-body bg-danger rounded text-light" @click="open_modal(details.id)">
-                                            <h4>{{details.status}}</h4>
-                                            {{details.venue}}
+                                <div v-if="request_loaded === true">
+                                    <div class="text-start p-2" v-for="details in request_arr.slice().reverse()" :key="details">    
+                                        <div class="card" v-if="details.status === 'Unavailable'">
+                                            <div class="card-body rounded text-light unvble" @click="open_modal(details.id)">
+                                                <h4>{{details.status}}</h4>
+                                                {{details.venue}}
+                                            </div>
+                                        </div>
+                                        <div class="card" v-else-if="details.status === 'Approved'" @click="open_modal(details.id)">
+                                            <div class="card-body rounded text-light apprv">
+                                                <h4>{{details.status}}</h4>
+                                                {{details.venue}}
+                                            </div>
+                                        </div>
+                                        <div class="card" v-else-if="details.status === 'Pending'" @click="open_modal(details.id)">
+                                            <div class="card-body rounded text-light pend">
+                                                <h4>{{details.status}}</h4>
+                                                {{details.venue}}
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="card" v-else-if="details.status === 'Approved'" @click="open_modal(details.id)">
-                                        <div class="card-body bg-primary rounded text-light">
-                                            <h4>{{details.status}}</h4>
-                                            {{details.venue}}
-                                        </div>
-                                    </div>
-                                    <div class="card" v-else-if="details.status === 'Pending'" @click="open_modal(details.id)">
-                                        <div class="card-body bg-secondary rounded text-light">
-                                            <h4>{{details.status}}</h4>
-                                            {{details.venue}}
-                                        </div>
-                                    </div>
+                                </div>
+                                <div v-else>
+                                    <p class="p-3">
+                                        No appointments have been made yet.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -80,8 +87,8 @@
                             </div>
 
                             <div class="text-start" v-for="details in request_arr.slice().reverse()" :key="details">
-                                <div class="card" v-if="details.status === 'Cancelled' && passed_id === details.id">
-                                    <div class="card-body bg-danger rounded text-light" @click="open_modal">
+                                <div class="card" v-if="details.status === 'Unavailable' && passed_id === details.id">
+                                    <div class="card-body rounded text-light unvble">
                                         <h4 class="fw-bold">{{details.status}} | Event date: {{details.date}}</h4>
                                         <div class="pt-3 text-start">
                                             <div class="row">
@@ -112,22 +119,16 @@
 
                                         <div class="pt-3 text-start">
                                             <h5 class="fw-bold">Equipments</h5>
-                                            <ul style="list-style: none">
+                                            <ul style="list-style: none" v-for="equip in merged_arr" :key="equip">
                                                 <li>
-                                                    Microphone - 4pcs
-                                                </li>
-                                                <li>
-                                                    Speakers - 3pcs
-                                                </li>
-                                                <li>
-                                                    Mic stand - 10pcs
+                                                    {{ equip.items }} - {{ equip.num }} pcs
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card" v-else-if="details.status === 'Approved' && passed_id === details.id">
-                                    <div class="card-body bg-primary rounded text-light" @click="open_modal">
+                                    <div class="card-body rounded text-light apprv">
                                         <h4 class="fw-bold">{{details.status}} | Event date: {{details.date}}</h4>
                                         <div class="pt-3 text-start">
                                             <div class="row">
@@ -158,22 +159,16 @@
 
                                         <div class="pt-3 text-start">
                                             <h5 class="fw-bold">Equipments</h5>
-                                            <ul style="list-style: none">
+                                            <ul style="list-style: none" v-for="equip in merged_arr" :key="equip">
                                                 <li>
-                                                    Microphone - 4pcs
-                                                </li>
-                                                <li>
-                                                    Speakers - 3pcs
-                                                </li>
-                                                <li>
-                                                    Mic stand - 10pcs
+                                                    {{ equip.items }} - {{ equip.num }} pcs
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card border border-none" v-if="details.status === 'Pending' && passed_id === details.id">
-                                    <div class="card-body bg-secondary rounded text-light" @click="open_modal">
+                                    <div class="card-body rounded text-light pend">
                                         <h4 class="fw-bold">{{details.status}} | Event date: {{details.date}}</h4>
                                         <div class="pt-3 text-start">
                                             <div class="row">
@@ -204,15 +199,9 @@
 
                                         <div class="pt-3 text-start">
                                             <h5 class="fw-bold">Equipments</h5>
-                                            <ul style="list-style: none">
+                                            <ul style="list-style: none" v-for="equip in merged_arr" :key="equip">
                                                 <li>
-                                                    Microphone - 4pcs
-                                                </li>
-                                                <li>
-                                                    Speakers - 3pcs
-                                                </li>
-                                                <li>
-                                                    Mic stand - 10pcs
+                                                    {{ equip.items }} - {{ equip.num }} pcs
                                                 </li>
                                             </ul>
                                         </div>
@@ -298,13 +287,23 @@
                                             <label for="exampleInputEmail1" class="float-start">Date</label>
                                             <input v-model="details.date" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter the date here">
                                         </div>
-                                        <div class="form-group pb-2">
-                                            <label for="exampleInputPassword1" class="float-start">Time</label>
-                                            <input v-model="details.time" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the time here (E.g. 1:00 AM - 2:00 PM)">
+                                        <div class="row g-3">
+                                            <div class="form-group pb-2 col-sm">
+                                                <label for="exampleInputPassword1" class="float-start">Starting Time</label>
+                                                <input v-model="details.time_s" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the time here">
+                                            </div>
+                                            <div class="form-group pb-2 col-sm">
+                                                    <label for="exampleInputPassword1" class="float-start">Ending Time</label>
+                                                    <input v-model="details.time_e" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the ending time here">
+                                            </div>
                                         </div>
                                         <div class="form-group pb-2">
-                                            <label for="exampleInputPassword1" class="float-start">Organization/Department</label>
-                                            <input v-model="details.orgDept" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your organization/department here">
+                                            <label for="exampleInputPassword1" class="float-start">Organization</label>
+                                            <input v-model="details.org" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your organization here">
+                                        </div>
+                                        <div class="form-group pb-2">
+                                            <label for="exampleInputPassword1" class="float-start">Department</label>
+                                            <input v-model="details.dept" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your department here">
                                         </div>
                                         <div class="form-group pb-3">
                                             <label for="exampleInputPassword1" class="float-start">Description</label>
@@ -322,6 +321,23 @@
                                                     Viewing Room</small></option>
                                             </select>
                                         </div>
+                                        <div class="form-group pb-5 m-50">
+                                            <label for="exampleInputPassword1" class="float-start me-3">Semester</label>
+                                            <select name="plan" id="venue" v-model="details.semester" class="btn btn-sm border float-start">
+                                                <option value="" disabled selected>List of Semesters</option>
+                                                <option value="1st Semester">1st Semester</option>
+                                                <option value="2nd Semester"><small>2nd Semester</small></option>
+                                                <option value="Intersession"><small>Intersession</small></option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group pb-5 m-50">
+                                            <label for="exampleInputPassword1" class="float-start me-3">Form Remarks</label>
+                                            <select name="plan" id="venue" v-model="details.remarks" class="btn btn-sm border float-start">
+                                                <option value="" disabled selected>List of Remarks</option>
+                                                <option value="Tentative">Tentative</option>
+                                                <option value="Final"><small>Final</small></option>
+                                            </select>
+                                        </div>
                                     </form>
                                     <br class="pt-2">
                                     <button class="btn btn-primary float-start" type="submit" @click="nextPage_1">
@@ -334,25 +350,51 @@
                             </div>
 
                             <div v-if="next_page_1 === true && next_page === true">
-                                <h5 class="fw-bolder d-flex justify-content-start pb-3">Equipments</h5>
-                                <div class="row" v-for="equip in equipments_arr" :key="equip">
+                                <h5 class="fw-bolder d-flex justify-content-start pb-2">Equipments</h5>
+                                <div class="row" v-for="equip in merged_arr" :key="equip">
                                     <div class="col-4">
-                                        {{equip.items}}
+                                        <div>
+                                            {{equip.items}}
+                                        </div>
                                     </div>
                                     <div class="col-8">
-                                        <div v-for="val in fetched_val" :key="val">
-                                            <input type="number" class="form-control" min="1" :v-model="val" :placeholder="equip.q">
+                                        <div>
+                                            <input type="number" class="form-control" min="1" id="input_q" v-model="equip.num" placeholder="Enter quantity here">
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col d-flex justify-content-start fw-bold pb-2 pt-3">
                                     <label for="formGroupExampleInput">Related Documents</label>
                                 </div>
-                                <input class="form-control" type="file" id="formFileDisabled">
+                                <div class="float-center" v-if="!details.fName">
+                                    <div class="d-grid gap-2">
+                                        <div class="p-3 mb-2 bg-light border border-primary text-primary rounded" disabled>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                                <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/>
+                                                <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                                            </svg>
+                                            No related documents here.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="float-center" v-else>
+                                    <div class="d-grid gap-2">
+                                        <div class="p-3 mb-2 bg-light border border-primary text-primary rounded">
+                                            <a :href="details.url_link" style="text-decoration: none" class="ps-1" target="_blank">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                                    <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/>
+                                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                                                </svg>
+                                                {{ details.fName }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="pt-5">
                                     <button class="btn btn-primary float-start" type="submit" 
-                                    @click="updateAppointment(details.id, details.fullName, details.email, details.mobile_number, details.time, details.orgDept, details.venue, details.desc, details.equipments, details.status)">
+                                    @click="updateAppointment(details.id, details.fullName, details.email, details.mobile_number, details.date, details.time, details.org, details.dept, details.venue, details.desc, details.equipments, details.status, details.remarks, details.semester)">
                                         Set Appointment
                                     </button>
                                 </div>
@@ -370,6 +412,7 @@ import AdminModal from "@/components/AdminModal.vue";
 import SidePanelUser from "@/components/SidePanelUser.vue";
 import Parse from 'parse';
 
+const gapi = window.gapi;
 export default{
     components: {
         AdminModal, SidePanelUser,
@@ -387,6 +430,19 @@ export default{
 
             fetched_val: [],
             val_arr: [],
+            identifier: false,
+            item_arr: [],
+
+            merged_arr: [],
+            equipment_list: [],
+
+            profileFullName: '',
+            user_email: '',
+            gapiLoaded: false,
+
+            request_loaded: false,
+
+            newdate: '',
         }
     },
     methods: {
@@ -398,6 +454,35 @@ export default{
             this.pop = true;
             console.log(id);
             this.passed_id = id;
+            for(let i = 0; i < this.request_arr.length; i++){
+                if(this.request_arr[i].id === this.passed_id){
+                    this.fetched_val.push(this.request_arr[i].equipments);
+                    this.identifier = true;
+                }
+            }
+
+            if(this.identifier === true){
+                const str = this.fetched_val;
+                const arr = JSON.parse(str);
+                for(let j = 0; j < arr.length; j++){
+                    this.val_arr.push({
+                        num: arr[j],
+                    });
+                }
+                console.log(this.val_arr);
+
+                for(let x = 0; x < this.equipments_arr.length; x++){
+                    this.item_arr.push({
+                        items: this.equipments_arr[x].items,
+                    });
+                }
+
+                const items_ = this.item_arr;
+                const quantities = this.val_arr;
+
+                this.merged_arr = items_.map((item, index) => Object.assign({}, item, quantities[index]));
+                console.log(this.merged_arr);
+            }
         },
 
         close_modal(){
@@ -421,12 +506,32 @@ export default{
             this.next_page_1 = true;
             for(let i = 0; i < this.request_arr.length; i++){
                 if(this.request_arr[i].id === this.passed_id){
-                    console.log(this.request_arr[i].equipments);
                     this.fetched_val.push(this.request_arr[i].equipments);
-                    for(let j = 0; j < this.fetched_val.length; j++){
-                        console.log(this.fetched_val[j]);
-                    }
+                    this.identifier = true;
                 }
+            }
+
+            if(this.identifier === true){
+                const str = this.fetched_val;
+                const arr = JSON.parse(str);
+                for(let j = 0; j < arr.length; j++){
+                    this.val_arr.push({
+                        num: arr[j],
+                    });
+                }
+                console.log(this.val_arr);
+
+                for(let x = 0; x < this.equipments_arr.length; x++){
+                    this.item_arr.push({
+                        items: this.equipments_arr[x].items,
+                    });
+                }
+
+                const items_ = this.item_arr;
+                const quantities = this.val_arr;
+
+                this.merged_arr = items_.map((item, index) => Object.assign({}, item, quantities[index]));
+                console.log(this.merged_arr);
             }
         },
 
@@ -441,39 +546,122 @@ export default{
             this.passed_id = '';
         },
 
-        updateAppointment(id, name, email, number, time, orgDept, venue, desc, equip, status){
+        async updateAppointment(id, name, email, number, date, time, org, dept, venue, desc, equip, status, remarks, semester){
             console.log(id);
             console.log(name);
             console.log(email);
             console.log(number);
+            console.log(date);
             console.log(time);
-            console.log(orgDept);
+            console.log(org);
+            console.log(dept);
             console.log(venue);
             console.log(desc);
-            console.log(equip);
+            
             console.log(status);
+            console.log(remarks);
+            console.log(semester);
+
+            var dateObj = new Date();
+            var month = dateObj.getUTCMonth() + 1; //months from 1-12
+            var day = dateObj.getUTCDate();
+            var year = dateObj.getUTCFullYear();
+
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            this.newdate = monthNames[month - 1] + " " + day + ", " + year;
+            const new_month = monthNames[month - 1];
+            console.log(this.newdate);
+
+            let i_q = document.querySelectorAll('[id="input_q"]');
+            const q_i = [...i_q].map(input => input.value);
+            // console.log(q_i);
+            for(let i = 0; i < q_i.length; i++){
+                this.equipment_list.push(parseInt(q_i[i]));
+            }
+
+            const equip_obj = JSON.stringify(this.equipment_list);
+
+            const Request = Parse.Object.extend("Request");
+            const query = new Parse.Query(Request);
+
+            query.equalTo("objectId", id);
+            const reqQuery = await query.first();
+
+            reqQuery.set("mobile_number", number);
+            reqQuery.set("time", time);
+            reqQuery.set("org", org);
+            reqQuery.set("dept", dept);
+            reqQuery.set("venue", venue);
+            reqQuery.set("semester", semester);
+            reqQuery.set("remakrs", remarks);
+            reqQuery.set("description", desc);
+            reqQuery.set("equipments", equip_obj);
+            reqQuery.set("month", new_month);
+            reqQuery.set("day", day);
+            reqQuery.set("year", year);
+
+            reqQuery.save().then((reqQuery) => {
+                console.log("Successful", reqQuery);
+                this.edit_page = false;
+            });
+
         }
     },
 
     mounted: async function(){
+        try{
+            gapi.load("client:auth2", function () {
+                gapi.auth2.getAuthInstance();
+            });
+
+            const googleUser = gapi.auth2.getAuthInstance();
+            this.google_user = googleUser;
+            console.log(googleUser);
+            this.profileFullName = googleUser.currentUser.get().getBasicProfile().getName();
+            this.user_email = googleUser.currentUser.get().getBasicProfile().getEmail();
+            console.log(this.profileFullName);
+
+            if(googleUser){
+                this.gapiLoaded = true;
+            } else {
+                this.$router.push({name: 'Login'});
+            }
+        } catch(error) {
+            console.log(error);
+            this.$router.push({name: 'Login'});
+        }
+
         const Request = Parse.Object.extend("Request");
         const request = new Parse.Query(Request);
         const query = await request.find();
 
         for(let i = 0; i < query.length; i++){
-            this.request_arr.push({
-                id: query[i].id,
-                date: query[i].get("date"),
-                fullName: query[i].get("full_name"),
-                email: query[i].get("email"),
-                mobile_number: query[i].get("mobile_number"),
-                time: query[i].get("time"),
-                orgDept: query[i].get("org_dept"),
-                venue: query[i].get("venue"),
-                desc: query[i].get("description"),
-                equipments: query[i].get("equipments"),
-                status: query[i].get("status"),
-            })
+            if(this.profileFullName === query[i].get("full_name")){
+                this.request_arr.push({
+                    id: query[i].id,
+                    date: query[i].get("date"),
+                    fullName: query[i].get("full_name"),
+                    email: query[i].get("email"),
+                    mobile_number: query[i].get("mobile_number"),
+                    time_s: query[i].get("time_start"),
+                    time_e: query[i].get("time_end"),
+                    orgDept: query[i].get("org_dept"),
+                    org: query[i].get("org"),
+                    dept: query[i].get("dept"),
+                    venue: query[i].get("venue"),
+                    desc: query[i].get("description"),
+                    equipments: query[i].get("equipments"),
+                    status: query[i].get("status"),
+                    remarks: query[i].get("remarks"),
+                    semester: query[i].get("semester"),
+                    fName: query[i].get("filename"),
+                    url_link: query[i].get("url"),
+                })
+                this.request_loaded = true;
+            }
         }
 
         const Equipments = Parse.Object.extend("Equipments");
@@ -496,6 +684,17 @@ export default{
 .scrollable{
   overflow-y: auto;
   max-height: 525px;
+}
+.pend{
+    background-color: #003E6F;
+}
+
+.apprv{
+    background-color: #00588C;
+}
+
+.unvble{
+    background-color: #C3C3C9;
 }
 
 </style>

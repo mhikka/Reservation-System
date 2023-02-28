@@ -6,10 +6,10 @@
     </nav>
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            <SidePanelAdmin>
+            <SidePanelUser>
                 <hr>
-            </SidePanelAdmin>
-            
+            </SidePanelUser>
+
             <div class="col text-start">
                 <h1 class="font-weight-light pt-4 ms-3">
                     About
@@ -26,29 +26,29 @@
                                     </svg>
                                 </div>
                                 <div class="card-body text-start ">
-                                    <h6 class="fw-bold mb-0">0.1.0</h6>
+                                    <h6 class="fw-bold mb-0">0.2.0</h6>
                                         <ul style="mb-0">
                                             <li>updates / new features / fixed bugs</li>
                                             <div class="row nav-row">
                                                 <button type="button" class="btn btn-info text-light text-pt-0 btn-sm d-inline-flex py-0" style="width: 3.7rem; height: 1.5rem; border-radius: 20px;" disabled>feature</button>
-                                            &nbsp; Added feature/s
+                                            Added feature/s
                                             </div>
                                         </ul>
-                                    <h6 class="fw-bold mb-0">Beta 0.1.0 - February 2023 </h6>
+                                    <h6 class="fw-bold mb-0">0.1.2 - November 1, 2020 3:59 PM</h6>
                                         <ul style="mb-0">
                                             <li>updates / new features / fixed bugs</li>
                                             <div class="row nav-row">
                                                 <button type="button" class="btn btn-info text-light text-pt-0 btn-sm d-inline-flex py-0" style="width: 3.7rem; height: 1.5rem; border-radius: 20px;" disabled>feature</button>
-                                            &nbsp; Added feature/s
+                                            Added feature/s
                                             </div>
                                             <li>updates / new features / fixed bugs</li>
-                                            <div class="row nav-row pb-1">
+                                            <div class="row nav-row">
                                                 <button type="button" class="btn btn-success text-light text-pt-0 btn-sm d-inline-flex py-0" style="width: 3.4rem; height: 1.5rem; border-radius: 20px;" disabled>bugfix</button>
-                                            &nbsp; Fixed Bugs
+                                            Fixed Bugs
                                             </div>
                                             <div class="row nav-row">
                                                 <button type="button" class="btn btn-info text-light text-pt-0 btn-sm d-inline-flex py-0" style="width: 3.7rem; height: 1.5rem; border-radius: 20px;" disabled>feature</button>
-                                            &nbsp; Added feature/s
+                                            Added feature/s
                                             </div>
                                         </ul>
                                 </div>
@@ -66,15 +66,13 @@
                                 <div class="card-body text-start">
                                     <h6 class="fw-bold mb-0">Active</h6>
                                         <ul style="mb-0">
-                                            <li>Berdin, John Justin M. <button type="button" class="btn btn-secondary text-light text-pt-0 btn-sm d-inline-flex py-0" style="width: 2.8rem; height: 1.5rem; border-radius: 20px;" disabled>BSIT</button></li>
-                                            <li>Bayot, Jeff Danielle E. <button type="button" class="btn btn-secondary text-light text-pt-0 btn-sm d-inline-flex py-0" style="width: 2.8rem; height: 1.5rem; border-radius: 20px;" disabled>BSIT</button></li>
-                                            <li>Punzalan, Tessa Mikka S. <button type="button" class="btn btn-secondary text-light text-pt-0 btn-sm d-inline-flex py-0" style="width: 2.8rem; height: 1.5rem; border-radius: 20px;" disabled>BSIT</button></li>
+                                            <li>John Doe <button type="button" class="btn btn-secondary text-light text-pt-0 btn-sm d-inline-flex py-0" style="width: 2.8rem; height: 1.5rem; border-radius: 20px;" disabled>DBA</button></li>
                                         </ul>
                                     <h6 class="fw-bold mb-0">Main Developers</h6>
                                         <ul style="mb-0">
-                                            <li>Berdin, John Justin M. <button type="button" class="btn btn-secondary text-light text-pt-0 btn-sm d-inline-flex py-0" style="width: 3rem; height: 1.5rem; border-radius: 20px;" disabled>BSIT</button></li>
-                                            <li>Bayot, Jeff Danielle E. <button type="button" class="btn btn-secondary text-light text-pt-0 btn-sm d-inline-flex py-0" style="width: 3rem; height: 1.5rem; border-radius: 20px;" disabled>BSIT</button></li>
-                                            <li>Punzalan, Tessa Mikka S. <button type="button" class="btn btn-secondary text-light text-pt-0 btn-sm d-inline-flex py-0" style="width: 3rem; height: 1.5rem; border-radius: 20px;" disabled>BSIT</button></li>
+                                            <li>Berdin, John Justin <button type="button" class="btn btn-secondary text-light text-pt-0 btn-sm d-inline-flex py-0" style="width: 3rem; height: 1.5rem; border-radius: 20px;" disabled>BSIT</button></li>
+                                            <li>Bayot, Jeff Danielle <button type="button" class="btn btn-secondary text-light text-pt-0 btn-sm d-inline-flex py-0" style="width: 3rem; height: 1.5rem; border-radius: 20px;" disabled>BSIT</button></li>
+                                            <li>Punzalan, Tessa Mikka <button type="button" class="btn btn-secondary text-light text-pt-0 btn-sm d-inline-flex py-0" style="width: 3rem; height: 1.5rem; border-radius: 20px;" disabled>BSIT</button></li>
                                         </ul>   
                                 </div>
                             </div>
@@ -95,11 +93,11 @@
 </template>
 
 <script>
-import SidePanelAdmin from "@/components/SidePanelAdmin.vue";
+import SidePanelUser from "@/components/SidePanelUser.vue";
 
 export default{
     components: {
-        SidePanelAdmin,
+        SidePanelUser,
     },
 
 }

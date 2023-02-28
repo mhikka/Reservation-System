@@ -6,84 +6,19 @@
     </nav>
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" style="background-color: #414141;">
-                <div class="d-flex flex-column align-items-center align-items-sm-center px-3 pt-2 text-white min-vh-100">
-                    <div class="pt-3 pb-5">
-                        <img src="../assets/Ateneo_de_Naga_University_logo.png" width="120" height="120" class="d-inline-block align-top" alt="">
-                    </div>
-                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                        <li class="pb-3" @click="homePage">
-                            <a href="" class="nav-link align-middle px-0 text-light">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
-                                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
-                                </svg> 
-                                <span class="ms-1 d-none d-sm-inline">
-                                    Home
-                                </span>
-                            </a>
-                        </li>
-                        <li class="pb-3" @click="reservationPage">
-                            <a href="" data-bs-toggle="collapse" class="nav-link px-0 align-middle  text-light">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-calendar-week" viewBox="0 0 16 16">
-                                    <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
-                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                                </svg> 
-                                <span class="ms-1 d-none d-sm-inline">
-                                    Reserve
-                                </span>
-                            </a>
-                        </li>
-                        <li class="pb-3">
-                            <a href="" class="nav-link px-0 align-middle text-light">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clock-history" viewBox="0 0 16 16">
-                                <path d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022l-.074.997zm2.004.45a7.003 7.003 0 0 0-.985-.299l.219-.976c.383.086.76.2 1.126.342l-.36.933zm1.37.71a7.01 7.01 0 0 0-.439-.27l.493-.87a8.025 8.025 0 0 1 .979.654l-.615.789a6.996 6.996 0 0 0-.418-.302zm1.834 1.79a6.99 6.99 0 0 0-.653-.796l.724-.69c.27.285.52.59.747.91l-.818.576zm.744 1.352a7.08 7.08 0 0 0-.214-.468l.893-.45a7.976 7.976 0 0 1 .45 1.088l-.95.313a7.023 7.023 0 0 0-.179-.483zm.53 2.507a6.991 6.991 0 0 0-.1-1.025l.985-.17c.067.386.106.778.116 1.17l-1 .025zm-.131 1.538c.033-.17.06-.339.081-.51l.993.123a7.957 7.957 0 0 1-.23 1.155l-.964-.267c.046-.165.086-.332.12-.501zm-.952 2.379c.184-.29.346-.594.486-.908l.914.405c-.16.36-.345.706-.555 1.038l-.845-.535zm-.964 1.205c.122-.122.239-.248.35-.378l.758.653a8.073 8.073 0 0 1-.401.432l-.707-.707z"/>
-                                <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0v1z"/>
-                                <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z"/>
-                                </svg>
-                                <span class="ms-1 d-none d-sm-inline">
-                                    History
-                                </span>
-                            </a>
-                        </li>
-                        <li class="pb-3">
-                            <a href="" class="nav-link px-0 align-middle text-light">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
-                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                    <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
-                                </svg>
-                                <span class="ms-1 d-none d-sm-inline">
-                                    About
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                    <hr>
-                    <!-- <div class="dropdown pb-4">
-                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                            <span class="d-none d-sm-inline mx-1">loser</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                            <li><a class="dropdown-item" href="#">New project...</a></li>
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Sign out</a></li>
-                        </ul>
-                    </div> -->
-                </div>
-            </div>
+            <SidePanelAdmin>
+                <hr>
+            </SidePanelAdmin>
+
             <div class="col text-start">
                 <div class="row justify-content-between">
                     <div class="col-4">
                     <h1 class="font-weight-light pt-4 ms-3">
-                            History
+                            Reports
                     </h1>
                     </div>
                     <div class="col-4 pt-4 me-4">
-                    <button class="btn btn-outline-info float-end mb-4" type="submit" @click="close_modal">
+                    <button class="btn btn-outline-primary float-end mb-4" type="submit" @click="downloadLogs">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cloud-download" viewBox="0 0 16 16">
                             <path d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383z"/>
                             <path d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708l3 3z"/>
@@ -95,30 +30,28 @@
                 <hr style="background-color: black; height: 2px;">
                 <div class="row">
                     <div class="col">
-                        <div class="card" style="height: 370px;">
+                        <div class="card" style="height: auto;">
                             <div class="card-header text-start">
                                 Logs
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
                                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
                                 </svg>
                             </div>
-                            <div class="card-body text-start">
-                                <div class="card">
-                                    <div class="card-body bg-primary rounded text-light">
-                                        <h4>Approved</h4>
-                                        This is some text within a card body.
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-body bg-danger rounded text-light" @click="open_modal">
-                                        <h4>Rejected</h4>
-                                        This is some text within a card body.
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-body bg-primary rounded text-light">
-                                        <h4>Approved</h4>
-                                        This is some text within a card body.
+                            <div class="scrollable">
+                                <div class="text-start p-2">
+                                    <div v-for="details in request_arr.slice().reverse()" :key="details">
+                                        <div class="card pb-2" v-if="details.status === 'Approved'">
+                                            <div class="card-body rounded text-light apprv">
+                                                <h4>{{ details.status }}</h4>
+                                                {{ details.venue }}
+                                            </div>
+                                        </div>
+                                        <div class="card pb-2" v-else-if="details.status === 'Unavailable'">
+                                            <div class="card-body rounded text-light unvble" @click="open_modal">
+                                                <h4>{{ details.status }}</h4>
+                                                {{ details.venue }}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -126,7 +59,6 @@
                     </div>
                 </div>
             </div>
-                
         </div>
     </div>
     <footer class="page-footer fluid-bottom border-top border-secondary" style="background-color: #414141;">
@@ -135,39 +67,588 @@
             <a href="/" class="text-light"> Ateneo de Naga University</a>
         </div>
     </footer>
+
+    <div v-if="open_modal === true">
+        <AdminModal>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="container">
+                            <div class="row pt-3 justify-content-end">
+                                <div class="col-4 pt-2">
+                                    <h6 class="fw-bold">Reports</h6>
+                                    <hr stlye="background-color: black">
+                                </div>
+                                <div class="col-4">
+                                    <button @click="close_modal" class="btn btn-outline-none text-danger">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div>
+                                    <div class="float-start ps-2 pb-2">
+                                        <div>
+                                            <div class="form-group pb-5 m-50">
+                                                <label for="exampleInputPassword1" class="float-start me-3 fw-bold">Filter by:</label>
+                                                <select name="plan" id="venue" v-model="filter" class="btn btn-sm border float-start">
+                                                    <option value="" disabled selected>Filter</option>
+                                                    <option value="Venue">Venue</option>
+                                                    <option value="Semester"><small>Semester</small></option>
+                                                    <option value="Status"><small>Status</small></option>
+                                                    <option value="Month"><small>Month & Year</small></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="float-start">
+                                        <div v-if="filter === 'Venue'">
+                                            <div class="form-group pb-5 m-50">
+                                                <label for="exampleInputPassword1" class="float-start me-3">Venue:</label>
+                                                <select name="plan" id="venue" v-model="venue" class="btn btn-sm border float-start">
+                                                    <option value="" disabled selected>List of Venues</option>
+                                                    <option value="JOBL Conference Room 1st Floor">JOBL Conference Room 1st Floor</option>
+                                                    <option value="Consultation Room 1"><small>Consultation Room 1</small></option>
+                                                    <option value="Consultation Room 2"><small>Consultation Room 2</small></option>
+                                                    <option value="Library - Multipurpose Room"><small>Library - Multipurpose Room</small></option>
+                                                    <option value="Library: Fr. A.M. BAUTISTA - Viewing Room"><small>Library: Fr. A.M. BAUTISTA -
+                                                        Viewing Room</small></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div v-else-if="filter === 'Semester'">
+                                            <div class="form-group pb-5 m-50">
+                                                <label for="exampleInputPassword1" class="float-start me-3">Semester:</label>
+                                                <select name="plan" id="venue" v-model="semester" class="btn btn-sm border float-start">
+                                                    <option value="" disabled selected>List of Semesters</option>
+                                                    <option value="1st Semester">1st Semester</option>
+                                                    <option value="2nd Semester"><small>2nd Semester</small></option>
+                                                    <option value="Intersession"><small>Intersession</small></option>
+                                                </select>
+                                            </div>
+                                            <label for="inputEmail3" class="float-start">Academic Year: </label>
+                                            <div class="col-8 pb-2">
+                                                <input type="text" v-model="acad_year" class="form-control form-control-sm" id="inputEmail3" placeholder="(E.g. 2023-2024)">
+                                            </div>
+                                        </div>
+                                        <div v-else-if="filter === 'Status'">
+                                            <div class="form-group pb-5 m-50">
+                                                <label for="exampleInputPassword1" class="float-start me-3">Status:</label>
+                                                <select name="plan" id="venue" v-model="status" class="btn btn-sm border float-start">
+                                                    <option value="" disabled selected>Types of Request status</option>
+                                                    <option value="Approved">Approved</option>
+                                                    <option value="Pending"><small>Pending</small></option>
+                                                    <option value="Unavailable"><small>Unavailable</small></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div v-else-if="filter === 'Month'">
+                                            <label for="exampleInputPassword1" class="float-start me-3">Month:</label>
+                                            <select name="plan" id="venue" v-model="month" class="btn btn-sm border float-start">
+                                                <option value="" disabled selected>Select a Month</option>
+                                                <option value="January">January</option>
+                                                <option value="February"><small>February</small></option>
+                                                <option value="April"><small>April</small></option>
+                                                <option value="May"><small>May</small></option>
+                                                <option value="June"><small>June</small></option>
+                                                <option value="July"><small>July</small></option>
+                                                <option value="August"><small>August</small></option>
+                                                <option value="September"><small>September</small></option>
+                                                <option value="October"><small>October</small></option>
+                                                <option value="November"><small>November</small></option>
+                                                <option value="December"><small>December</small></option>
+                                            </select>
+                                            <br>
+                                            <label for="inputEmail3" class="float-start">Year: </label>
+                                            <div class="col-8 pb-2">
+                                                <input type="number" v-model="input_year" class="form-control form-control-sm" id="inputEmail3" placeholder="Year">
+                                            </div>
+                                        </div>
+                                        <div v-else>
+                                            <div class="float-start">
+                                                <p class="text-danger text-start">Important note: All of the unfiltered reports will be generated when you click the generate button.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-if="filter === 'Venue'">
+                                    <div class="float-center">
+                                        <div class="d-grid gap-2">
+                                            <button type="button" class="btn btn-outline-primary btn-lg btn-block" @click="dl_venue">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                                    <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/>
+                                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                                                </svg>
+                                                Generate report logs
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-else-if="filter === 'Semester'">
+                                    <div class="float-center">
+                                        <div class="d-grid gap-2">
+                                            <button type="button" class="btn btn-outline-primary btn-lg btn-block" @click="dl_semester">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                                    <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/>
+                                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                                                </svg>
+                                                Generate report logs
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-else-if="filter === 'Status'">
+                                    <div class="float-center">
+                                        <div class="d-grid gap-2">
+                                            <button type="button" class="btn btn-outline-primary btn-lg btn-block" @click="dl_status">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                                    <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/>
+                                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                                                </svg>
+                                                Generate report logs
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-else-if="filter === 'Month'">
+                                    <div class="float-center">
+                                        <div class="d-grid gap-2">
+                                            <button type="button" class="btn btn-outline-primary btn-lg btn-block" @click="dl_month">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                                    <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/>
+                                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                                                </svg>
+                                                Generate report logs
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-else>
+                                    <div class="float-center">
+                                        <div class="d-grid gap-2">
+                                            <button type="button" class="btn btn-outline-primary btn-lg btn-block" @click="dl_Report">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                                    <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/>
+                                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                                                </svg>
+                                                Generate report logs
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </AdminModal>
+    </div>
+    
 </template>
 
 <script>
-/*import PopUpModal from "@/components/PopUpModal.vue"; */
+import AdminModal from "@/components/AdminModal.vue";
+import SidePanelAdmin from "@/components/SidePanelAdmin.vue";
+import Parse from 'parse';
 
+const gapi = window.gapi;
 export default{
-    /*components: {
-        PopUpModal,
+    components: {
+        SidePanelAdmin, AdminModal,
     },
 
     data(){
-        return{
-            pop: false,
+        return {
+            request_arr: [],
+            equipments_arr: [],
+            open_modal: false,
+            allowed_dl: false,
+            venue: '',
+            semester: '',
+            status: '',
+            filter: '',
+            month: '',
+            reports_arr: [],
+
+            var_venue: 'venue',
+            var_semester: 'semester',
+            var_status: 'status',
+
+            venue_report: [],
+            semester_report: [],
+            status_report: [],
+            month_year_report: [],
+
+            input_year: '',
+            acad_year: '',
+
+            var_month: 'month',
+            var_year: 'year',
+            var_ay: 'academic_year',
         }
-    }, */
+    },
+
     methods: {
-
-        homePage(){
-            this.$router.push({name: 'adminHome'})
-        },
-
-        reservationPage(){
-            this.$router.push({name: 'reservation'})
-        },
-
-        open_modal(){
-            this.pop = true;
+        downloadLogs(){
+            // alert("Clicked!");
+            this.open_modal = true;
         },
 
         close_modal(){
-            this.pop = false;
+            this.open_modal = false;
+            this.filter = '';
+            this.status = '';
+            this.semester = '';
+            this.venue = '';
+            this.month = '';
+            this.input_year = '';
+            this.acad_year = '';
         },
+
+        dl_Report(){
+            this.allowed_dl = true;
+            this.generateResult();
+        },
+
+        dl_venue(){
+            const Request = Parse.Object.extend("Request");
+            const request = new Parse.Query(Request);
+            request.equalTo(this.var_venue, this.venue);
+            request.find().then((query) => {
+                for(let i = 0; i < query.length; i++){
+                    const obj = query[i];
+                    this.venue_report.push([obj.get("date"), obj.get("full_name"), 
+                    obj.get("email"), obj.get("mobile_number"), obj.get("time_start") + " - " + obj.get("time_end"), 
+                    obj.get("org"), obj.get("dept"), obj.get("venue"), obj.get("semester"), 
+                    obj.get("remarks"), obj.get("description"), obj.get("status"), obj.get("academic_year")],);
+                }
+            });
+            this.venueReport();
+        },
+
+        dl_semester(){
+            const Request = Parse.Object.extend("Request");
+            const request = new Parse.Query(Request);
+            request.equalTo(this.var_semester, this.semester);
+            request.equalTo(this.var_ay, this.acad_year);
+            request.find().then((query) => {
+                for(let i = 0; i < query.length; i++){
+                    const obj = query[i];
+                    this.semester_report.push([obj.get("date"), obj.get("full_name"), 
+                    obj.get("email"), obj.get("mobile_number"), obj.get("time_start") + " - " + obj.get("time_end"), 
+                    obj.get("org"), obj.get("dept"), obj.get("venue"), obj.get("semester"), 
+                    obj.get("remarks"), obj.get("description"), obj.get("status"), obj.get("academic_year")],);
+                }
+            });
+            this.semesterReport();
+        },
+
+        dl_status(){
+            const Request = Parse.Object.extend("Request");
+            const request = new Parse.Query(Request);
+            request.equalTo(this.var_status, this.status);
+            request.find().then((query) => {
+                for(let i = 0; i < query.length; i++){
+                    const obj = query[i];
+                    this.status_report.push([obj.get("date"), obj.get("full_name"), 
+                    obj.get("email"), obj.get("mobile_number"), obj.get("time_start") + " - " + obj.get("time_end"), 
+                    obj.get("org"), obj.get("dept"), obj.get("venue"), obj.get("semester"), 
+                    obj.get("remarks"), obj.get("description"), obj.get("status"), obj.get("academic_year")],);
+                }
+            });
+            this.statusReport();
+        },
+
+        dl_month(){
+            try{
+                const Request = Parse.Object.extend("Request");
+                const request = new Parse.Query(Request);
+                request.equalTo(this.var_month, this.month);
+                request.equalTo(this.var_year, this.input_year);
+
+                // const new_req = await request.find();
+                // console.log(new_req);
+                request.find().then((query) => {
+                    for(let i = 0; i < query.length; i++){
+                        // if(this.month === query[i].get("month") && this.input_year === query[i].get("year")){
+                            const obj = query[i];
+                            this.month_year_report.push([obj.get("date"), obj.get("full_name"), 
+                            obj.get("email"), obj.get("mobile_number"), obj.get("time_start") + " - " + obj.get("time_end"), 
+                            obj.get("org"), obj.get("dept"), obj.get("venue"), obj.get("semester"), 
+                            obj.get("remarks"), obj.get("description"), obj.get("status"), obj.get("academic_year")],);
+                        // }
+                    }
+                });
+
+                console.log(this.month_year_report);
+                this.month_yearReport();
+            } catch(error){
+                console.log(error);
+            }
+        },
+
+        venueReport(){
+            var arrResults = [
+                ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status", "Academic Year"],
+            ];
+            console.log(this.venue_report.length);
+            if(this.venue_report.length != 0){
+                for(let x = 0; x < this.venue_report.length; x++){
+                    arrResults.push(this.venue_report[x]);
+                    console.log(this.venue_report[x]);
+                }
+                console.log(arrResults);
+                var CsvString = '';
+                arrResults.forEach(function(RowItem, RowIndex) {
+                    RowItem.forEach(function(ColItem, ColIndex) {
+                        CsvString += ColItem + ',';
+                        console.log(RowIndex, ColIndex);
+                    });
+                    CsvString += "\r\n";
+                });
+
+                let classname = "compiled";
+                let classsection = "log";
+                let combinedFilename = classname.concat("-", classsection);
+                let fileExtension = "generated.csv";
+                let finalFilename = combinedFilename.concat("_", fileExtension);
+                CsvString = "data:application/csv," + encodeURIComponent(CsvString);
+                var x = document.createElement("A");
+                x.setAttribute("href", CsvString );
+                x.setAttribute("download", finalFilename);
+                document.body.appendChild(x);
+                x.click();
+                this.close_modal();
+            } else {
+                alert("Something went wrong. Please try again.");
+                this.close_modal();
+            }
+        },
+
+        semesterReport(){
+            var arrResults = [
+                ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status", "Academic Year"],
+            ];
+            console.log(this.semester_report);
+            if(this.semester_report.length != 0){
+                for(let x = 0; x < this.semester_report.length; x++){
+                    arrResults.push(this.semester_report[x]);
+                }
+                console.log(arrResults);
+                var CsvString = '';
+                arrResults.forEach(function(RowItem, RowIndex) {
+                    RowItem.forEach(function(ColItem, ColIndex) {
+                        CsvString += ColItem + ',';
+                        console.log(RowIndex, ColIndex);
+                    });
+                    CsvString += "\r\n";
+                });
+
+                let classname = "compiled";
+                let classsection = "log";
+                let combinedFilename = classname.concat("-", classsection);
+                let fileExtension = "generated.csv";
+                let finalFilename = combinedFilename.concat("_", fileExtension);
+                CsvString = "data:application/csv," + encodeURIComponent(CsvString);
+                var x = document.createElement("A");
+                x.setAttribute("href", CsvString );
+                x.setAttribute("download", finalFilename);
+                document.body.appendChild(x);
+                x.click();
+                this.close_modal();
+            } else {
+                alert("Something went wrong. Please try again.");
+                this.close_modal();
+            }
+                
+        },
+
+        statusReport(){
+            var arrResults = [
+                ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status", "Academic Year"],
+            ];
+            console.log(this.status_report);
+            if(this.status_report.length != 0){
+                for(let x = 0; x < this.status_report.length; x++){
+                    arrResults.push(this.status_report[x]);
+                }
+                console.log(arrResults);
+                var CsvString = '';
+                arrResults.forEach(function(RowItem, RowIndex) {
+                    RowItem.forEach(function(ColItem, ColIndex) {
+                        CsvString += ColItem + ',';
+                        console.log(RowIndex, ColIndex);
+                    });
+                    CsvString += "\r\n";
+                });
+
+                let classname = "compiled";
+                let classsection = "log";
+                let combinedFilename = classname.concat("-", classsection);
+                let fileExtension = "generated.csv";
+                let finalFilename = combinedFilename.concat("_", fileExtension);
+                CsvString = "data:application/csv," + encodeURIComponent(CsvString);
+                var x = document.createElement("A");
+                x.setAttribute("href", CsvString );
+                x.setAttribute("download", finalFilename);
+                document.body.appendChild(x);
+                x.click();
+                this.close_modal();
+            } else {
+                alert("Something went wrong. Please try again.");
+                this.close_modal();
+            }
+        },
+
+        generateResult(){
+            if(this.allowed_dl === true){
+                var arrResults = [
+                    ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status", "Academic Year"],
+                ];
+                console.log(this.reports_arr)
+                for(let i = 0; i < this.reports_arr.length; i++){
+                    arrResults.push(this.reports_arr[i]);
+                }
+                var CsvString = '';
+                arrResults.forEach(function(RowItem, RowIndex) {
+                    RowItem.forEach(function(ColItem, ColIndex) {
+                        CsvString += ColItem + ',';
+                        console.log(RowIndex, ColIndex);
+                    });
+                    CsvString += "\r\n";
+                });
+
+                let classname = "compiled";
+                let classsection = "log";
+                let combinedFilename = classname.concat("-", classsection);
+                let fileExtension = "generated.csv";
+                let finalFilename = combinedFilename.concat("_", fileExtension);
+                CsvString = "data:application/csv," + encodeURIComponent(CsvString);
+                var x = document.createElement("A");
+                x.setAttribute("href", CsvString );
+                x.setAttribute("download", finalFilename);
+                document.body.appendChild(x);
+                x.click();
+                this.close_modal();
+            }
+        },
+
+        month_yearReport(){
+            var arrResults = [
+                ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status", "Academic Year"],
+            ];
+            console.log(this.month_year_report);
+            if(this.month_year_report.length != 0){
+                for(let x = 0; x < this.month_year_report.length; x++){
+                    arrResults.push(this.month_year_report[x]);
+                }
+                console.log(arrResults);
+                var CsvString = '';
+                arrResults.forEach(function(RowItem, RowIndex) {
+                    RowItem.forEach(function(ColItem, ColIndex) {
+                        CsvString += ColItem + ',';
+                        console.log(RowIndex, ColIndex);
+                    });
+                    CsvString += "\r\n";
+                });
+
+                let classname = "compiled";
+                let classsection = "log";
+                let combinedFilename = classname.concat("-", classsection);
+                let fileExtension = "generated.csv";
+                let finalFilename = combinedFilename.concat("_", fileExtension);
+                CsvString = "data:application/csv," + encodeURIComponent(CsvString);
+                var x = document.createElement("A");
+                x.setAttribute("href", CsvString );
+                x.setAttribute("download", finalFilename);
+                document.body.appendChild(x);
+                x.click();
+                this.close_modal();
+            } else {
+                alert("Something went wrong. Please try again.");
+                this.close_modal();
+            }
+        }
+    },
+
+    mounted: async function(){
+        try{
+            gapi.load("client:auth2", function () {
+                gapi.auth2.getAuthInstance();
+            });
+
+            const googleUser = gapi.auth2.getAuthInstance();
+            console.log(googleUser);
+
+            if(!googleUser){
+                this.$router.push({name: 'Login'});
+            }
+        } catch(error){
+            this.$router.push({name: 'Login'});
+        }
+
+        const Request = Parse.Object.extend("Request");
+        const request = new Parse.Query(Request);
+        const query = await request.find();
+
+        for(let i = 0; i < query.length; i++){
+            this.request_arr.push({
+                id: query[i].id,
+                date: query[i].get("date"),
+                fullName: query[i].get("full_name"),
+                email: query[i].get("email"),
+                mobile_number: query[i].get("mobile_number"),
+                time: query[i].get("time"),
+                orgDept: query[i].get("org_dept"),
+                org: query[i].get("org"),
+                dept: query[i].get("dept"),
+                venue: query[i].get("venue"),
+                desc: query[i].get("description"),
+                equipments: query[i].get("equipments"),
+                status: query[i].get("status"),
+                remarks: query[i].get("remarks"),
+                semester: query[i].get("semester"),
+            })
+
+            this.reports_arr.push([query[i].get("date"), query[i].get("full_name"), 
+            query[i].get("email"), query[i].get("mobile_number"), query[i].get("time_start") + " - " + query[i].get("time_end"), 
+            query[i].get("org"), query[i].get("dept"), query[i].get("venue"), query[i].get("semester"), 
+            query[i].get("remarks"), query[i].get("description"), query[i].get("status"), query[i].get("academic_year")],);
+        }
+
+        const Equipments = Parse.Object.extend("Equipments");
+        const equipments = new Parse.Query(Equipments);
+        const equip = await equipments.find();
+        for(let i = 0; i < equip.length; i++){
+            this.equipments_arr.push({
+                items: equip[i].get("Items"),
+                q:"Quantity Available: " + ' ' + equip[i].get("Quantity"),
+                num: equip[i].get("Quantity"),
+            })
+        }
     }
 }
 
 </script>
+
+<style scoped>
+.scrollable{
+  overflow-y: auto;
+  max-height: 525px;
+}
+
+.pend{
+    background-color: #003E6F;
+}
+
+.apprv{
+    background-color: #00588C;
+}
+
+.unvble{
+    background-color: #C3C3C9;
+}
+
+</style>

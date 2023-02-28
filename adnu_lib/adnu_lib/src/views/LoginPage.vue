@@ -8,8 +8,120 @@
     <div class="container">
         <div class="row pt-4 pb-4">
             <div class="col-md-6 mt-md-0 mt-3">
-                <ejs-schedule height="375px" width="auto" currentView="Day" class="rounded">
-                </ejs-schedule>
+                <!-- <ejs-schedule height="375px" width="auto" currentView="Day" class="rounded">
+                </ejs-schedule> -->
+                <div>
+                    <div class="row">
+                        <div class="col pb-2">
+                            <div class="card" style="height: auto;">
+                                <div class="card-header text-start">
+                                    Today | {{newdate}}
+                                    <!-- <hr> -->
+                                    <!-- Legend: 
+                                    <div class="row">
+                                        <div class="col">
+                                            <span class="badge jobl-c">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="5" height="5" fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                                    <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
+                                                </svg>
+                                            </span>
+                                            <small>JOBL Conference Room 1</small>
+                                        </div>
+                                        <div class="col">
+                                            <span class="badge cons-one">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="5" height="5" fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                                    <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
+                                                </svg>
+                                            </span>
+                                            <small>Consultation Room 1</small>
+                                        </div>
+                                        <div class="col">
+                                            <span class="badge cons-two">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="5" height="5" fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                                    <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
+                                                </svg>
+                                            </span>
+                                            <small>Consultation Room 2</small>
+                                        </div>
+                                        <div class="col">
+                                            <span class="badge lib-m">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="5" height="5" fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                                    <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
+                                                </svg>
+                                            </span>
+                                            <small>Library - Multipurpose Room</small>
+                                        </div>
+                                        <div class="col">
+                                            <span class="badge lib-am">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="5" height="5" fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                                    <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
+                                                </svg>
+                                            </span>
+                                            <small>Library: Fr. A.M. BAUTISTA - Viewing Room</small>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="scrollable">
+                                    <div v-if="show_list === true">
+                                        <div class="text-start p-2" v-for="details in events" :key="details" >
+                                            <div>
+                                                <div class="card" v-if="details.venue === 'JOBL Conference Room 1'">
+                                                    <div class="card-body rounded text-light jobl-c">
+                                                        <h4> {{ details.venue }}</h4>
+                                                        <h6>{{ details.title }}</h6>
+                                                        {{details.start}} - {{details.end}}
+                                                    </div>
+                                                </div>
+                                                <div class="card" v-else-if="details.venue === 'Consultation Room 1'">
+                                                    <div class="card-body rounded text-light cons-one">
+                                                        <h4> {{ details.venue }}</h4>
+                                                        <h6>{{ details.title }}</h6>
+                                                        {{details.start}} - {{details.end}}
+                                                    </div>
+                                                </div>
+                                                <div class="card" v-else-if="details.venue === 'Consultation Room 2'">
+                                                    <div class="card-body rounded text-light cons-two">
+                                                        <h4> {{ details.venue }}</h4>
+                                                        <h6>{{ details.title }}</h6>
+                                                        {{details.start}} - {{details.end}}
+                                                    </div>
+                                                </div>
+                                                <div class="card" v-else-if="details.venue === 'Library - Multipurpose Room'">
+                                                    <div class="card-body rounded text-light lib-m">
+                                                        <h4> {{ details.venue }}</h4>
+                                                        <h6>{{ details.title }}</h6>
+                                                        {{details.start}} - {{details.end}}
+                                                    </div>
+                                                </div>
+                                                <div v-else>
+                                                    <div class="card">
+                                                        <div class="card-body rounded text-light lib-am">
+                                                            <h4> {{ details.venue }}</h4>
+                                                            <h6>{{ details.title }}</h6>
+                                                            {{details.start}} - {{details.end}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div v-else>
+                                        <div class="card p-2" v-if="len_request_arr === 0">
+                                            <div class="text-start p-2 pt-3 card-body rounded text-light lib-am">
+                                                <h6>There are no events posted today.</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-md-3 mx-auto pt-4">
                 <div>
@@ -26,7 +138,9 @@
                         </button>
                     </div>
                     <h6 class="text-weight-normal mt-5">
-                        Contact ADNU Library for more information
+                        <a href="mailto:adnulibrary@gbox.adnu.edu.ph" class="text-dark" style="text-decoration: none;">
+                            Contact ADNU Library for more information
+                        </a>
                     </h6>
                 </div>
             </div>
@@ -142,20 +256,23 @@
 
 <script>
 // import HelloWorld from '@/components/HelloWorld.vue';
-import { ScheduleComponent, Day, Agenda } from "@syncfusion/ej2-vue-schedule";
+// import { ScheduleComponent, Day, Agenda } from "@syncfusion/ej2-vue-schedule";
+// import VueCal from "@/components/VueCalLogin.vue";
 import AdminModal from "@/components/AdminModal.vue";
+import Parse from 'parse';
 
 const gapi = window.gapi;
 export default{
     name: 'LoginPage',
     // components: {HelloWorld},
     components: {
-        'ejs-schedule': ScheduleComponent,
+        // 'ejs-schedule': ScheduleComponent,
+        // VueCal,
         AdminModal,
     },
-    provide: {
-        schedule: [Day, Agenda]
-    },
+    // provide: {
+    //     schedule: [Day, Agenda]
+    // },
     data(){
         return{
             profileFirstname: '',
@@ -172,6 +289,15 @@ export default{
 
             AdminKey: '',
             admin_invalid: false,
+
+            events: [],
+            request_arr: [],
+
+            newdate: '',
+            file_date: '',
+            len_request_arr: '',
+
+            show_list: '',
         }
     },
     methods: {
@@ -249,11 +375,81 @@ export default{
             console.log("This is the googleUser:", googleUser);
             this.currentUser = googleUser.currentUser.get().getBasicProfile().getName();
             this.gapiLoaded = true;
-            
+
         } catch(error){
             console.log(error);
+        }
+
+        var dateObj = new Date();
+        var month = dateObj.getUTCMonth() + 1; //months from 1-12
+        var day = dateObj.getUTCDate();
+        var year = dateObj.getUTCFullYear();
+
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        ];
+
+        this.newdate = " " + monthNames[month - 1] + " " + day + " " + year;
+        this.file_date = year + "-" + day + "-" + month;
+        console.log(this.newdate);
+
+        const Request = Parse.Object.extend("Request");
+        const request = new Parse.Query(Request);
+        const query = await request.find();
+
+        for(let i = 0; i < query.length; i++){
+            if(this.newdate === query[i].get("date") && query[i].get("status") === 'Approved'){
+                this.events.push({
+                    start: query[i].get("time_start"),
+                    end: query[i].get("time_end"),
+                    title: query[i].get("description"),
+                    venue: query[i].get("venue"),
+                })
+            }
+        }
+
+        console.log(this.events);
+        this.len_request_arr = this.events.length;
+
+        if(this.len_request_arr === 0){
+            this.show_list = false;
+            console.log(this.show_list);
+        } else {
+            this.show_list = true;
+            console.log(this.show_list);
         }
     }
 
 }
 </script>
+
+<style scoped>
+.scrollable{
+  overflow-y: auto;
+  max-height: 350px;
+}
+
+.jobl-c{
+    background-color: #45b6fe;
+}
+
+.cons-one{
+    background-color: #3792cb;
+}
+
+.cons-two{
+    background-color: #296d98;
+}
+
+.lib-m{
+    background-color: #1c4966;
+}
+
+.lib-am{
+    background-color: #0e2433;
+}
+
+.non{
+    background-color: red;
+}
+</style>
