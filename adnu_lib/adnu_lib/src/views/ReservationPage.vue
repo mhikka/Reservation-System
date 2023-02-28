@@ -18,7 +18,7 @@
                 <div @click="check" v-if="gapiLoaded === true">
                     <!-- <ejs-schedule height="575px" currentView="Month" v-model:selectedDate="schedulerSelectedDate" id="calendar">
                     </ejs-schedule> -->
-                    <VueCal />
+                    <VueCal @time="handleTime" @date="handleEvent" ref="vuecal" />   
                 </div>
                 <div v-else>
                     <div class="float-start">
@@ -37,7 +37,7 @@
         </div>
     </footer>
 
-    <div v-if="open_modal === true">
+    <div v-if="open_modal === true && timeHolder != ''">
         <AdminModal>
             <div class="card">
                 <div class="card-header">
@@ -59,7 +59,7 @@
                                     </button>
                                 </div>
                                 <div class="col-4 pt-2">
-                                    <h6 class="fw-bold">{{picked_date}}</h6>
+                                    <h6 class="fw-bold">{{dateToday}}</h6>
                                     <hr stlye="background-color: black">
                                 </div>
                                 <div class="col-4">
@@ -99,13 +99,20 @@
                                 <form>
                                     <h5 class="fw-bolder d-flex justify-content-start pb-3">Reservation Details</h5>
                                     <div class="form-group pb-2">
-                                        <label for="exampleInputEmail1" class="float-start">Date</label>
-                                        <input v-model="date" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter the date here">
+                                        <label for="exampleInputEmail1" class="float-start">Date/s</label>
+                                        <input v-model="tempArr" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter the date here">
                                     </div>
-                                    <div class="form-group pb-2">
-                                        <label for="exampleInputPassword1" class="float-start">Time</label>
-                                        <input v-model="time" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the time here (E.g. 1:00 AM - 2:00 PM)">
+                                    <div class="row g-3">
+                                        <div class="form-group pb-2 col-sm">
+                                            <label for="exampleInputPassword1" class="float-start">Starting Time</label>
+                                            <input v-model="timeHolder" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the time here">
+                                        </div>
+                                        <div class="form-group pb-2 col-sm">
+                                                <label for="exampleInputPassword1" class="float-start">Ending Time</label>
+                                                <input v-model="timeEnd" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the ending time here">
+                                        </div>
                                     </div>
+                                    
                                     <div class="form-group pb-2">
                                         <label for="exampleInputPassword1" class="float-start">Organization/Department</label>
                                         <input v-model="org_dept" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your organization/department here">
@@ -218,6 +225,16 @@ export default{
             next_page_1: false,
             profileFullName: '',
 
+            timeHolder: '',
+            endTime: '',
+            dateToday: new Date(),
+            sliced_holder2: [],
+            finalDate: [],
+            time2: '',
+            concatTime: '',
+            timeEnd: '',
+            tempArr: [],
+
             sample_placeholder: "",
 
             array_of_equipments: ["Chairs", "DVD Players", "Extension Wires","Microphones", "Multimedia Project", "Sound System", "Tables", "Television", "White Screen"],
@@ -242,14 +259,46 @@ export default{
             // console.log("Selected date:",this.schedulerSelectedDate);
             // let date_holder = this.schedulerSelectedDate;
             // console.log(date_holder);
-            if(this.schedulerSelectedDate != null){
-                this.open_modal = true;
-                this.sliced_holder = String(this.schedulerSelectedDate).slice(0, 15);
-                console.log(this.sliced_holder);
-                this.picked_date = this.sliced_holder;
-                this.date_slicer = String(this.schedulerSelectedDate).slice(3, 15);
-                this.date = this.date_slicer;
-            }
+            // if(this.schedulerSelectedDate != null){
+            //     this.open_modal = true;
+            //     this.sliced_holder = String(this.schedulerSelectedDate).slice(0, 15);
+            //     console.log(this.sliced_holder);
+            //     this.picked_date = this.sliced_holder;
+            //     this.date_slicer = String(this.schedulerSelectedDate).slice(3, 15);
+            //     this.date = this.date_slicer;
+            // }
+            console.log(this.schedulerSelectedDate);
+        },
+
+        handleEvent(evenData) {
+            this.schedulerSelectedDate = evenData.schedulerSelectedDate;
+            let values = Object.values(evenData);
+            console.log(values);
+            // this.sliced_holder2 = String(values).slice(0, 15);
+            this.dateToday = String(this.dateToday).slice(0, 15);
+            // this.sliced_holder2.push({
+            //     date: this.finalDate
+            // })
+            // this.tempArr = this.sliced_holder2
+            this.sliced_holder2.push(String(values).slice(0, 15));
+            this.tempArr = [...new Set(this.sliced_holder2)];
+            console.log(this.dateToday);
+            console.log(this.tempArr);
+            this.open_modal = true;
+            // this.flag = 1;
+        },
+
+        handleTime(t) {
+            this.time2 = t.time2;
+            let values = Object.values(t);
+            this.timeHolder = String(values).slice(0, 7);
+            this.endTime = parseInt(this.timeHolder);
+            // console.log(this.concatTime);
+            // let finalEnd = this.endTime <= 10 ? String(this.endTime).slice(0, 3)+':' : String(this.endTime).slice(0, 2);
+            // this.concatTime = `${this.timeHolder} - ${finalEnd}`;
+            // console.log(finalEnd);
+            // console.log(this.concatTime);
+            console.log(this.timeHolder);
         },
 
         nextPage(){
