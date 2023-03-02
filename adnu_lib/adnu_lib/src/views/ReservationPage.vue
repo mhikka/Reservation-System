@@ -18,7 +18,14 @@
                 <div @click="check" v-if="gapiLoaded === true">
                     <!-- <ejs-schedule height="575px" currentView="Month" v-model:selectedDate="schedulerSelectedDate" id="calendar">
                     </ejs-schedule> -->
-                    <VueCal @time="handleTime" @date="handleEvent" ref="vuecal" />   
+                    <VueCal @time="handleTime" @date="handleEvent" ref="vuecal" />  
+                    <div class="mt-3">
+                        Number of dates selected: {{ length_ofArr }}
+                        <button type="button" class="ms-2 mb-1 btn btn-secondary" @click="resetArr">Reset</button>
+                    </div> 
+                    
+                    
+
                 </div>
                 <div v-else>
                     <div class="float-start">
@@ -244,6 +251,7 @@ export default{
             concatTime: '',
             timeEnd: '',
             tempArr: [],
+            length_ofArr: 0,
 
             sample_placeholder: "",
 
@@ -267,6 +275,7 @@ export default{
             timeStart: '',
 
             arr_holder: [],
+            arr_empty: false,
         }
     },
 
@@ -286,10 +295,19 @@ export default{
             console.log(this.schedulerSelectedDate);
         },
 
+        resetArr(){
+            // this.tempArr.splice(0, this.tempArr.length);
+            // this.tempArr.length -= this.length_ofArr;
+            // this.length_ofArr = this.tempArr.length;
+            this.sliced_holder2 = [];
+            this.length_ofArr -= this.length_ofArr;
+
+        },
+
         handleEvent(evenData) {
             this.schedulerSelectedDate = evenData.schedulerSelectedDate;
             let values = Object.values(evenData);
-            console.log(values);
+            // console.log(values);
             // this.sliced_holder2 = String(values).slice(0, 15);
             this.dateToday = String(this.dateToday).slice(0, 15);
             // this.sliced_holder2.push({
@@ -301,6 +319,7 @@ export default{
             console.log(this.dateToday);
             console.log(this.tempArr);
             this.open_modal = true;
+            this.length_ofArr = this.tempArr.length;
             // this.flag = 1;
         },
 

@@ -23,6 +23,10 @@
                     <!-- <ejs-schedule height="575px" currentView="Month" v-model:selectedDate="schedulerSelectedDate" id="calendar">
                 </ejs-schedule> -->
                     <VueCal @time="handleTime" @date="handleEvent" ref="vuecal" />
+                    <div class="mt-3">
+                            Number of dates selected: {{ length_ofArr }}
+                            <button type="button" class="ms-2 mb-1 btn btn-secondary" @click="resetArr">Reset</button>
+                    </div> 
                 </div>
                 <div v-else>
                     <div class="float-start">
@@ -257,6 +261,7 @@ export default{
             array_of_quantity: ["200", "2", "1", "3","1","1","25","2","1"],
 
             equipments_arr: [],
+            length_ofArr: 0,
 
             values_of_q: '',
 
@@ -276,6 +281,15 @@ export default{
 
     methods: {
 
+        resetArr() {
+            // this.tempArr.splice(0, this.tempArr.length);
+            // this.tempArr.length -= this.length_ofArr;
+            // this.length_ofArr = this.tempArr.length;
+            this.sliced_holder2 = [];
+            this.length_ofArr -= this.length_ofArr;
+
+        },
+
         handleEvent(evenData) {
             this.schedulerSelectedDate = evenData.schedulerSelectedDate;
             let values = Object.values(evenData);
@@ -284,6 +298,7 @@ export default{
             this.tempArr = [...new Set(this.sliced_holder2)];
             console.log(this.tempArr);
             this.dateToday = String(this.dateToday).slice(0, 15);
+            this.length_ofArr = this.tempArr.length;
             // console.log(this.dateToday);
             // console.log(this.sliced_holder2);
             this.open_modal = true;
