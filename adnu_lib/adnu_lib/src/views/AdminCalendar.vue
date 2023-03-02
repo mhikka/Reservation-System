@@ -115,11 +115,11 @@
                                     <div class="row g-3">
                                             <div class="form-group pb-2 col-sm">
                                                 <label for="exampleInputPassword1" class="float-start">Starting Time</label>
-                                                <input v-model="time" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the time here">
+                                                <input v-model="time" type="text" class="form-control" id="exampleInputPassword1" placeholder="(E.g. 10:00am)">
                                             </div>
                                             <div class="form-group pb-2 col-sm">
                                                     <label for="exampleInputPassword1" class="float-start">Ending Time</label>
-                                                    <input v-model="timeEnd" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the ending time here">
+                                                    <input v-model="timeEnd" type="text" class="form-control" id="exampleInputPassword1" placeholder="(E.g. 2:00pm)">
                                             </div>
                                         </div>
                                     <div class="form-group pb-2">
@@ -520,13 +520,9 @@ export default{
     },
 
     mounted: async function(){
-        try{
-                gapi.load("client:auth2", function () {
-                    gapi.auth2.getAuthInstance();
-                });
-            // console.log(ScheduleComponent);
-
-            // this.$refs.vuecal.setValue(JSON.parse(this.$route.params.date));
+            gapi.load("client:auth2", function () {
+                gapi.auth2.getAuthInstance();
+            });
 
             const googleUser = gapi.auth2.getAuthInstance();
             console.log(googleUser);
@@ -534,9 +530,10 @@ export default{
             this.user_email = googleUser.currentUser.get().getBasicProfile().getEmail();
             console.log(this.profileFullName);
             this.gapiLoaded = true;
-        } catch (error) {
-            console.log(error);
-        }
+
+            if(!googleUser) {
+                this.$router.push({name: 'Login'});
+            }
 
             const Equipments = Parse.Object.extend("Equipments");
             const equipments = new Parse.Query(Equipments);

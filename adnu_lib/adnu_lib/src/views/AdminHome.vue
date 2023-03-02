@@ -28,7 +28,21 @@
                                     <div class="card" v-else>
                                         <div class="card-body rounded text-light apprv" @click="open_modal(details.id)">
                                             <h4>Request | {{ details.status }}</h4>
-                                            {{details.venue}}
+                                            <div class="row justify-content-between">
+                                                <div class="col-4">
+                                                    {{details.venue}}
+                                                </div>
+                                                <div class="col-4 text-warning float-end">
+                                                    <span>
+                                                        <small>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                                                                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                                            </svg>
+                                                            This have {{details.remaining}} day/s left to finalize their reservation
+                                                        </small>
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -274,7 +288,10 @@ export default{
             item_arr: [],
 
             len_request_arr: '',
+            today_req_id: '',
+            reject_id: false,
 
+            remaining_days: '',
         }
     },
 
@@ -294,12 +311,38 @@ export default{
             this.$router.push({name: 'Login'});
         }
 
+        var dateObj = new Date();
+        var month = dateObj.getUTCMonth() + 1; //months from 1-12
+        var day = dateObj.getUTCDate();
+        var year = dateObj.getUTCFullYear();
+
+        if(day <= 9){
+            var new_day = day.toString().padStart(2, '0');
+        } else {
+            new_day = day.toString();
+        }
+        // console.log(new_day);
+
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        ];
+
+        this.newdate = " " + monthNames[month - 1] + " " + new_day + " " + year;
+
         const Request = Parse.Object.extend("Request");
         const request = new Parse.Query(Request);
         const query = await request.find();
 
         for(let i = 0; i < query.length; i++){
             if(query[i].get("status") === 'Pending'){
+                var t_day = new Date(this.newdate);
+                var b_day = new Date(query[i].get("date"));
+
+                var diff = Math.abs(t_day.getTime() - b_day.getTime());
+                var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                console.log(days);
+                this.remaining_days = days;
+
                 this.request_arr.push({
                     id: query[i].id,
                     date: query[i].get("date"),
@@ -319,9 +362,31 @@ export default{
                     semester: query[i].get("semester"),
                     fName: query[i].get("filename"),
                     url_link: query[i].get("url"),
+                    remaining: this.remaining_days,
                 })
 
                 console.log(query[i].get("url"));
+                if(this.newdate === query[i].get("date")){
+                    this.today_req_id = query[i].id;
+                    console.log(this.today_req_id);
+                    this.reject_id = true;
+                }
+            }
+
+            if(this.reject_id === true){
+                const Request = Parse.Object.extend("Request");
+                const query = new Parse.Query(Request);
+
+                query.equalTo("objectId", this.today_req_id);
+                const reqQuery = await query.first();
+
+                reqQuery.set("status", "Unavailable");
+                reqQuery.set("remarks", "Final");
+
+                reqQuery.save().then((reqQuery) => {
+                    console.log("Successful", reqQuery);
+                    this.edit_page = false;
+                });
             }
         }
 

@@ -121,18 +121,14 @@ export default{
     },
 
     mounted: async function(){
-        try{
-            gapi.load("client:auth2", function () {
-                gapi.auth2.getAuthInstance();
-            });
+        gapi.load("client:auth2", function () {
+            gapi.auth2.getAuthInstance();
+        });
 
-            const googleUser = gapi.auth2.getAuthInstance();
-            console.log(googleUser);
+        const googleUser = gapi.auth2.getAuthInstance();
+        console.log(googleUser);
 
-            if(!googleUser){
-                this.$router.push({name: 'Login'});
-            }
-        } catch(error){
+        if(!googleUser){
             this.$router.push({name: 'Login'});
         }
 
@@ -141,12 +137,18 @@ export default{
         var day = dateObj.getUTCDate();
         var year = dateObj.getUTCFullYear();
 
+        if(day <= 9){
+            var new_day = day.toString().padStart(2, '0');
+        } else {
+            new_day = day.toString();
+        }
+
         const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
             "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
         ];
 
-        this.newdate = " " + monthNames[month - 1] + " " + day + " " + year;
-        this.file_date = monthNames[month - 1] + "-" + day + "-" + year;
+        this.newdate = " " + monthNames[month - 1] + " " + new_day + " " + year;
+        this.file_date = monthNames[month - 1] + "-" + new_day + "-" + year;
         // const new_month = monthNames[month - 1];
         console.log(this.newdate);
         
