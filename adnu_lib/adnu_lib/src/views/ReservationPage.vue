@@ -105,11 +105,11 @@
                                     <div class="row g-3">
                                         <div class="form-group pb-2 col-sm">
                                             <label for="exampleInputPassword1" class="float-start">Starting Time</label>
-                                            <input v-model="time" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the time here">
+                                            <input v-model="time" type="text" class="form-control" id="exampleInputPassword1" placeholder="(E.g. 10:00am)">
                                         </div>
                                         <div class="form-group pb-2 col-sm">
                                                 <label for="exampleInputPassword1" class="float-start">Ending Time</label>
-                                                <input v-model="timeEnd" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the ending time here">
+                                                <input v-model="timeEnd" type="text" class="form-control" id="exampleInputPassword1" placeholder="(E.g. 2:00pm)">
                                         </div>
                                     </div>
                                     
@@ -511,29 +511,22 @@ export default{
     },
 
     mounted: async function(){
-        try{
-            gapi.load("client:auth2", function () {
-                gapi.auth2.getAuthInstance();
-            });
+        gapi.load("client:auth2", function () {
+            gapi.auth2.getAuthInstance();
+        });
 
-            const googleUser = gapi.auth2.getAuthInstance();
-            this.google_user = googleUser;
-            console.log(googleUser);
-            this.profileFullName = googleUser.currentUser.get().getBasicProfile().getName();
-            this.user_email = googleUser.currentUser.get().getBasicProfile().getEmail();
-            console.log(this.profileFullName);
+        const googleUser = gapi.auth2.getAuthInstance();
+        this.google_user = googleUser;
+        console.log(googleUser);
+        this.profileFullName = googleUser.currentUser.get().getBasicProfile().getName();
+        this.user_email = googleUser.currentUser.get().getBasicProfile().getEmail();
+        console.log(this.profileFullName);
+        this.gapiLoaded = true;
 
-            if(googleUser){
-                this.gapiLoaded = true;
-            } else {
-                this.$router.push({name: 'Login'});
-            }
-        } catch(error) {
-            console.log(error);
+        if(!googleUser) {
             this.$router.push({name: 'Login'});
         }
             
-
         const Equipments = Parse.Object.extend("Equipments");
         const equipments = new Parse.Query(Equipments);
         const equip = await equipments.find();

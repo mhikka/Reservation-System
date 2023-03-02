@@ -574,18 +574,14 @@ export default{
     },
 
     mounted: async function(){
-        try{
-            gapi.load("client:auth2", function () {
-                gapi.auth2.getAuthInstance();
-            });
+        gapi.load("client:auth2", function () {
+            gapi.auth2.getAuthInstance();
+        });
 
-            const googleUser = gapi.auth2.getAuthInstance();
-            console.log(googleUser);
+        const googleUser = gapi.auth2.getAuthInstance();
+        console.log(googleUser);
 
-            if(!googleUser){
-                this.$router.push({name: 'Login'});
-            }
-        } catch(error){
+        if(!googleUser){
             this.$router.push({name: 'Login'});
         }
 

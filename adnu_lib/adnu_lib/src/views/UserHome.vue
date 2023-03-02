@@ -38,7 +38,21 @@
                                         <div class="card" v-else-if="details.status === 'Pending'" @click="open_modal(details.id)">
                                             <div class="card-body rounded text-light pend">
                                                 <h4>{{details.status}}</h4>
-                                                {{details.venue}}
+                                                <div class="row justify-content-between">
+                                                    <div class="col-4">
+                                                        {{details.venue}}
+                                                    </div>
+                                                    <div class="col-4 text-warning float-end">
+                                                        <span>
+                                                            <small>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                                                                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                                                </svg>
+                                                                You have {{details.remaining}} day/s left to finalize the reservation
+                                                            </small>
+                                                        </span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -107,7 +121,7 @@
                                                     <h6>{{details.venue}}</h6>
                                                 </div>
                                                 <div class="col">   
-                                                    <h6>{{details.time}}</h6>
+                                                    <h6>{{details.time_s}} - {{details.time_e}}</h6>
                                                 </div>
                                             </div>
                                         </div>
@@ -147,7 +161,7 @@
                                                     <h6>{{details.venue}}</h6>
                                                 </div>
                                                 <div class="col">   
-                                                    <h6>{{details.time}}</h6>
+                                                    <h6>{{details.time_s}} - {{details.time_e}}</h6>
                                                 </div>
                                             </div>
                                         </div>
@@ -170,6 +184,13 @@
                                 <div class="card border border-none" v-if="details.status === 'Pending' && passed_id === details.id">
                                     <div class="card-body rounded text-light pend">
                                         <h4 class="fw-bold">{{details.status}} | Event date: {{details.date}}</h4>
+                                        <span class="text-warning">
+                                            <small>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                                                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                                </svg> You have {{details.remaining}} day/s left to finalize the reservation
+                                            </small>
+                                        </span>
                                         <div class="pt-3 text-start">
                                             <div class="row">
                                                 <div class="col">
@@ -187,7 +208,7 @@
                                                     <h6>{{details.venue}}</h6>
                                                 </div>
                                                 <div class="col">   
-                                                    <h6>{{details.time}}</h6>
+                                                    <h6>{{details.time_s}} - {{details.time_e}}</h6>
                                                 </div>
                                             </div>
                                         </div>
@@ -443,6 +464,13 @@ export default{
             request_loaded: false,
 
             newdate: '',
+            pending_arr: [],
+            file_date: '',
+
+            three_day: '',
+            remaining_days: '',
+            id_holder: '',
+            new_arr: [],
         }
     },
     methods: {
@@ -486,9 +514,12 @@ export default{
         },
 
         close_modal(){
-            this.pop = false;
             this.passed_id = '';
-            this.fetched_val = [];
+            this.fetched_val.new_arr = [];
+            this.merged_arr.new_arr = [];
+            console.log(this.merged_arr);
+            this.identifier = false;
+            this.pop = false;
         },
 
         editPage(id){
@@ -612,25 +643,20 @@ export default{
     },
 
     mounted: async function(){
-        try{
-            gapi.load("client:auth2", function () {
-                gapi.auth2.getAuthInstance();
-            });
+        gapi.load("client:auth2", function () {
+            gapi.auth2.getAuthInstance();
+        });
 
-            const googleUser = gapi.auth2.getAuthInstance();
-            this.google_user = googleUser;
-            console.log(googleUser);
-            this.profileFullName = googleUser.currentUser.get().getBasicProfile().getName();
-            this.user_email = googleUser.currentUser.get().getBasicProfile().getEmail();
-            console.log(this.profileFullName);
+        const googleUser = gapi.auth2.getAuthInstance();
+        this.google_user = googleUser;
+        console.log(googleUser);
+        this.profileFullName = googleUser.currentUser.get().getBasicProfile().getName();
+        this.user_email = googleUser.currentUser.get().getBasicProfile().getEmail();
+        console.log(this.profileFullName);
 
-            if(googleUser){
-                this.gapiLoaded = true;
-            } else {
-                this.$router.push({name: 'Login'});
-            }
-        } catch(error) {
-            console.log(error);
+        this.gapiLoaded = true;
+
+        if(!googleUser) {
             this.$router.push({name: 'Login'});
         }
 
@@ -639,7 +665,30 @@ export default{
         const query = await request.find();
 
         for(let i = 0; i < query.length; i++){
-            if(this.profileFullName === query[i].get("full_name")){
+            var dateObj = new Date();
+            var month = dateObj.getUTCMonth() + 1; //months from 1-12
+            var day = dateObj.getUTCDate();
+            var year = dateObj.getUTCFullYear();
+            if(this.profileFullName === query[i].get("full_name") && year === query[i].get("year")){
+                if(day <= 9){
+                    var new_day = day.toString().padStart(2, '0');
+                } else {
+                    new_day = day.toString();
+                }
+
+                const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                ];
+                this.newdate = " " + monthNames[month - 1] + " " + new_day + " " + year;
+                this.file_date = year + "-" + new_day + "-" + month;
+                var t_day = new Date(this.newdate);
+                var b_day = new Date(query[i].get("date"));
+
+                var diff = Math.abs(t_day.getTime() - b_day.getTime());
+                var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                console.log(days);
+                this.remaining_days = days;
+
                 this.request_arr.push({
                     id: query[i].id,
                     date: query[i].get("date"),
@@ -659,10 +708,56 @@ export default{
                     semester: query[i].get("semester"),
                     fName: query[i].get("filename"),
                     url_link: query[i].get("url"),
+                    month: query[i].get("month"),
+                    remaining: this.remaining_days,
                 })
                 this.request_loaded = true;
             }
         }
+
+        // var dateObj = new Date();
+        // var month = dateObj.getUTCMonth() + 1; //months from 1-12
+        // var day = dateObj.getUTCDate();
+        // var year = dateObj.getUTCFullYear();
+
+        // if(day <= 9){
+        //     var new_day = day.toString().padStart(2, '0');
+        // } else {
+        //     new_day = day.toString();
+        // }
+        // // console.log(new_day);
+
+        // const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        //     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        // ];
+
+        // // const monthNames_full = ["January", "February", "March", "April", "May", "June",
+        // //     "July", "August", "September", "October", "November", "December"
+        // // ];
+
+        // this.newdate = " " + monthNames[month - 1] + " " + new_day + " " + year;
+        // this.file_date = year + "-" + new_day + "-" + month;
+        // console.log(this.newdate);
+        // for(let x = 0; x < this.request_arr.length; x++){
+        //     if(this.request_arr[x].status === 'Pending'){
+        //         var t_day = new Date(this.newdate);
+        //         var b_day = new Date(this.request_arr[x].date);
+
+        //         var diff = Math.abs(t_day.getTime() - b_day.getTime());
+        //         var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        //         console.log(days);
+        //         this.remaining_days = days;
+        //         console.log(this.request_arr[x].id);
+        //         if(days <= 7){
+        //             this.id_holder = this.request_arr[x].id;
+        //             this.pending_arr.push({
+        //                 status: this.request_arr[x].status,
+        //                 venue: this.request_arr[x].venue,
+        //                 remaining_date: this.remaining_days,
+        //             })
+        //         }
+        //     }
+        // }
 
         const Equipments = Parse.Object.extend("Equipments");
         const equipments = new Parse.Query(Equipments);
