@@ -585,28 +585,38 @@ export default{
             this.$router.push({name: 'Login'});
         }
 
+        var dateObj = new Date();
+        var month = dateObj.getUTCMonth() + 1;
+        var year = dateObj.getUTCFullYear();
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
         const Request = Parse.Object.extend("Request");
         const request = new Parse.Query(Request);
         const query = await request.find();
 
         for(let i = 0; i < query.length; i++){
-            this.request_arr.push({
-                id: query[i].id,
-                date: query[i].get("date"),
-                fullName: query[i].get("full_name"),
-                email: query[i].get("email"),
-                mobile_number: query[i].get("mobile_number"),
-                time: query[i].get("time"),
-                orgDept: query[i].get("org_dept"),
-                org: query[i].get("org"),
-                dept: query[i].get("dept"),
-                venue: query[i].get("venue"),
-                desc: query[i].get("description"),
-                equipments: query[i].get("equipments"),
-                status: query[i].get("status"),
-                remarks: query[i].get("remarks"),
-                semester: query[i].get("semester"),
-            })
+            var new_month = monthNames[month - 1];
+            if(query[i].get("month") === new_month && query[i].get("year") === year){
+                this.request_arr.push({
+                    id: query[i].id,
+                    date: query[i].get("date"),
+                    fullName: query[i].get("full_name"),
+                    email: query[i].get("email"),
+                    mobile_number: query[i].get("mobile_number"),
+                    time: query[i].get("time"),
+                    orgDept: query[i].get("org_dept"),
+                    org: query[i].get("org"),
+                    dept: query[i].get("dept"),
+                    venue: query[i].get("venue"),
+                    desc: query[i].get("description"),
+                    equipments: query[i].get("equipments"),
+                    status: query[i].get("status"),
+                    remarks: query[i].get("remarks"),
+                    semester: query[i].get("semester"),
+                })
+            }
 
             this.reports_arr.push([query[i].get("date"), query[i].get("full_name"), 
             query[i].get("email"), query[i].get("mobile_number"), query[i].get("time_start") + " - " + query[i].get("time_end"), 
