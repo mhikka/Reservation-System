@@ -142,6 +142,12 @@
                         <a href="mailto:adnulibrary@gbox.adnu.edu.ph" class="text-dark" style="text-decoration: none;">
                             Contact ADNU Library for more information
                         </a>
+                        <br>
+                        <div class="pt-3">
+                            <small class="text-warning">
+                                <p class="fw-bold">Note:</p> VenueGo doesn't work on Incognito Mode
+                            </small>
+                        </div>
                     </h6>
                 </div>
             </div>
