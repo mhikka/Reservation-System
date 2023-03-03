@@ -158,24 +158,26 @@ export default{
 
         for(let i = 0; i < query.length; i++){
             if(this.newdate === query[i].get("date") && query[i].get("remarks") === 'Final'){
-                this.request_arr.push({
-                    id: query[i].id,
-                    date: query[i].get("date"),
-                    fullName: query[i].get("full_name"),
-                    email: query[i].get("email"),
-                    mobile_number: query[i].get("mobile_number"),
-                    time_s: query[i].get("time_start"),
-                    time_e: query[i].get("time_end"),
-                    orgDept: query[i].get("org_dept"),
-                    org: query[i].get("org"),
-                    dept: query[i].get("dept"),
-                    venue: query[i].get("venue"),
-                    desc: query[i].get("description"),
-                    equipments: query[i].get("equipments"),
-                    status: query[i].get("status"),
-                    remarks: query[i].get("remarks"),
-                    semester: query[i].get("semester"),
-                })
+                if(query[i].get("status") === "Approved"){
+                    this.request_arr.push({
+                        id: query[i].id,
+                        date: query[i].get("date"),
+                        fullName: query[i].get("full_name"),
+                        email: query[i].get("email"),
+                        mobile_number: query[i].get("mobile_number"),
+                        time_s: query[i].get("time_start"),
+                        time_e: query[i].get("time_end"),
+                        orgDept: query[i].get("org_dept"),
+                        org: query[i].get("org"),
+                        dept: query[i].get("dept"),
+                        venue: query[i].get("venue"),
+                        desc: query[i].get("description"),
+                        equipments: query[i].get("equipments"),
+                        status: query[i].get("status"),
+                        remarks: query[i].get("remarks"),
+                        semester: query[i].get("semester"),
+                    })
+                }
             }
 
             this.reports_arr.push([query[i].get("date"), query[i].get("full_name"), 
