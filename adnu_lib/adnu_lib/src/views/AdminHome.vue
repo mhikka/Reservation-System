@@ -265,16 +265,16 @@ export default{
     data(){
         return{
             pop: false,
-            fullName:"John Doe",
-            email:"jdoe@gbox.adnu.edu.ph",
-            mobileNumber:"09123456789",
-            date: "January 18, 2023",
-            time: "11:00AM-1:30PM",
-            org: "TACTICS",
-            equipments: "Microphone- 2pcs, Speaker- 3pcs...",
-            venue: "Richie Fernando Hall",
-            description: "Lorem ipsum dolor sit amet, consectetur...",
-            relatedDoc: "Lorem ipsum dolor sit amet.pdf", 
+            // fullName:"John Doe",
+            // email:"jdoe@gbox.adnu.edu.ph",
+            // mobileNumber:"09123456789",
+            // date: "January 18, 2023",
+            // time: "11:00AM-1:30PM",
+            // org: "TACTICS",
+            // equipments: "Microphone- 2pcs, Speaker- 3pcs...",
+            // venue: "Richie Fernando Hall",
+            // description: "Lorem ipsum dolor sit amet, consectetur...",
+            // relatedDoc: "Lorem ipsum dolor sit amet.pdf", 
             next_page: false,
             next_page_1: false,
 
@@ -292,6 +292,56 @@ export default{
             reject_id: false,
 
             remaining_days: '',
+        }
+    },
+
+    async beforeCreate(){
+        var dateObj = new Date();
+        var month = dateObj.getUTCMonth() + 1; //months from 1-12
+        var day = dateObj.getUTCDate();
+        var year = dateObj.getUTCFullYear();
+
+        if(day <= 9){
+            var new_day = day.toString().padStart(2, '0');
+        } else {
+            new_day = day.toString();
+        }
+        // console.log(new_day);
+
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        ];
+
+        this.newdate = " " + monthNames[month - 1] + " " + new_day + " " + year;
+
+        const Request = Parse.Object.extend("Request");
+        const request = new Parse.Query(Request);
+        const query = await request.find();
+
+        for(let i = 0; i < query.length; i++){
+            if(query[i].get("status") === 'Pending'){
+                if(this.newdate === query[i].get("date")){
+                    this.today_req_id = query[i].id;
+                    console.log(this.today_req_id);
+                    this.reject_id = true;
+                }
+            }
+
+            if(this.reject_id === true){
+                const Request = Parse.Object.extend("Request");
+                const query = new Parse.Query(Request);
+
+                query.equalTo("objectId", this.today_req_id);
+                const reqQuery = await query.first();
+
+                reqQuery.set("status", "Unavailable");
+                reqQuery.set("remarks", "Final");
+
+                reqQuery.save().then((reqQuery) => {
+                    console.log("Successful", reqQuery);
+                    this.edit_page = false;
+                });
+            }
         }
     },
 
@@ -366,28 +416,28 @@ export default{
                 })
 
                 console.log(query[i].get("url"));
-                if(this.newdate === query[i].get("date")){
-                    this.today_req_id = query[i].id;
-                    console.log(this.today_req_id);
-                    this.reject_id = true;
-                }
+                // if(this.newdate === query[i].get("date")){
+                //     this.today_req_id = query[i].id;
+                //     console.log(this.today_req_id);
+                //     this.reject_id = true;
+                // }
             }
 
-            if(this.reject_id === true){
-                const Request = Parse.Object.extend("Request");
-                const query = new Parse.Query(Request);
+            // if(this.reject_id === true){
+            //     const Request = Parse.Object.extend("Request");
+            //     const query = new Parse.Query(Request);
 
-                query.equalTo("objectId", this.today_req_id);
-                const reqQuery = await query.first();
+            //     query.equalTo("objectId", this.today_req_id);
+            //     const reqQuery = await query.first();
 
-                reqQuery.set("status", "Unavailable");
-                reqQuery.set("remarks", "Final");
+            //     reqQuery.set("status", "Unavailable");
+            //     reqQuery.set("remarks", "Final");
 
-                reqQuery.save().then((reqQuery) => {
-                    console.log("Successful", reqQuery);
-                    this.edit_page = false;
-                });
-            }
+            //     reqQuery.save().then((reqQuery) => {
+            //         console.log("Successful", reqQuery);
+            //         this.edit_page = false;
+            //     });
+            // }
         }
 
         this.len_request_arr = this.request_arr.length;

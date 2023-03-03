@@ -18,13 +18,29 @@
                 <div @click="check" v-if="gapiLoaded === true">
                     <!-- <ejs-schedule height="575px" currentView="Month" v-model:selectedDate="schedulerSelectedDate" id="calendar">
                     </ejs-schedule> -->
-                    <VueCal @time="handleTime" @date="handleEvent" ref="vuecal" />  
-                    <div class="mt-3">
+                    <div class="scrollable">
+                        <VueCal @time="handleTime" @date="handleEvent" ref="vuecal" />  
+                    <!-- <div class="mt-3">
                         Number of dates selected: {{ length_ofArr }}
                         <button type="button" class="ms-2 mb-1 btn btn-secondary" @click="resetArr">Reset</button>
-                    </div> 
-                    
-                    
+                    </div>  -->
+                        <div v-if="show_selected_popup === true">
+                            <div class="pt-2 pb-2 pe-2">
+                                <div class="card mw-auto border-warning">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <h6 class="card-text pt-2">Number of dates selected: {{ length_ofArr }}</h6>
+                                            </div>
+                                            <div class="col-sm-4 float-end">
+                                                <button type="button" class="btn btn-outline-danger" @click="resetArr">Reset</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <div v-else>
@@ -276,6 +292,8 @@ export default{
 
             arr_holder: [],
             arr_empty: false,
+
+            show_selected_popup: false,
         }
     },
 
@@ -301,6 +319,7 @@ export default{
             // this.length_ofArr = this.tempArr.length;
             this.sliced_holder2 = [];
             this.length_ofArr -= this.length_ofArr;
+            this.show_selected_popup = false;
 
         },
 
@@ -320,6 +339,9 @@ export default{
             console.log(this.tempArr);
             this.open_modal = true;
             this.length_ofArr = this.tempArr.length;
+            if(this.length_ofArr >= 1){
+                this.show_selected_popup = true;
+            }
             // this.flag = 1;
         },
 
@@ -560,5 +582,10 @@ export default{
 }
 </script>
 
-<style>    
+<style scoped>
+.scrollable{
+  overflow-y: auto;
+  max-height: 580px;
+}
+
 </style>
