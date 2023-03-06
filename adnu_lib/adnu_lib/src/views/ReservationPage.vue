@@ -18,7 +18,30 @@
                 <div @click="check" v-if="gapiLoaded === true">
                     <!-- <ejs-schedule height="575px" currentView="Month" v-model:selectedDate="schedulerSelectedDate" id="calendar">
                     </ejs-schedule> -->
-                    <VueCal />
+                    <div class="scrollable">
+                        <VueCal @time="handleTime" @date="handleEvent" ref="vuecal" />  
+                    <!-- <div class="mt-3">
+                        Number of dates selected: {{ length_ofArr }}
+                        <button type="button" class="ms-2 mb-1 btn btn-secondary" @click="resetArr">Reset</button>
+                    </div>  -->
+                        <div v-if="show_selected_popup === true">
+                            <div class="pt-2 pb-2 pe-2">
+                                <div class="card mw-auto border-warning">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <h6 class="card-text pt-2">Number of dates selected: {{ length_ofArr }}</h6>
+                                            </div>
+                                            <div class="col-sm-4 float-end">
+                                                <button type="button" class="btn btn-outline-danger" @click="resetArr">Reset</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div v-else>
                     <div class="float-start">
@@ -37,7 +60,7 @@
         </div>
     </footer>
 
-    <div v-if="open_modal === true">
+    <div v-if="open_modal === true && time != ''">
         <AdminModal>
             <div class="card">
                 <div class="card-header">
@@ -59,7 +82,7 @@
                                     </button>
                                 </div>
                                 <div class="col-4 pt-2">
-                                    <h6 class="fw-bold">{{picked_date}}</h6>
+                                    <h6 class="fw-bold">{{dateToday}}</h6>
                                     <hr stlye="background-color: black">
                                 </div>
                                 <div class="col-4">
@@ -99,20 +122,35 @@
                                 <form>
                                     <h5 class="fw-bolder d-flex justify-content-start pb-3">Reservation Details</h5>
                                     <div class="form-group pb-2">
-                                        <label for="exampleInputEmail1" class="float-start">Date</label>
-                                        <input v-model="date" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter the date here">
+                                        <label for="exampleInputEmail1" class="float-start">Date/s</label>
+                                        <input v-model="tempArr" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter the date here">
+                                    </div>
+                                    <div class="row g-3">
+                                        <div class="form-group pb-2 col-sm">
+                                            <label for="exampleInputPassword1" class="float-start">Starting Time</label>
+                                            <input v-model="time" type="text" class="form-control" id="exampleInputPassword1" placeholder="(E.g. 10:00am)">
+                                        </div>
+                                        <div class="form-group pb-2 col-sm">
+                                                <label for="exampleInputPassword1" class="float-start">Ending Time</label>
+                                                <input v-model="timeEnd" type="text" class="form-control" id="exampleInputPassword1" placeholder="(E.g. 2:00pm)">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group pb-2">
+                                        <label for="exampleInputPassword1" class="float-start">Organization</label>
+                                        <input v-model="org" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your organization here">
                                     </div>
                                     <div class="form-group pb-2">
-                                        <label for="exampleInputPassword1" class="float-start">Time</label>
-                                        <input v-model="time" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the time here (E.g. 1:00 AM - 2:00 PM)">
-                                    </div>
-                                    <div class="form-group pb-2">
-                                        <label for="exampleInputPassword1" class="float-start">Organization/Department</label>
-                                        <input v-model="org_dept" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your organization/department here">
+                                        <label for="exampleInputPassword1" class="float-start">Department</label>
+                                        <input v-model="dept" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your department here">
                                     </div>
                                     <div class="form-group pb-3">
                                         <label for="exampleInputPassword1" class="float-start">Description</label>
                                         <input v-model="desc" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter description of your event here">
+                                    </div>
+                                    <div class="form-group pb-3">
+                                        <label for="exampleInputPassword1" class="float-start">Academic Year</label>
+                                        <input v-model="acad_year" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the academic year (E.g. 2023-2024)">
                                     </div>
                                     <div class="form-group pb-5 m-50">
                                         <label for="exampleInputPassword1" class="float-start me-3">Venue</label>
@@ -167,10 +205,10 @@
                             <div class="col d-flex justify-content-start fw-bold pb-2 pt-3">
                                 <label for="formGroupExampleInput">Related Documents</label>
                             </div>
-                            <input class="form-control" type="file" id="formFileDisabled">
+                            <input class="form-control" type="file" id="FileUpload">
 
                             <div class="pt-5">
-                                <button class="btn btn-primary float-start" type="submit" @click="setAppointment">
+                                <button class="btn btn-primary float-start" type="submit" @click="setAppointment();">
                                     Set Appointment
                                 </button>
                             </div>
@@ -188,6 +226,7 @@ import AdminModal from "@/components/AdminModal.vue";
 import SidePanelUser from "@/components/SidePanelUser.vue";
 import VueCal from "@/components/VueCal.vue"
 import Parse from 'parse';
+import $ from 'jquery';
 
 const gapi = window.gapi;
 export default{
@@ -209,7 +248,8 @@ export default{
             user_email: '',
             mobile_number: '',
             time: '',
-            org_dept: '',
+            org: '',
+            dept: '',
             venue: '',
             desc: '',
             isOpen: false,
@@ -217,6 +257,17 @@ export default{
             date_slicer: '',
             next_page_1: false,
             profileFullName: '',
+
+            timeHolder: '',
+            endTime: '',
+            dateToday: new Date(),
+            sliced_holder2: [],
+            finalDate: [],
+            time2: '',
+            concatTime: '',
+            timeEnd: '',
+            tempArr: [],
+            length_ofArr: 0,
 
             sample_placeholder: "",
 
@@ -234,6 +285,15 @@ export default{
 
             semester: '',
             remarks: '',
+            newdate: '',
+
+            acad_year: '',
+            timeStart: '',
+
+            arr_holder: [],
+            arr_empty: false,
+
+            show_selected_popup: false,
         }
     },
 
@@ -242,14 +302,60 @@ export default{
             // console.log("Selected date:",this.schedulerSelectedDate);
             // let date_holder = this.schedulerSelectedDate;
             // console.log(date_holder);
-            if(this.schedulerSelectedDate != null){
-                this.open_modal = true;
-                this.sliced_holder = String(this.schedulerSelectedDate).slice(0, 15);
-                console.log(this.sliced_holder);
-                this.picked_date = this.sliced_holder;
-                this.date_slicer = String(this.schedulerSelectedDate).slice(3, 15);
-                this.date = this.date_slicer;
+            // if(this.schedulerSelectedDate != null){
+            //     this.open_modal = true;
+            //     this.sliced_holder = String(this.schedulerSelectedDate).slice(0, 15);
+            //     console.log(this.sliced_holder);
+            //     this.picked_date = this.sliced_holder;
+            //     this.date_slicer = String(this.schedulerSelectedDate).slice(3, 15);
+            //     this.date = this.date_slicer;
+            // }
+            console.log(this.schedulerSelectedDate);
+        },
+
+        resetArr(){
+            // this.tempArr.splice(0, this.tempArr.length);
+            // this.tempArr.length -= this.length_ofArr;
+            // this.length_ofArr = this.tempArr.length;
+            this.sliced_holder2 = [];
+            this.length_ofArr -= this.length_ofArr;
+            this.show_selected_popup = false;
+
+        },
+
+        handleEvent(evenData) {
+            this.schedulerSelectedDate = evenData.schedulerSelectedDate;
+            let values = Object.values(evenData);
+            // console.log(values);
+            // this.sliced_holder2 = String(values).slice(0, 15);
+            this.dateToday = String(this.dateToday).slice(0, 15);
+            // this.sliced_holder2.push({
+            //     date: this.finalDate
+            // })
+            // this.tempArr = this.sliced_holder2
+            this.sliced_holder2.push(String(values).slice(3, 15));
+            this.tempArr = [...new Set(this.sliced_holder2)];
+            console.log(this.dateToday);
+            console.log(this.tempArr);
+            this.open_modal = true;
+            this.length_ofArr = this.tempArr.length;
+            if(this.length_ofArr >= 1){
+                this.show_selected_popup = true;
             }
+            // this.flag = 1;
+        },
+
+        handleTime(t) {
+            this.time2 = t.time2;
+            let values = Object.values(t);
+            this.time = String(values).slice(0, 7);
+            this.endTime = parseInt(this.timeHolder);
+            // console.log(this.concatTime);
+            // let finalEnd = this.endTime <= 10 ? String(this.endTime).slice(0, 3)+':' : String(this.endTime).slice(0, 2);
+            // this.concatTime = `${this.timeHolder} - ${finalEnd}`;
+            // console.log(finalEnd);
+            // console.log(this.concatTime);
+            console.log(this.timeHolder);
         },
 
         nextPage(){
@@ -262,11 +368,25 @@ export default{
             console.log("Email: ", this.user_email);
             console.log("Mobile Number: ", this.mobile_number);
             console.log("Time: ", this.time);
-            console.log("Org/Dept: ", this.org_dept);
+            console.log("Org: ", this.org);
+            console.log("Dept: ", this.dept);
             console.log("Venue: ", this.venue);
             console.log("Description: ", this.desc);
             console.log("Semester: ", this.semester);
             console.log("Remarks: ", this.remarks);
+
+            var dateObj = new Date();
+            var month = dateObj.getUTCMonth() + 1; //months from 1-12
+            var day = dateObj.getUTCDate();
+            var year = dateObj.getUTCFullYear();
+
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            this.newdate = monthNames[month - 1] + " " + day + ", " + year;
+            const new_month = monthNames[month - 1];
+            console.log(this.newdate);
 
             let i_q = document.querySelectorAll('[id="input_q"]');
             const q_i = [...i_q].map(input => input.value);
@@ -275,29 +395,119 @@ export default{
                 this.equipment_list.push(parseInt(q_i[i]));
             }
 
-            // const equip_obj = JSON.stringify(this.equipment_list);
-            const Request = Parse.Object.extend("Request");
-            // for(let i = 0; i < q_i.length; i++){
-                const request = new Request();
+            const equip_obj = JSON.stringify(this.equipment_list);
+            
 
-                request.set("date", this.date);
-                request.set("full_name", this.profileFullName);
-                request.set("email", this.user_email);
-                request.set("mobile_number", this.mobile_number);
-                request.set("time", this.time);
-                request.set("org_dept", this.org_dept);
-                request.set("venue", this.venue);
-                request.set("semester", this.semester);
-                request.set("remarks", this.remarks);
-                request.set("description", this.desc);
-                request.set("equipments", this.equipment_list);
-                request.set("status", "Pending");
+            if (this.tempArr.length > 1) {
+                for (let i = 0; i < this.tempArr.length; i++) {
+                    const fileUploadControl = $("#FileUpload")[0];
+                    console.log(fileUploadControl);
+                    if (fileUploadControl.files.length > 0) {
+                        const file = fileUploadControl.files[0];
+                        const name = file.name;
+                        console.log("Upload: ", name);
 
-                request.save().then((request) => {
-                    console.log("Success", request);
-                    this.open_modal = false;
-                });
-            // }
+                        const parseFile = new Parse.File(name, file);
+                        parseFile.save().then((parseFile) => {
+                            const Request = Parse.Object.extend("Request");
+                            const request = new Request();
+
+                            request.set("date", this.tempArr[i]);
+                            request.set("full_name", this.profileFullName);
+                            request.set("email", this.user_email);
+                            request.set("mobile_number", this.mobile_number);
+                            request.set("time_start", this.time);
+                            request.set("time_end", this.timeEnd);
+                            request.set("org", this.org);
+                            request.set("dept", this.dept);
+                            request.set("venue", this.venue);
+                            request.set("semester", this.semester);
+                            request.set("academic_year", this.acad_year);
+                            request.set("remarks", this.remarks);
+                            request.set("description", this.desc);
+                            request.set("filename", name);
+                            request.set("equipments", equip_obj);
+                            request.set("filUploaded", parseFile);
+                            request.set("url", parseFile._url);
+                            request.set("status", "Pending");
+                            request.set("month", new_month);
+                            request.set("day", day);
+                            request.set("year", year);
+
+                            request.save().then((request) => {
+                                console.log("Success", request);
+                                this.open_modal = false;
+                                this.date = '';
+                                this.mobile_number = '';
+                                this.time = '';
+                                this.org = '';
+                                this.dept = '';
+                                this.venue = '';
+                                this.semester = '';
+                                this.remarks = '';
+                                this.desc = '';
+                                return request.save();
+                            });
+                        })
+                    }
+                } //End of loop
+            }
+            else{
+                for (let i = 0; i < this.tempArr.length; i++){
+                    const fileUploadControl = $("#FileUpload")[0];
+                    console.log(fileUploadControl);
+                    if (fileUploadControl.files.length > 0) {
+                        const file = fileUploadControl.files[0];
+                        const name = file.name;
+                        console.log("Upload: ", name);
+
+                        const parseFile = new Parse.File(name, file);
+                        parseFile.save().then((parseFile) => {
+                            const Request = Parse.Object.extend("Request");
+                            const request = new Request();
+
+                            request.set("date", this.tempArr[i]);
+                            request.set("full_name", this.profileFullName);
+                            request.set("email", this.user_email);
+                            request.set("mobile_number", this.mobile_number);
+                            request.set("time_start", this.time);
+                            request.set("time_end", this.timeEnd);
+                            request.set("org", this.org);
+                            request.set("dept", this.dept);
+                            request.set("venue", this.venue);
+                            request.set("semester", this.semester);
+                            request.set("academic_year", this.acad_year);
+                            request.set("remarks", this.remarks);
+                            request.set("description", this.desc);
+                            request.set("filename", name);
+                            request.set("equipments", equip_obj);
+                            request.set("filUploaded", parseFile);
+                            request.set("url", parseFile._url);
+                            request.set("status", "Pending");
+                            request.set("month", new_month);
+                            request.set("day", day);
+                            request.set("year", year);
+
+                            request.save().then((request) => {
+                                console.log("Success", request);
+                                this.open_modal = false;
+                                this.date = '';
+                                this.mobile_number = '';
+                                this.time = '';
+                                this.org = '';
+                                this.dept = '';
+                                this.venue = '';
+                                this.semester = '';
+                                this.remarks = '';
+                                this.desc = '';
+                                return request.save();
+                            });
+                        })
+                    }
+                }
+            }
+        // this.close_modal();
+        this.$router.go(-2);
         },
 
         nextPage_1(){
@@ -316,6 +526,20 @@ export default{
         close_modal(){
             this.open_modal = false;
             this.next_page = false;
+            this.date = '';
+            // this.mobile_number = '';
+            this.time = '';
+            this.org = '';
+            this.dept = '';
+            this.venue = '';
+            this.semester = '';
+            this.remarks = '';
+            this.desc = '';
+            this.timeStart = '';
+            this.timeEnd = '';
+            this.timeHolder = '';
+            this.tempArr = [];
+            console.log(this.tempArr);
         },
 
         reservationPage(){
@@ -328,26 +552,22 @@ export default{
     },
 
     mounted: async function(){
-        try{
-            gapi.load("client:auth2", function () {
-                gapi.auth2.getAuthInstance();
-            });
+        gapi.load("client:auth2", function () {
+            gapi.auth2.getAuthInstance();
+        });
 
-            const googleUser = gapi.auth2.getAuthInstance();
-            this.google_user = googleUser;
-            console.log(googleUser);
-            this.profileFullName = googleUser.currentUser.get().getBasicProfile().getName();
-            this.user_email = googleUser.currentUser.get().getBasicProfile().getEmail();
-            console.log(this.profileFullName);
+        const googleUser = gapi.auth2.getAuthInstance();
+        this.google_user = googleUser;
+        console.log(googleUser);
+        this.profileFullName = googleUser.currentUser.get().getBasicProfile().getName();
+        this.user_email = googleUser.currentUser.get().getBasicProfile().getEmail();
+        console.log(this.profileFullName);
+        this.gapiLoaded = true;
 
-            if(googleUser){
-                this.gapiLoaded = true;
-            }
-        } catch(error) {
-            console.log(error);
+        if(!googleUser) {
+            this.$router.push({name: 'Login'});
         }
             
-
         const Equipments = Parse.Object.extend("Equipments");
         const equipments = new Parse.Query(Equipments);
         const equip = await equipments.find();
@@ -362,5 +582,10 @@ export default{
 }
 </script>
 
-<style>    
+<style scoped>
+.scrollable{
+  overflow-y: auto;
+  max-height: 580px;
+}
+
 </style>
