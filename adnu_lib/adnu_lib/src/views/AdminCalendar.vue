@@ -29,11 +29,12 @@
                                 <div class="card mw-auto border-warning">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-8">
+                                            <div class="col">
                                                 <h6 class="card-text pt-2">Number of dates selected: {{ length_ofArr }}</h6>
                                             </div>
-                                            <div class="col-sm-4 float-end">
-                                                <button type="button" class="btn btn-outline-danger" @click="resetArr">Reset</button>
+                                            <div class="col-auto">
+                                                <button type="button" class="btn btn-outline-danger" @click="resetArr">Reset</button> &nbsp;
+                                                <button type="button" class="btn btn-primary" @click="undoArr">Undo</button>
                                             </div>
                                         </div>
                                     </div>
@@ -305,6 +306,35 @@ export default{
             this.show_selected_popup = false;
         },
 
+        undoArr(){
+            console.log(this.tempArr);
+            // this.tempArr.pop();
+            const new_val = this.tempArr.pop(); 3
+            console.log(new_val);
+
+            for(let i = 0; i < this.sliced_holder2.length; i++){
+                // console.log(new_val === this.sliced_holder2[i]);
+                if(this.sliced_holder2[i].includes(this.sliced_holder2[i])) {
+                    console.log("Duplicates!");
+                }
+
+                if(new_val === this.sliced_holder2[i]){
+                    let indexToRemove = this.sliced_holder2.indexOf(new_val);
+                    if(indexToRemove !== -1){
+                        this.sliced_holder2.splice(indexToRemove, 1);
+                        console.log(this.sliced_holder2);
+                    }
+                } else {
+                    console.log("not working!");
+                }
+            }
+
+            this.length_ofArr = this.tempArr.length;
+            if(this.length_ofArr === 0){
+                this.resetArr();
+            }
+        },
+
         handleEvent(evenData) {
             this.schedulerSelectedDate = evenData.schedulerSelectedDate;
             let values = Object.values(evenData);
@@ -329,9 +359,9 @@ export default{
             this.time = String(values).slice(0, 7);
             // this.endTime = String(this.timeHolder).slice(0, 3);
             // this.concatTime = `${this.timeHolder} - ${this.endTime}`;
-            console.log(this.concatTime);
-            console.log(this.endTime);
-            console.log(this.time);
+            // console.log(this.concatTime);
+            // console.log(this.endTime);
+            // console.log(this.time);
         },
         
         check(){
