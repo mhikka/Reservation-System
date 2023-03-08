@@ -86,7 +86,7 @@
     <footer class="page-footer fluid-bottom border-top border-secondary" style="background-color: #414141;">
         <div class="footer-copyright text-start py-3 text-light ms-2">
             © 2023 Copyright:
-            <a href="/" class="text-light"> Ateneo de Naga University</a>
+            <a href="#" class="text-light"> Ateneo de Naga University</a>
         </div>
     </footer>
 

@@ -63,7 +63,7 @@ export default {
     },
 
     mounted: async function () {
-        console.log(this.events)
+        console.log(this.events);
     },
 
 }

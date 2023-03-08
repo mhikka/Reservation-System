@@ -233,7 +233,11 @@ export default{
         }
     },
 
-    mounted: async function(){
+    // mounted: async function(){
+    //     this.$router.go(-1);
+    // },
+
+    beforeCreate(){
         this.$router.go(-1);
     },
 

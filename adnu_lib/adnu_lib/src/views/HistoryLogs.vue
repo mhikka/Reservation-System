@@ -33,9 +33,13 @@
                         <div class="card" style="height: auto;">
                             <div class="card-header text-start">
                                 Logs
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
-                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
-                                </svg>
+                                <lord-icon
+                                    src="https://cdn.lordicon.com/qmuwmmnl.json"
+                                    trigger="loop"
+                                    colors="primary:#121331"
+                                    state="loop"
+                                    style="width: 22px;height: 22px" class="pt-1">
+                                </lord-icon>
                             </div>
                             <div class="scrollable">
                                 <div class="text-start p-2">
@@ -64,7 +68,7 @@
     <footer class="page-footer fluid-bottom border-top border-secondary" style="background-color: #414141;">
         <div class="footer-copyright text-start py-3 text-light ms-2">
             © 2023 Copyright:
-            <a href="/" class="text-light"> Ateneo de Naga University</a>
+            <a href="#" class="text-light"> Ateneo de Naga University</a>
         </div>
     </footer>
 
@@ -150,6 +154,7 @@
                                                 <option value="" disabled selected>Select a Month</option>
                                                 <option value="January">January</option>
                                                 <option value="February"><small>February</small></option>
+                                                <option value="March"><small>March</small></option>
                                                 <option value="April"><small>April</small></option>
                                                 <option value="May"><small>May</small></option>
                                                 <option value="June"><small>June</small></option>
@@ -168,7 +173,16 @@
                                         </div>
                                         <div v-else>
                                             <div class="float-start">
-                                                <p class="text-danger text-start">Important note: All of the unfiltered reports will be generated when you click the generate button.</p>
+                                                <p class="text-danger text-start">
+                                                    <lord-icon
+                                                        src="https://cdn.lordicon.com/lfqzieho.json"
+                                                        trigger="loop"
+                                                        delay="2000"
+                                                        colors="primary:#dc3545"
+                                                        style="width: 18px;height: 18px" class="pt-1">
+                                                    </lord-icon> Important note: 
+                                                    All of the unfiltered reports will be generated when you click the generate button.
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -312,6 +326,8 @@ export default{
             this.generateResult();
         },
 
+        //create a new function then call that function on the mounted (Reason: this will prevent the system from throwing errors)
+        //the requested arrays for download should be loaded ASAP to avoid errors
         dl_venue(){
             const Request = Parse.Object.extend("Request");
             const request = new Parse.Query(Request);
@@ -325,7 +341,10 @@ export default{
                     obj.get("remarks"), obj.get("description"), obj.get("status"), obj.get("academic_year")],);
                 }
             });
-            this.venueReport();
+
+            if(this.venue_report.length != 0){
+                this.venueReport();
+            }
         },
 
         dl_semester(){
@@ -342,7 +361,10 @@ export default{
                     obj.get("remarks"), obj.get("description"), obj.get("status"), obj.get("academic_year")],);
                 }
             });
-            this.semesterReport();
+
+            if(this.semester_report.length != 0){
+                this.semesterReport();
+            }
         },
 
         dl_status(){
@@ -358,7 +380,10 @@ export default{
                     obj.get("remarks"), obj.get("description"), obj.get("status"), obj.get("academic_year")],);
                 }
             });
-            this.statusReport();
+
+            if(this.status_report.length != 0){
+                this.statusReport();
+            }
         },
 
         dl_month(){
@@ -383,7 +408,10 @@ export default{
                 });
 
                 console.log(this.month_year_report);
-                this.month_yearReport();
+                if(this.month_year_report.length != 0){
+                    this.month_yearReport();
+                }
+                
             } catch(error){
                 console.log(error);
             }
