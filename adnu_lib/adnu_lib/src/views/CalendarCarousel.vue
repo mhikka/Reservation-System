@@ -9,7 +9,7 @@
     <!-- Slides -->
     <div class="container-fluid m-0 p-0" style="bottom:0;left:0;right:0;height:1920px;width:1080px; overflow-y:hidden;">
       <div class="carousel-inner m-0 p-0">
-        <div v-for="(image, index) in images" :key="index" :class="['carousel-item', index === 0 ? 'active' : '']">
+        <div v-for="(image, index) in sample_arr_holder" :key="index" :class="['carousel-item', index === 0 ? 'active' : '']">
           <img :src="image.src" class="img-fluid d-block" style="width: 1080px; height: 1980px;" :alt="image.alt">
          <div class="caption" style="position: absolute; top: 2%; left:0%;">
             <img src="../assets/libraryLog.png" width="460" height="105" class="d-inline-block float-end" alt="">
@@ -21,22 +21,24 @@
                 </div>
                 <div class="container-fluid bg-light opacity-75" style="width: 1000px; height:1200px; margin-left:40px;border-radius:25px;">
                   <h1 class="pt-5 fw-bold" style="color:DarkBlue; font-size: 65px; font-family:Arial, Helvetica, sans-serif; margin:20px 50px; margin-top:40px;">{{ formattedDate }}</h1>
-                  <table  class="table" style="color:DarkBlue; font-size: 55px; font-family: Arial, Helvetica, sans-serif; margin-top:40px;">
-                    <div class= "text-start">
-                      <thead>
+                  <div class="table-responsive">
+                    <table  class="table" style="color:DarkBlue; font-size: 55px; font-family: Arial, Helvetica, sans-serif; margin-top:40px; width:100%">
+                      <div class= "text-start">
+                        <thead>
+                            <tr>
+                              <th scope="col" style="border-bottom: 3px solid grey;">Time</th>
+                              <th scope="col" class=" ps-4 text-start" style="border-left: 3px solid grey;border-bottom: 3px solid grey; width:70%;">Event</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-start p-2">
                           <tr>
-                            <th scope="col" style="border-bottom: 3px solid grey;width: 30%">Time</th>
-                            <th scope="col" class=" ps-4 text-start" style="border-left: 3px solid grey;border-bottom: 3px solid grey;width: 70%">Event</th>
+                            <td scope="row"> Start: {{ image.start_time }} <br> End: {{ image.end_time }} </td>
+                            <td class=" ps-4 text-start" style="border-left: 3px solid grey;"> {{ image.title }} </td>
                           </tr>
-                      </thead>
-                      <tbody class="text-start p-2">
-                        <tr>
-                          <td scope="row">{{ image.start }}</td>
-                          <td class=" ps-4 text-start" style="border-left: 3px solid grey;">{{ image.title }}</td>
-                        </tr>
-                      </tbody>
-                    </div>
-                  </table>
+                        </tbody>
+                      </div>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -58,6 +60,9 @@ export default {
       no_event: '',
       images: [],
       slideIndex: 0,
+
+      sample_arr_holder: [],
+      throw_flag: false,
     };
   },
   computed: {
@@ -96,7 +101,7 @@ export default {
         {
           src: require("../assets/image-2.png"),
           alt: "Image 4",
-          caption: "Multipurpose Room",
+          caption: "Library Multipurpose Room",
           description: "1st Floor, James J. O’Brien S.J. Library",
         },
         {
@@ -127,15 +132,34 @@ export default {
       if(this.newdate === query[i].get("date") && query[i].get("status") === 'Approved'){
             for(let x = 0; x < this.images.length; x++){
               if(query[i].get("venue") === this.images[x].caption){
-                this.images[x].start = query[i].get("time");
+                this.images[x].start_time = query[i].get("time_start");
+                this.images[x].end_time = query[i].get("time_end");
                 this.images[x].title = query[i].get("description");
+                this.images[x].id = query[i].id;
+
+                this.throw_flag = true;
               }
             } 
        } //else {
         //   alert("no venue");
         // }
       }
+
+      for(let z = 0; z < this.images.length; z++){
+        if(this.throw_flag === true && this.images[z].start_time != null){
+          this.sample_arr_holder.push({
+            caption: this.images[z].caption,
+            time_start: this.images[z].start_time,
+            time_end: this.images[z].end_time,
+            title: this.images[z].title,
+            src: this.images[z].src,
+          });
+        } else {
+          console.log("False");
+        }
+      }
     console.log(this.images);
+    console.log(this.sample_arr_holder);
     this.showSlides();
     setInterval(() => {
       this.plusSlides(1);
