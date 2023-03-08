@@ -7,6 +7,7 @@ import HistoryLogs from '../views/HistoryLogs.vue'
 import AboutPage from '../views/AboutPage.vue'
 import AdminCalendar from '../views/AdminCalendar.vue'
 import PageReload from '../views/PageReload.vue'
+import CalendarCarousel from '../views/CalendarCarousel.vue'
 import AboutPageUser from '../views/AboutPageUser.vue'
 import InventoryPage from '../views/InventoryPage.vue'
 import AdvisoryPage from '../views/AdvisoryPage.vue'
@@ -66,6 +67,11 @@ const routes = [
         path: '/u/reservation',
         name: 'reload',
         component: PageReload,
+    },
+    {
+        path: '/viewCalendar',
+        name: 'CalendarCarousel',
+        component: CalendarCarousel,
     },
 ]
 
