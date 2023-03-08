@@ -91,7 +91,7 @@
                                         </button>
                                     </div>
                                     <div class="col-4 pt-2">
-                                        <h6 class="fw-bold">{{dateToday}}</h6>
+                                        <h6 class="fw-bold">Reservation Form</h6>
                                         <hr stlye="background-color: black">
                                     </div>
                                     <div class="col-4">
@@ -208,9 +208,13 @@
                             <div class=" d-flex justify-content-center pb-3">
                                 <span class = "text-danger">
                                     <small> 
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
-                                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                                        </svg>
+                                        <lord-icon
+                                            src="https://cdn.lordicon.com/lfqzieho.json"
+                                            trigger="loop"
+                                            delay="2000"
+                                            colors="primary:#DC3545"
+                                            style="width: 18px;height: 18px" class="pt-1 ms-1">
+                                        </lord-icon>
                                         Important Note: Please fill up all the input fields in this section. If none, input zero(0).
                                     </small>
                                 </span>
@@ -223,27 +227,15 @@
                                     <input type="number" class="form-control" id="input_q" min="1" :v-model="values_of_q" :placeholder="equip.q">
                                 </div>
                             </div>
+                            <div class="col d-flex justify-content-start fw-bold pb-2 pt-3">
+                                <label for="formGroupExampleInput">Related Documents</label>
+                            </div>
+                            <input class="form-control" type="file" id="FileUpload">
 
-                            <div v-if="next_page_1 === true && next_page === true">
-                                <h5 class="fw-bolder d-flex justify-content-start pb-3">Equipments</h5>
-                                <div class="row" v-for="equip in equipments_arr" :key="equip">
-                                    <div class="col-4">
-                                        {{equip.items}}
-                                    </div>
-                                    <div class="col-8">
-                                        <input type="number" class="form-control" id="input_q" min="1" :v-model="values_of_q" :placeholder="equip.q">
-                                    </div>
-                                </div>
-                                <div class="col d-flex justify-content-start fw-bold pb-2 pt-3">
-                                    <label for="formGroupExampleInput">Related Documents</label>
-                                </div>
-                                <input class="form-control" type="file" id="FileUpload">
-
-                                <div class="pt-5">
-                                    <button class="btn btn-primary float-start" type="submit" @click="setAppointment">
-                                        Set Appointment
-                                    </button>
-                                </div>
+                            <div class="pt-5">
+                                <button class="btn btn-primary float-start" type="submit" @click="setAppointment">
+                                    Set Appointment
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -536,6 +528,7 @@ export default{
 
             const equip_obj = JSON.stringify(this.equipment_list);
             const equip_arr = equip_obj.split(",");
+            console.log(equip_arr);
 
            if (this.tempArr.length > 1) {
                 for (let i = 0; i < this.tempArr.length; i++) {
@@ -554,7 +547,7 @@ export default{
                             request.set("date", this.tempArr[i]);
                             request.set("full_name", this.profileFullName);
                             request.set("email", this.user_email);
-                            request.set("mobile_number", number);
+                            request.set("mobile_number", this.mobile_number);
                             request.set("time_start", this.time);
                             request.set("time_end", this.timeEnd);
                             request.set("org", this.org);
@@ -565,7 +558,7 @@ export default{
                             request.set("remarks", this.remarks);
                             request.set("description", this.desc);
                             request.set("filename", name);
-                            request.set("equipments", equip_arr);
+                            request.set("equipments", equip_obj);
                             request.set("filUploaded", parseFile);
                             request.set("url", parseFile._url);
                             request.set("status", "Pending");
@@ -608,7 +601,7 @@ export default{
                             request.set("date", this.tempArr[i]);
                             request.set("full_name", this.profileFullName);
                             request.set("email", this.user_email);
-                            request.set("mobile_number", number);
+                            request.set("mobile_number", this.mobile_number);
                             request.set("time_start", this.time);
                             request.set("time_end", this.timeEnd);
                             request.set("org", this.org);
@@ -619,7 +612,7 @@ export default{
                             request.set("remarks", this.remarks);
                             request.set("description", this.desc);
                             request.set("filename", name);
-                            request.set("equipments", equip_arr);
+                            request.set("equipments", equip_obj);
                             request.set("filUploaded", parseFile);
                             request.set("url", parseFile._url);
                             request.set("status", "Pending");
