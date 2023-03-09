@@ -65,7 +65,13 @@
                         <div class="col pb-2">
                             <div class="card" style="height: auto;">
                                 <div class="card-header text-start">
-                                    Today | {{newdate}}
+                                    <lord-icon
+                                        src="https://cdn.lordicon.com/psnhyobz.json"
+                                        trigger="loop"
+                                        colors="primary:#121331"
+                                        state="loop"
+                                        style="width: 19px; height: 19px" class="pt-1">
+                                    </lord-icon>  Today | {{newdate}}
                                 </div>
                                 <div class="scrollable">
                                     <div v-if="show_list === true">
@@ -145,7 +151,16 @@
                         <br>
                         <div class="pt-3">
                             <small class="text-warning">
-                                <p class="fw-bold">Note:</p> VenueGo doesn't work on Incognito Mode
+                                <p class="fw-bold">
+                                    <lord-icon
+                                        src="https://cdn.lordicon.com/lfqzieho.json"
+                                        trigger="loop"
+                                        delay="2000"
+                                        colors="primary:#FFC107"
+                                        style="width: 18px;height: 18px" class="pt-1 ">
+                                    </lord-icon> Note
+                                </p> 
+                                VenueGo doesn't work on Incognito Mode
                             </small>
                         </div>
                     </h6>

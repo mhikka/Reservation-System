@@ -72,7 +72,7 @@
         <div class="footer-copyright text-start py-3 text-light ms-2">
             <small>
                 © 2023 Copyright:
-            <a href="/" class="text-light"> Ateneo de Naga University</a>
+            <a href="#" class="text-light"> Ateneo de Naga University</a>
             </small>
         </div>
     </footer>
