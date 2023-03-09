@@ -21,11 +21,8 @@
                                 Request Dashboard
                             </div>
                             <div class="scrollable">
-                                <div class="text-start p-2" v-for="details in request_arr.slice().reverse()" :key="details">    
-                                    <div class="card" v-if="len_request_arr === 0">
-                                        There are not any open requests at this time.
-                                    </div>
-                                    <div class="card" v-else>
+                                <div class="card" v-if="len_request_arr != 0">
+                                    <div class="text-start p-2" v-for="details in request_arr.slice().reverse()" :key="details">    
                                         <div class="card-body rounded text-light apprv" @click="open_modal(details.id)">
                                             <h4>Request | {{ details.status }}</h4>
                                             <div class="row justify-content-between">
@@ -48,6 +45,11 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="card text-start p-2" v-else>
+                                    <div class="card-body rounded text-light apprv">
+                                        There are not any open requests at this time.
                                     </div>
                                 </div>
                             </div>
@@ -445,6 +447,8 @@ export default{
         }
 
         this.len_request_arr = this.request_arr.length;
+        console.log(this.len_request_arr);
+        console.log(this.request_arr);
 
         const Equipments = Parse.Object.extend("Equipments");
         const equipments = new Parse.Query(Equipments);

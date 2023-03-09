@@ -25,16 +25,18 @@
                         <button type="button" class="ms-2 mb-1 btn btn-secondary" @click="resetArr">Reset</button>
                     </div>  -->
                         <div v-if="show_selected_popup === true">
-                            <div class="pt-2 pb-2 pe-2">
-                                <div class="card mw-auto border-warning">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col">
-                                                <h6 class="card-text pt-2">Number of dates selected: {{ length_ofArr }}</h6>
-                                            </div>
-                                            <div class="col-auto">
-                                                <button type="button" class="btn btn-outline-danger" @click="resetArr">Reset</button> &nbsp;
-                                                <!-- <button type="button" class="btn btn-primary" @click="undoArr">Undo</button> -->
+                            <div class="floating_counter">
+                                <div class="pt-1 pb-1 pe-2">
+                                    <div class="card mw-auto border-warning mb-3 text-warning">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h6 class="card-text pt-2 fw-semibold">Number of dates selected: {{ length_ofArr }}</h6>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <button type="button" class="btn btn-warning text-white" @click="resetArr">Reset</button> &nbsp;
+                                                    <!-- <button type="button" class="btn btn-primary" @click="undoArr">Undo</button> -->
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -696,5 +698,15 @@ export default{
     overflow-x: hidden;
     overflow-y: auto;
     background-color: rgba(0, 0, 0, 0.507);
+}
+
+.floating_counter{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    z-index: 3;
 }
 </style>
