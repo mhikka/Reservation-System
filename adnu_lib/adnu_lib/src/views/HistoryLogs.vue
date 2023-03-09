@@ -251,6 +251,7 @@
 <script>
 import AdminModal from "@/components/AdminModal.vue";
 import SidePanelAdmin from "@/components/SidePanelAdmin.vue";
+import Swal from "sweetalert2";
 import Parse from 'parse';
 
 const gapi = window.gapi;
@@ -422,7 +423,10 @@ export default{
                 x.click();
                 this.close_modal();
             } else {
-                alert("Something went wrong. Please try again.");
+                Swal.fire({
+                    icon: 'error', title: 'Unable to download, Please try again', showConfirmButton: false, timer: 2000,
+                    timerProgressBar: true,
+                });
                 this.close_modal();
             }
         },
@@ -459,7 +463,10 @@ export default{
                 x.click();
                 this.close_modal();
             } else {
-                alert("Something went wrong. Please try again.");
+                Swal.fire({
+                    icon: 'error', title: 'Unable to download, Please try again', showConfirmButton: false, timer: 2000,
+                    timerProgressBar: true,
+                });
                 this.close_modal();
             }
                 
@@ -497,7 +504,10 @@ export default{
                 x.click();
                 this.close_modal();
             } else {
-                alert("Something went wrong. Please try again.");
+                Swal.fire({
+                    icon: 'error', title: 'Unable to download, Please try again', showConfirmButton: false, timer: 2000,
+                    timerProgressBar: true,
+                });
                 this.close_modal();
             }
         },
@@ -531,6 +541,11 @@ export default{
                 x.setAttribute("download", finalFilename);
                 document.body.appendChild(x);
                 x.click();
+                Swal.fire({
+                    icon: 'success', title: 'Report Downloaded!', showConfirmButton: false, timer: 2000,
+                    timerProgressBar: true,
+                });
+                
                 this.close_modal();
             }
         },
@@ -567,7 +582,10 @@ export default{
                 x.click();
                 this.close_modal();
             } else {
-                alert("Something went wrong. Please try again.");
+                Swal.fire({
+                    icon: 'error', title: 'Unable to download, Please try again', showConfirmButton: false, timer: 2000,
+                    timerProgressBar: true,
+                });
                 this.close_modal();
             }
         }

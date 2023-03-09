@@ -226,6 +226,7 @@
 import AdminModal from "@/components/AdminModal.vue";
 import SidePanelAdmin from "@/components/SidePanelAdmin.vue";
 import VueCal from "@/components/VueCal.vue";
+import Swal from "sweetalert2";
 import Parse from 'parse';
 import $ from 'jquery';
 
@@ -461,20 +462,59 @@ export default{
                             request.set("day", day);
                             request.set("year", year);
 
-                            request.save().then((request) => {
-                                console.log("Success", request);
-                                this.open_modal = false;
-                                this.date = '';
-                                this.mobile_number = '';
-                                this.time = '';
-                                this.org = '';
-                                this.dept = '';
-                                this.venue = '';
-                                this.semester = '';
-                                this.remarks = '';
-                                this.desc = '';
-                                return request.save();
-                            });
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Do you want to save this reservation?',
+                                //   showDenyButton: true,
+                                showCancelButton: true,
+                                confirmButtonText: 'Confirm',
+                                confirmButtonColor: '#00588C',
+                                cancelButtonColor: '#C3C3C9',
+                                //   denyButtonText: `Don't save`,
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    request.save().then((request) => {
+                                        console.log("Success", request);
+                                        this.open_modal = false;
+                                        this.date = '';
+                                        this.mobile_number = '';
+                                        this.time = '';
+                                        this.org = '';
+                                        this.dept = '';
+                                        this.venue = '';
+                                        this.semester = '';
+                                        this.remarks = '';
+                                        this.desc = '';
+                                        this.$router.push({ name: 'home' });
+                                        return request.save();
+                                    });
+                                    Swal.fire({
+                                        icon: 'success', title: 'Reservation Saved!', showConfirmButton: false, timer: 2000,
+                                        timerProgressBar: true,
+                                    });
+                                    //   document.location.reload();
+                                    // this.$router.push('/reload');
+                                    // location.reload();
+                                }
+                                else if (result.isDenied) {
+                                    Swal.fire('Unable to save reservation')
+                                }
+                            })
+                            // request.save().then((request) => {
+                            //     console.log("Success", request);
+                            //     this.open_modal = false;
+                            //     this.date = '';
+                            //     this.mobile_number = '';
+                            //     this.time = '';
+                            //     this.org = '';
+                            //     this.dept = '';
+                            //     this.venue = '';
+                            //     this.semester = '';
+                            //     this.remarks = '';
+                            //     this.desc = '';
+                            //     this.$router.go(-2);
+                            //     return request.save();
+                            // });
                         })
                     }
                 } //End of loop
@@ -515,26 +555,68 @@ export default{
                             request.set("day", day);
                             request.set("year", year);
 
-                            request.save().then((request) => {
-                                console.log("Success", request);
-                                this.open_modal = false;
-                                this.date = '';
-                                this.mobile_number = '';
-                                this.time = '';
-                                this.org = '';
-                                this.dept = '';
-                                this.venue = '';
-                                this.semester = '';
-                                this.remarks = '';
-                                this.desc = '';
-                                return request.save();
-                            });
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Do you want to save this reservation?',
+                                //   showDenyButton: true,
+                                showCancelButton: true,
+                                confirmButtonText: 'Confirm',
+                                confirmButtonColor: '#00588C',
+                                cancelButtonColor: '#C3C3C9',
+                                //   denyButtonText: `Don't save`,
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    request.save().then((request) => {
+                                        console.log("Success", request);
+                                        this.open_modal = false;
+                                        this.date = '';
+                                        this.mobile_number = '';
+                                        this.time = '';
+                                        this.org = '';
+                                        this.dept = '';
+                                        this.venue = '';
+                                        this.semester = '';
+                                        this.remarks = '';
+                                        this.desc = '';
+                                        this.$router.push({ name: 'home' });
+                                        return request.save();
+                                    });
+                                    Swal.fire({
+                                        icon: 'success', title: 'Reservation Saved!', showConfirmButton: false, timer: 2000,
+                                        timerProgressBar: true,
+                                    });
+                                    //   document.location.reload();
+                                    // this.$router.push('/reload');
+                                    // location.reload();
+                                }
+                                else if (result.isDenied) {
+                                    Swal.fire('Unable to save reservation')
+                                }
+                            })
+                            // request.save().then((request) => {
+                            //     console.log("Success", request);
+                            //     Swal.fire({
+                            //         icon: 'success', title: 'Reservation saved', showConfirmButton: false, timer: 2000,
+                            //         timerProgressBar: true,
+                            //     });
+                            //     this.open_modal = false;
+                            //     this.date = '';
+                            //     this.mobile_number = '';
+                            //     this.time = '';
+                            //     this.org = '';
+                            //     this.dept = '';
+                            //     this.venue = '';
+                            //     this.semester = '';
+                            //     this.remarks = '';
+                            //     this.desc = '';
+                            //     this.$router.go(-2);
+                            //     return request.save();
+                            // });
                         })
                     }
                 }
             }
             // this.close_modal();
-            this.$router.go(-2);
         },
         cellSelected(cell){
             console.log(cell)

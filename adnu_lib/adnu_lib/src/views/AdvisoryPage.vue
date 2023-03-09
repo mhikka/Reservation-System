@@ -84,6 +84,7 @@
 <script>
 import SidePanelAdmin from '@/components/SidePanelAdmin.vue';
 import Parse from 'parse';
+import Swal from 'sweetalert2';
 import html2pdf from 'html2pdf.js';
 
 const gapi = window.gapi;
@@ -116,6 +117,10 @@ export default{
                 jsPDF:        { format: 'a4', orientation: 'portrait' }
             };
             html2pdf().from(element).set(options).save();
+            Swal.fire({
+                icon: 'success', title: 'Pdf Downloaded!', showConfirmButton: false, timer: 2000,
+                timerProgressBar: true,
+            });
             console.log("Print");
         }
     },
