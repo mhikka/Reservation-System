@@ -592,7 +592,7 @@ export default{
                                         this.semester = '';
                                         this.remarks = '';
                                         this.desc = '';
-                                        this.$router.push({ name: 'home' });
+                                        this.$router.push({ name: 'adminHome' });
                                         return request.save();
                                     });
                                     Swal.fire({

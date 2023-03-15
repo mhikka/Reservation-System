@@ -16,6 +16,7 @@
     "html2pdf.js": "^0.10.1",
     "jquery": "^3.6.3",
     "parse": "^4.0.0",
+    "sweetalert2": "^11.7.3",
     "vue": "^3.2.13",
     "vue-cal": "^4.8.1",
     "vue-class-component": "^8.0.0-rc.1",
