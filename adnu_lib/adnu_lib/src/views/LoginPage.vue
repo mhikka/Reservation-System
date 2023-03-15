@@ -208,6 +208,9 @@
                             <li>
                                 <a href="https://adnulib.adnu.edu.ph/" class="link-primary" style="text-decoration: none;">ADNU Library</a>
                             </li>
+                            <li>
+                                <a href="https://venuego.netlify.app/tryCarousel" class="link-primary" style="text-decoration: none;">Calendar</a>
+                            </li>
                         </ul>
                     </div>
                     <!-- Grid column -->
