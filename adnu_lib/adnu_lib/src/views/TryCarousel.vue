@@ -20,11 +20,11 @@
             <div v-if="details.room === 'JOBL Conference Room 1st Floor'">
                 <div class="carousel-item">
                     <img src="../assets/1.png" class="d-block w-100" alt="Slide 1">
-                    <div class="caption" style="position: absolute; top: 2%; left:0%;">
-                        <img src="../assets/libraryLog.png" width="460" height="105" class="d-inline-block float-end" alt="">
+                    <div class="caption" style="position: absolute; top: 5%; left:0%;">
+                        <img src="../assets/libraryLog.png" width="670" height="155" class="d-inline-block float-end" alt="">
                             <div class="row">
                                 <div class="px-0 justify-content-start">
-                                    <div class="container-fluid bg-light opacity-75" style="width: 1080px; height:350px; margin-top:170px; border-radius:5px;">
+                                    <div class="container-fluid bg-light opacity-75" style="width: 1080px; height:350px; margin-top:270px; border-radius:5px;">
                                         <h1 style="color:DarkBlue; font-size: 100px; font-family: Times New Roman, Times, serif; margin:20px 50px;">{{ details.room }}</h1>
                                         <h3 style="color:MidnightBlue; font-size: 50px; font-family: Arial, Helvetica, sans-serif;">1st Floor, James J. O’Brien S.J. Library</h3>
                                     </div>
@@ -45,11 +45,11 @@
             <div v-else-if="details.room === 'Consultation Room 1'">
                 <div class="carousel-item">
                     <img src="../assets/2.png" class="d-block w-100" alt="Slide 2">
-                    <div class="caption" style="position: absolute; top: 2%; left:0%;">
-                        <img src="../assets/libraryLog.png" width="460" height="105" class="d-inline-block float-end" alt="">
+                    <div class="caption" style="position: absolute; top: 5%; left:0%;">
+                        <img src="../assets/libraryLog.png" width="670" height="155" class="d-inline-block float-end" alt="">
                             <div class="row">
                                 <div class="px-0 justify-content-start">
-                                    <div class="container-fluid bg-light opacity-75" style="width: 1080px; height:350px; margin-top:170px; border-radius:5px;">
+                                    <div class="container-fluid bg-light opacity-75" style="width: 1080px; height:350px; margin-top:270px; border-radius:5px;">
                                         <h1 style="color:DarkBlue; font-size: 100px; font-family: Times New Roman, Times, serif; margin:20px 50px;">{{ details.room }}</h1>
                                         <h3 style="color:MidnightBlue; font-size: 50px; font-family: Arial, Helvetica, sans-serif;">1st Floor, James J. O’Brien S.J. Library</h3>
                                     </div>
@@ -70,11 +70,11 @@
             <div v-else-if="details.room === 'Consultation Room 2'">
                 <div class="carousel-item">
                     <img src="../assets/3.png" class="d-block w-100" alt="Slide 3">
-                    <div class="caption" style="position: absolute; top: 2%; left:0%;">
-                        <img src="../assets/libraryLog.png" width="460" height="105" class="d-inline-block float-end" alt="">
+                    <div class="caption" style="position: absolute; top: 5%; left:0%;">
+                        <img src="../assets/libraryLog.png" width="670" height="155" class="d-inline-block float-end" alt="">
                             <div class="row">
                                 <div class="px-0 justify-content-start">
-                                    <div class="container-fluid bg-light opacity-75" style="width: 1080px; height:350px; margin-top:170px; border-radius:5px;">
+                                    <div class="container-fluid bg-light opacity-75" style="width: 1080px; height:350px; margin-top:270px; border-radius:5px;">
                                         <h1 style="color:DarkBlue; font-size: 100px; font-family: Times New Roman, Times, serif; margin:20px 50px;">{{ details.room }}</h1>
                                         <h3 style="color:MidnightBlue; font-size: 50px; font-family: Arial, Helvetica, sans-serif;">1st Floor, James J. O’Brien S.J. Library</h3>
                                     </div>
@@ -95,11 +95,11 @@
             <div v-else-if="details.room === 'Library Multipurpose Room'">
                 <div class="carousel-item">
                     <img src="../assets/4.png" class="d-block w-100" alt="Slide 4">
-                    <div class="caption" style="position: absolute; top: 2%; left:0%;">
-                        <img src="../assets/libraryLog.png" width="460" height="105" class="d-inline-block float-end" alt="">
+                    <div class="caption" style="position: absolute; top: 5%; left:0%;">
+                        <img src="../assets/libraryLog.png" width="670" height="155" class="d-inline-block float-end" alt="">
                             <div class="row">
                                 <div class="px-0 justify-content-start">
-                                    <div class="container-fluid bg-light opacity-75" style="width: 1080px; height:350px; margin-top:170px; border-radius:5px;">
+                                    <div class="container-fluid bg-light opacity-75" style="width: 1080px; height:350px; margin-top:270px; border-radius:5px;">
                                         <h1 style="color:DarkBlue; font-size: 100px; font-family: Times New Roman, Times, serif; margin:20px 50px;">{{ details.room }}</h1>
                                         <h3 style="color:MidnightBlue; font-size: 50px; font-family: Arial, Helvetica, sans-serif;">1st Floor, James J. O’Brien S.J. Library</h3>
                                     </div>
@@ -120,11 +120,11 @@
             <div v-else-if="details.room === 'Library: Fr. A.M. BAUTISTA - Viewing Room'">
                 <div class="carousel-item">
                     <img src="../assets/5.png" class="d-block w-100" alt="Slide 5">
-                    <div class="caption" style="position: absolute; top: 2%; left:0%;">
-                        <img src="../assets/libraryLog.png" width="460" height="105" class="d-inline-block float-end" alt="">
+                    <div class="caption" style="position: absolute; top: 5%; left:0%;">
+                        <img src="../assets/libraryLog.png" width="670" height="155" class="d-inline-block float-end" alt="">
                             <div class="row">
                                 <div class="px-0 justify-content-start">
-                                    <div class="container-fluid bg-light opacity-75" style="width: 1080px; height:350px; margin-top:170px; border-radius:5px;">
+                                    <div class="container-fluid bg-light opacity-75" style="width: 1080px; height:350px; margin-top:270px; border-radius:5px;">
                                         <h1 style="color:DarkBlue; font-size: 80px; font-family: Times New Roman, Times, serif; margin:20px 50px;">{{ details.room }}</h1>
                                         <h3 style="color:MidnightBlue; font-size: 50px; font-family: Arial, Helvetica, sans-serif;">1st Floor, James J. O’Brien S.J. Library</h3>
                                     </div>

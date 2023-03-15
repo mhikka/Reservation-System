@@ -233,12 +233,16 @@
                                 <label for="formGroupExampleInput">Related Documents</label>
                             </div>
                             <input class="form-control" type="file" id="FileUpload">
-
-                            <div class="pt-5">
-                                <button class="btn btn-primary float-start" type="submit" @click="setAppointment">
-                                    Set Appointment
-                                </button>
+                            <div class=" text-danger d-flex justify-content-start pb-3 ps-3">
+                                <small>
+                                    Important Note: File name can't contain any of the following characters: \/:*? &lt; &gt; | ( ).
+                                </small>
                             </div>
+                                <div class="pt-5">
+                                    <button class="btn btn-primary float-start" type="submit" @click="setAppointment">
+                                        Set Appointment
+                                    </button>
+                                </div>
                         </div>
                     </div>
                 </div>
