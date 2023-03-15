@@ -21,11 +21,8 @@
                                 Request Dashboard
                             </div>
                             <div class="scrollable">
-                                <div class="text-start p-2" v-for="details in request_arr.slice().reverse()" :key="details">    
-                                    <div class="card" v-if="len_request_arr === 0">
-                                        There are not any open requests at this time.
-                                    </div>
-                                    <div class="card" v-else>
+                                <div class="card" v-if="len_request_arr != 0">
+                                    <div class="text-start p-2" v-for="details in request_arr.slice().reverse()" :key="details">    
                                         <div class="card-body rounded text-light apprv" @click="open_modal(details.id)">
                                             <h4>Request | {{ details.status }}</h4>
                                             <div class="row justify-content-between">
@@ -48,6 +45,11 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="card text-start p-2" v-else>
+                                    <div class="card-body rounded text-light apprv">
+                                        There are not any open requests at this time.
                                     </div>
                                 </div>
                             </div>
@@ -258,6 +260,7 @@
 <script>
 import AdminModal from "@/components/AdminModal.vue";
 import SidePanelAdmin from "@/components/SidePanelAdmin.vue";
+import Swal from 'sweetalert2';
 import Parse from 'parse';
 
 const gapi = window.gapi;
@@ -445,6 +448,8 @@ export default{
         }
 
         this.len_request_arr = this.request_arr.length;
+        console.log(this.len_request_arr);
+        console.log(this.request_arr);
 
         const Equipments = Parse.Object.extend("Equipments");
         const equipments = new Parse.Query(Equipments);
@@ -540,6 +545,11 @@ export default{
 
             reqQuery.save().then((reqQuery) => {
                 console.log("Successful", reqQuery);
+                Swal.fire({
+                    icon: 'success', title: 'Request Approved!', showConfirmButton: false, timer: 2000,
+                    timerProgressBar: true,
+                });
+                this.$router.push({ name: 'history'})
                 this.edit_page = false;
             });
 
@@ -558,9 +568,13 @@ export default{
 
             reqQuery.save().then((reqQuery) => {
                 console.log("Successful", reqQuery);
+                Swal.fire({
+                    icon: 'success', title: 'Reservation rejected!', showConfirmButton: false, timer: 2000,
+                    timerProgressBar: true,
+                });
                 this.edit_page = false;
+                this.$router.push({ name: 'history' })
             });
-
             this.pop = false;
             this.passed_id = '';
         },

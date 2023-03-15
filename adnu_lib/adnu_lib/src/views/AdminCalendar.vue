@@ -25,16 +25,18 @@
                     <div class="scrollable">
                         <VueCal @time="handleTime" @date="handleEvent" ref="vuecal" />
                         <div v-if="show_selected_popup === true">
-                            <div class="pt-2 pb-2 pe-2">
-                                <div class="card mw-auto border-warning">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col">
-                                                <h6 class="card-text pt-2">Number of dates selected: {{ length_ofArr }}</h6>
-                                            </div>
-                                            <div class="col-auto">
-                                                <button type="button" class="btn btn-outline-danger" @click="resetArr">Reset</button> &nbsp;
-                                                <!-- <button type="button" class="btn btn-primary" @click="undoArr">Undo</button> -->
+                            <div class="floating_counter">
+                                <div class="pt-1 pb-1 pe-2">
+                                    <div class="card mw-auto border-warning mb-3 text-warning">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h6 class="card-text pt-2 fw-semibold">Number of dates selected: {{ length_ofArr }}</h6>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <button type="button" class="btn btn-warning text-white" @click="resetArr">Reset</button> &nbsp;
+                                                    <!-- <button type="button" class="btn btn-primary" @click="undoArr">Undo</button> -->
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -91,7 +93,7 @@
                                         </button>
                                     </div>
                                     <div class="col-4 pt-2">
-                                        <h6 class="fw-bold">{{dateToday}}</h6>
+                                        <h6 class="fw-bold">Reservation Form</h6>
                                         <hr stlye="background-color: black">
                                     </div>
                                     <div class="col-4">
@@ -208,9 +210,13 @@
                             <div class=" d-flex justify-content-center pb-3">
                                 <span class = "text-danger">
                                     <small> 
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
-                                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                                        </svg>
+                                        <lord-icon
+                                            src="https://cdn.lordicon.com/lfqzieho.json"
+                                            trigger="loop"
+                                            delay="2000"
+                                            colors="primary:#DC3545"
+                                            style="width: 18px;height: 18px" class="pt-1 ms-1">
+                                        </lord-icon>
                                         Important Note: Please fill up all the input fields in this section. If none, input zero(0).
                                     </small>
                                 </span>
@@ -223,12 +229,15 @@
                                     <input type="number" class="form-control" id="input_q" min="1" :v-model="values_of_q" :placeholder="equip.q">
                                 </div>
                             </div>
-
-                                <div class="col d-flex justify-content-start fw-bold pb-2 pt-3">
-                                    <label for="formGroupExampleInput">Related Documents</label>
-                                </div>
-                                <input class="form-control" type="file" id="FileUpload">
-
+                            <div class="col d-flex justify-content-start fw-bold pb-2 pt-3">
+                                <label for="formGroupExampleInput">Related Documents</label>
+                            </div>
+                            <input class="form-control" type="file" id="FileUpload">
+                            <div class=" text-danger d-flex justify-content-start pb-3 ps-3">
+                                <small>
+                                    Important Note: File name can't contain any of the following characters: \/:*? &lt; &gt; | ( ).
+                                </small>
+                            </div>
                                 <div class="pt-5">
                                     <button class="btn btn-primary float-start" type="submit" @click="setAppointment">
                                         Set Appointment
@@ -268,6 +277,7 @@
 import AdminModal from "@/components/AdminModal.vue";
 import SidePanelAdmin from "@/components/SidePanelAdmin.vue";
 import VueCal from "@/components/VueCal.vue";
+import Swal from "sweetalert2";
 import Parse from 'parse';
 import $ from 'jquery';
 
@@ -525,6 +535,7 @@ export default{
 
             const equip_obj = JSON.stringify(this.equipment_list);
             const equip_arr = equip_obj.split(",");
+            console.log(equip_arr);
 
            if (this.tempArr.length > 1) {
                 for (let i = 0; i < this.tempArr.length; i++) {
@@ -543,7 +554,7 @@ export default{
                             request.set("date", this.tempArr[i]);
                             request.set("full_name", this.profileFullName);
                             request.set("email", this.user_email);
-                            request.set("mobile_number", number);
+                            request.set("mobile_number", this.mobile_number);
                             request.set("time_start", this.time);
                             request.set("time_end", this.timeEnd);
                             request.set("org", this.org);
@@ -554,7 +565,7 @@ export default{
                             request.set("remarks", this.remarks);
                             request.set("description", this.desc);
                             request.set("filename", name);
-                            request.set("equipments", equip_arr);
+                            request.set("equipments", equip_obj);
                             request.set("filUploaded", parseFile);
                             request.set("url", parseFile._url);
                             request.set("status", "Pending");
@@ -562,20 +573,59 @@ export default{
                             request.set("day", day);
                             request.set("year", year);
 
-                            request.save().then((request) => {
-                                console.log("Success", request);
-                                this.open_modal = false;
-                                this.date = '';
-                                this.mobile_number = '';
-                                this.time = '';
-                                this.org = '';
-                                this.dept = '';
-                                this.venue = '';
-                                this.semester = '';
-                                this.remarks = '';
-                                this.desc = '';
-                                return request.save();
-                            });
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Do you want to save this reservation?',
+                                //   showDenyButton: true,
+                                showCancelButton: true,
+                                confirmButtonText: 'Confirm',
+                                confirmButtonColor: '#00588C',
+                                cancelButtonColor: '#C3C3C9',
+                                //   denyButtonText: `Don't save`,
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    request.save().then((request) => {
+                                        console.log("Success", request);
+                                        this.open_modal = false;
+                                        this.date = '';
+                                        this.mobile_number = '';
+                                        this.time = '';
+                                        this.org = '';
+                                        this.dept = '';
+                                        this.venue = '';
+                                        this.semester = '';
+                                        this.remarks = '';
+                                        this.desc = '';
+                                        this.$router.push({ name: 'home' });
+                                        return request.save();
+                                    });
+                                    Swal.fire({
+                                        icon: 'success', title: 'Reservation Saved!', showConfirmButton: false, timer: 2000,
+                                        timerProgressBar: true,
+                                    });
+                                    //   document.location.reload();
+                                    // this.$router.push('/reload');
+                                    // location.reload();
+                                }
+                                else if (result.isDenied) {
+                                    Swal.fire('Unable to save reservation')
+                                }
+                            })
+                            // request.save().then((request) => {
+                            //     console.log("Success", request);
+                            //     this.open_modal = false;
+                            //     this.date = '';
+                            //     this.mobile_number = '';
+                            //     this.time = '';
+                            //     this.org = '';
+                            //     this.dept = '';
+                            //     this.venue = '';
+                            //     this.semester = '';
+                            //     this.remarks = '';
+                            //     this.desc = '';
+                            //     this.$router.go(-2);
+                            //     return request.save();
+                            // });
                         })
                     }
                 } //End of loop
@@ -597,7 +647,7 @@ export default{
                             request.set("date", this.tempArr[i]);
                             request.set("full_name", this.profileFullName);
                             request.set("email", this.user_email);
-                            request.set("mobile_number", number);
+                            request.set("mobile_number", this.mobile_number);
                             request.set("time_start", this.time);
                             request.set("time_end", this.timeEnd);
                             request.set("org", this.org);
@@ -608,7 +658,7 @@ export default{
                             request.set("remarks", this.remarks);
                             request.set("description", this.desc);
                             request.set("filename", name);
-                            request.set("equipments", equip_arr);
+                            request.set("equipments", equip_obj);
                             request.set("filUploaded", parseFile);
                             request.set("url", parseFile._url);
                             request.set("status", "Pending");
@@ -616,26 +666,68 @@ export default{
                             request.set("day", day);
                             request.set("year", year);
 
-                            request.save().then((request) => {
-                                console.log("Success", request);
-                                this.open_modal = false;
-                                this.date = '';
-                                this.mobile_number = '';
-                                this.time = '';
-                                this.org = '';
-                                this.dept = '';
-                                this.venue = '';
-                                this.semester = '';
-                                this.remarks = '';
-                                this.desc = '';
-                                return request.save();
-                            });
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Do you want to save this reservation?',
+                                //   showDenyButton: true,
+                                showCancelButton: true,
+                                confirmButtonText: 'Confirm',
+                                confirmButtonColor: '#00588C',
+                                cancelButtonColor: '#C3C3C9',
+                                //   denyButtonText: `Don't save`,
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    request.save().then((request) => {
+                                        console.log("Success", request);
+                                        this.open_modal = false;
+                                        this.date = '';
+                                        this.mobile_number = '';
+                                        this.time = '';
+                                        this.org = '';
+                                        this.dept = '';
+                                        this.venue = '';
+                                        this.semester = '';
+                                        this.remarks = '';
+                                        this.desc = '';
+                                        this.$router.push({ name: 'home' });
+                                        return request.save();
+                                    });
+                                    Swal.fire({
+                                        icon: 'success', title: 'Reservation Saved!', showConfirmButton: false, timer: 2000,
+                                        timerProgressBar: true,
+                                    });
+                                    //   document.location.reload();
+                                    // this.$router.push('/reload');
+                                    // location.reload();
+                                }
+                                else if (result.isDenied) {
+                                    Swal.fire('Unable to save reservation')
+                                }
+                            })
+                            // request.save().then((request) => {
+                            //     console.log("Success", request);
+                            //     Swal.fire({
+                            //         icon: 'success', title: 'Reservation saved', showConfirmButton: false, timer: 2000,
+                            //         timerProgressBar: true,
+                            //     });
+                            //     this.open_modal = false;
+                            //     this.date = '';
+                            //     this.mobile_number = '';
+                            //     this.time = '';
+                            //     this.org = '';
+                            //     this.dept = '';
+                            //     this.venue = '';
+                            //     this.semester = '';
+                            //     this.remarks = '';
+                            //     this.desc = '';
+                            //     this.$router.go(-2);
+                            //     return request.save();
+                            // });
                         })
                     }
                 }
             }
             // this.close_modal();
-            this.$router.go(-2);
         },
         cellSelected(cell){
             console.log(cell)
@@ -718,6 +810,16 @@ export default{
     overflow-x: hidden;
     overflow-y: auto;
     background-color: rgba(0, 0, 0, 0.507);
+}
+
+.floating_counter{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    z-index: 3;
 }
 
 </style>

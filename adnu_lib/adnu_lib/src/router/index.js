@@ -11,6 +11,7 @@ import CalendarCarousel from '../views/CalendarCarousel.vue'
 import AboutPageUser from '../views/AboutPageUser.vue'
 import InventoryPage from '../views/InventoryPage.vue'
 import AdvisoryPage from '../views/AdvisoryPage.vue'
+import TryCarousel from '../views/TryCarousel.vue'
 
 
 const routes = [
@@ -74,6 +75,11 @@ const routes = [
         name: 'CalendarCarousel',
         component: CalendarCarousel,
     },
+    {
+        path: '/tryCarousel',
+        name: 'tryCarousel',
+        component: TryCarousel,
+    }
 ]
 
 const router = createRouter({
