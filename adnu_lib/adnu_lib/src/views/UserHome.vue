@@ -440,6 +440,7 @@
 <script>
 import AdminModal from "@/components/AdminModal.vue";
 import SidePanelUser from "@/components/SidePanelUser.vue";
+import Swal from "sweetalert2";
 import Parse from 'parse';
 
 const gapi = window.gapi;
@@ -643,10 +644,37 @@ export default{
             reqQuery.set("day", day);
             reqQuery.set("year", year);
 
-            reqQuery.save().then((reqQuery) => {
-                console.log("Successful", reqQuery);
-                this.edit_page = false;
-            });
+            Swal.fire({
+                icon: 'warning',
+                title: 'Do you want to update your pending reservation?',
+                //   showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Yes!',
+                confirmButtonColor: '#00588C',
+                cancelButtonColor: '#C3C3C9',
+                //   denyButtonText: `Don't save`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    reqQuery.save();
+                    this.edit_page = false;
+                    Swal.fire({
+                        icon: 'success', title: 'Reservation Updated!', showConfirmButton: false, timer: 2000,
+                        timerProgressBar: true,
+                    });
+                    //   document.location.reload();
+                    // this.$router.push('/reload');
+                    // location.reload();
+                    this.$router.push({ name: 'home' });
+                }
+                else if (result.isDenied) {
+                    Swal.fire('Reservation not updated')
+                }
+            })
+
+            // reqQuery.save().then((reqQuery) => {
+            //     console.log("Successful", reqQuery);
+            //     this.edit_page = false;
+            // });
 
         }
     },

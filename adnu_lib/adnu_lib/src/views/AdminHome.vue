@@ -260,6 +260,7 @@
 <script>
 import AdminModal from "@/components/AdminModal.vue";
 import SidePanelAdmin from "@/components/SidePanelAdmin.vue";
+import Swal from 'sweetalert2';
 import Parse from 'parse';
 
 const gapi = window.gapi;
@@ -544,6 +545,11 @@ export default{
 
             reqQuery.save().then((reqQuery) => {
                 console.log("Successful", reqQuery);
+                Swal.fire({
+                    icon: 'success', title: 'Request Approved!', showConfirmButton: false, timer: 2000,
+                    timerProgressBar: true,
+                });
+                this.$router.push({ name: 'history'})
                 this.edit_page = false;
             });
 
@@ -562,9 +568,13 @@ export default{
 
             reqQuery.save().then((reqQuery) => {
                 console.log("Successful", reqQuery);
+                Swal.fire({
+                    icon: 'success', title: 'Reservation rejected!', showConfirmButton: false, timer: 2000,
+                    timerProgressBar: true,
+                });
                 this.edit_page = false;
+                this.$router.push({ name: 'history' })
             });
-
             this.pop = false;
             this.passed_id = '';
         },

@@ -173,6 +173,7 @@
 <script>
 import SidePanelAdmin from "@/components/SidePanelAdmin.vue";
 import AdminModal from "@/components/AdminModal.vue";
+import Swal from 'sweetalert2';
 import Parse from 'parse';
 
 const gapi = window.gapi;
@@ -242,6 +243,16 @@ export default{
             equipments.set("Quantity", this.quantity);
 
             equipments.save().then((equip) => {
+                Swal.fire({
+                    icon: 'success', title: "Equipment Added!",
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    confirmButtonColor: '#00588C',
+                    cancelButtonColor: '#C3C3C9',
+                    timer: 2000,
+                    timerProgressBar: true,
+                });
+                // this.$router.push({ name: 'inventory' });
                 console.log(equip.id);
             });
             this.close_modal();
@@ -259,10 +270,36 @@ export default{
             equip.set("Items", item);
             equip.set("Quantity", quantity);
 
-            equip.save().then((equip) => {
-                console.log(equip.id);
-            });
-            this.close_modal();
+            Swal.fire({
+                icon: 'warning',
+                title: 'Do you want to update this equipment?',
+                //   showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Yes, update it!',
+                confirmButtonColor: '#00588C',
+                cancelButtonColor: '#C3C3C9',
+                //   denyButtonText: `Don't save`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    equip.save();
+                    Swal.fire({
+                        icon: 'success', title: 'Equipment updated!', showConfirmButton: false, timer: 2000,
+                        timerProgressBar: true,
+                    });
+                    this.close_modal();
+                    //   document.location.reload();
+                    // this.$router.push('/reload');
+                    // location.reload();
+                    // this.$router.push({ name: 'inventory' });
+                }
+                else if (result.isDenied) {
+                    Swal.fire('Equipment not deleted')
+                }
+            })
+
+            // equip.save().then((equip) => {
+            //         console.log(equip.id);
+            // });
         },
 
         async deleteItem(id){
@@ -273,8 +310,34 @@ export default{
             equipments.equalTo("objectId", id);
             const equip = await equipments.first();
 
-            equip.destroy();
-            alert("Equipment Deleted!");
+            // equip.destroy();
+            Swal.fire({
+                icon: 'warning',
+                title: 'Do you want to delete this equipment?',
+                //   showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                confirmButtonColor: '#00588C',
+                cancelButtonColor: '#C3C3C9',
+                //   denyButtonText: `Don't save`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    equip.destroy();
+                    Swal.fire({
+                        icon: 'success', title: 'Equipment deleted', showConfirmButton: false, timer: 2000,
+                        timerProgressBar: true,
+                    });
+                    //   document.location.reload();
+                    // this.$router.push('/reload');
+                    // location.reload();
+                    // this.$router.push({ name: 'inventory' });
+                }
+                else if (result.isDenied) {
+                    Swal.fire('Equipment not deleted')
+                }
+            })
+            // alert("Equipment Deleted!");
+            // location.reload();
         },
 
         close_modal(){
@@ -294,4 +357,9 @@ export default{
   max-height: 525px;
 }
 
+/* .swal2-confirm, .swal2-styled, .my-confirm-button-class {
+  background-color: red;
+  color: white;
+  font-size: 16px;
+} */
 </style>
