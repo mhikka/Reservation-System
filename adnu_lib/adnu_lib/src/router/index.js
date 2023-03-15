@@ -12,6 +12,7 @@ import AboutPageUser from '../views/AboutPageUser.vue'
 import InventoryPage from '../views/InventoryPage.vue'
 import AdvisoryPage from '../views/AdvisoryPage.vue'
 
+
 const routes = [
     {
         path: '/',

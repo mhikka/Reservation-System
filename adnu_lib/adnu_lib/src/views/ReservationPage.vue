@@ -223,17 +223,6 @@
                                     <input type="number" class="form-control" id="input_q" min="1" :v-model="values_of_q" :placeholder="equip.q">
                                 </div>
                             </div>
-
-                            <div v-if="next_page_1 === true && next_page === true">
-                                <h5 class="fw-bolder d-flex justify-content-start pb-3">Equipments</h5>
-                                <div class="row" v-for="equip in equipments_arr" :key="equip">
-                                    <div class="col-4">
-                                        {{equip.items}}
-                                    </div>
-                                    <div class="col-8">
-                                        <input type="number" class="form-control" id="input_q" min="1" :v-model="values_of_q" :placeholder="equip.q">
-                                    </div>
-                                </div>
                                 <div class="col d-flex justify-content-start fw-bold pb-2 pt-3">
                                     <label for="formGroupExampleInput">Related Documents</label>
                                 </div>
@@ -244,7 +233,6 @@
                                             Set Appointment
                                         </button>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
