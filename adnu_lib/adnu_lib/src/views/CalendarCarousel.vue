@@ -9,9 +9,9 @@
     <!-- Slides -->
     <div class="container-fluid m-0 p-0" style="bottom:0;left:0;right:0;height:1920px;width:1080px; overflow-y:hidden;">
       <div class="carousel-inner m-0 p-0">
-        <div v-for="(image, index) in sample_arr_holder" :key="index" :class="['carousel-item', index === 0 ? 'active' : '']">
+        <div v-for="(image, index) in images" :key="index" :class="['carousel-item', index === 0 ? 'active' : '']">
           <img :src="image.src" class="img-fluid d-block" style="width: 1080px; height: 1980px;" :alt="image.alt">
-         <div class="caption" style="position: absolute; top: 2%; left:0%;">
+          <div class="caption" style="position: absolute; top: 2%; left:0%;">
             <img src="../assets/libraryLog.png" width="460" height="105" class="d-inline-block float-end" alt="">
             <div class="row">
               <div class="px-0 justify-content-start">
@@ -23,7 +23,7 @@
                   <h1 class="pt-5 fw-bold" style="color:DarkBlue; font-size: 65px; font-family:Arial, Helvetica, sans-serif; margin:20px 50px; margin-top:40px;">{{ formattedDate }}</h1>
                   <div class="table-responsive">
                     <table  class="table" style="color:DarkBlue; font-size: 55px; font-family: Arial, Helvetica, sans-serif; margin-top:40px; width:100%">
-                      <div class= "text-start">
+                      <div class= "text-start" v-if="image.length != 0">
                         <thead>
                             <tr>
                               <th scope="col" style="border-bottom: 3px solid grey;">Time</th>
@@ -36,6 +36,9 @@
                             <td class=" ps-4 text-start" style="border-left: 3px solid grey;"> {{ image.title }} </td>
                           </tr>
                         </tbody>
+                      </div>
+                      <div v-else>
+                        <span>No events today</span>
                       </div>
                     </table>
                   </div>
