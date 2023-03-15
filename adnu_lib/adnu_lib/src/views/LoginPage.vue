@@ -209,7 +209,11 @@
                                 <a href="https://adnulib.adnu.edu.ph/" class="link-primary" style="text-decoration: none;">ADNU Library</a>
                             </li>
                             <li>
-                                <a href="https://venuego.netlify.app/tryCarousel" class="link-primary" style="text-decoration: none;">Calendar</a>
+                                <a href="#" class="link-primary" style="text-decoration: none;">
+                                    <router-link :to="{name: 'tryCarousel'}" style="text-decoration: none;">
+                                        TV Calendar
+                                    </router-link>
+                                </a>
                             </li>
                         </ul>
                     </div>
