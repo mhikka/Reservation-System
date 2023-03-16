@@ -306,12 +306,11 @@ export default{
     },
 
     methods: {
-        downloadLogs(){
-            // alert("Clicked!");
+        downloadLogs(){ //this is the function to open the pop up modal.
             this.open_modal = true;
         },
 
-        close_modal(){
+        close_modal(){ // this is the function to close the modal, we also reset the values that was asked to the user
             this.open_modal = false;
             this.filter = '';
             this.status = '';
@@ -322,14 +321,14 @@ export default{
             this.acad_year = '';
         },
 
-        dl_Report(){
+        dl_Report(){ // this is the function to download all of the results
             this.allowed_dl = true;
             this.generateResult();
         },
 
         //create a new function then call that function on the mounted (Reason: this will prevent the system from throwing errors)
         //the requested arrays for download should be loaded ASAP to avoid errors
-        dl_venue(){
+        dl_venue(){ // this is the function to download all of the filtered venue
             const Request = Parse.Object.extend("Request");
             const request = new Parse.Query(Request);
             request.equalTo(this.var_venue, this.venue);
@@ -348,7 +347,7 @@ export default{
             }
         },
 
-        dl_semester(){
+        dl_semester(){ // this is the function to download all of the filtered semseter
             const Request = Parse.Object.extend("Request");
             const request = new Parse.Query(Request);
             request.equalTo(this.var_semester, this.semester);
@@ -368,7 +367,7 @@ export default{
             }
         },
 
-        dl_status(){
+        dl_status(){ // this is the function to download all of the filtered status
             const Request = Parse.Object.extend("Request");
             const request = new Parse.Query(Request);
             request.equalTo(this.var_status, this.status);
@@ -387,24 +386,20 @@ export default{
             }
         },
 
-        dl_month(){
+        dl_month(){ // this is the function to download all of the filtered month
             try{
                 const Request = Parse.Object.extend("Request");
                 const request = new Parse.Query(Request);
                 request.equalTo(this.var_month, this.month);
                 request.equalTo(this.var_year, this.input_year);
 
-                // const new_req = await request.find();
-                // console.log(new_req);
                 request.find().then((query) => {
                     for(let i = 0; i < query.length; i++){
-                        // if(this.month === query[i].get("month") && this.input_year === query[i].get("year")){
-                            const obj = query[i];
-                            this.month_year_report.push([obj.get("date"), obj.get("full_name"), 
-                            obj.get("email"), obj.get("mobile_number"), obj.get("time_start") + " - " + obj.get("time_end"), 
-                            obj.get("org"), obj.get("dept"), obj.get("venue"), obj.get("semester"), 
-                            obj.get("remarks"), obj.get("description"), obj.get("status"), obj.get("academic_year")],);
-                        // }
+                        const obj = query[i];
+                        this.month_year_report.push([obj.get("date"), obj.get("full_name"), 
+                        obj.get("email"), obj.get("mobile_number"), obj.get("time_start") + " - " + obj.get("time_end"), 
+                        obj.get("org"), obj.get("dept"), obj.get("venue"), obj.get("semester"), 
+                        obj.get("remarks"), obj.get("description"), obj.get("status"), obj.get("academic_year")],);
                     }
                 });
 
@@ -418,7 +413,7 @@ export default{
             }
         },
 
-        venueReport(){
+        venueReport(){ //this is the main download module for venues
             var arrResults = [
                 ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status", "Academic Year"],
             ];
@@ -459,7 +454,7 @@ export default{
             }
         },
 
-        semesterReport(){
+        semesterReport(){ //this is the main download module for semester
             var arrResults = [
                 ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status", "Academic Year"],
             ];
@@ -500,7 +495,7 @@ export default{
                 
         },
 
-        statusReport(){
+        statusReport(){ //this is the main download module for status
             var arrResults = [
                 ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status", "Academic Year"],
             ];
@@ -540,7 +535,7 @@ export default{
             }
         },
 
-        generateResult(){
+        generateResult(){ //this is the main download module for all of the results
             if(this.allowed_dl === true){
                 var arrResults = [
                     ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status", "Academic Year"],
@@ -578,7 +573,7 @@ export default{
             }
         },
 
-        month_yearReport(){
+        month_yearReport(){ //this is the main download module for month and year
             var arrResults = [
                 ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status", "Academic Year"],
             ];
@@ -620,7 +615,7 @@ export default{
     },
 
     mounted: async function(){
-        gapi.load("client:auth2", function () {
+        gapi.load("client:auth2", function () { //this is the Google OAuth API that needs to be rendered
             gapi.auth2.getAuthInstance();
         });
 
@@ -638,6 +633,7 @@ export default{
             "July", "August", "September", "October", "November", "December"
         ];
 
+        // we fetched all of the data in "Request" table in our database
         const Request = Parse.Object.extend("Request");
         const request = new Parse.Query(Request);
         const query = await request.find();
@@ -664,6 +660,8 @@ export default{
                 })
             }
 
+            //we transfered all of the necessarry data to be downloaded. We prepared it and
+            //stored the data in the variable named 'this.reports_arr'
             this.reports_arr.push([query[i].get("date"), query[i].get("full_name"), 
             query[i].get("email"), query[i].get("mobile_number"), query[i].get("time_start") + " - " + query[i].get("time_end"), 
             query[i].get("org"), query[i].get("dept"), query[i].get("venue"), query[i].get("semester"), 

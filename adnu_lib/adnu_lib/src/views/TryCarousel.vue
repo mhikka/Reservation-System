@@ -176,6 +176,7 @@ export default {
     },
 
     computed: {
+        //this allows us to get the current date today and be displayed in our front-end HTML code
         formattedDate: function() {
             const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             const monthsOfYear = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -204,6 +205,8 @@ export default {
         const request = new Parse.Query(Request);
         const query = await request.find();
 
+        // we fetched all of the data in "Request" table in our database
+        // we looked for an event that is happening "TODAY" wherein the status of the request is 'Approved' by the admin
         for(let i = 0; i < query.length; i++){
         if(this.newdate === query[i].get("date") && query[i].get("status") === 'Approved'){
                 this.sample_arr_holder.push({
@@ -219,7 +222,7 @@ export default {
 
         // Initialize the carousel
         new Carousel(document.querySelector('#myCarousel'), {
-            // Set the interval to 5 seconds
+            // Set the interval to 2 seconds
             interval: 2000,
             wrap: true
         });

@@ -40,7 +40,6 @@
                                             <div class="p-2">
                                                 <img src="../assets/bg_pdf.png" class="img-fluid" alt="...">
                                                 <div class="position-absolute top-50 start-50" style="transform: translate(-50%, -50%); text-align: center; width: 100%;">
-                                                    <!-- <div class="img-fluid bg-light rounded" style="width: auto; height:auto;"> -->
                                                         <div class="text-center mt-10 text-lg fw-*">
                                                             <h1 class="pt-5 pb-4 fw-bold">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-megaphone" viewBox="0 0 16 16">
@@ -58,7 +57,6 @@
                                                             <h4 class="pt-5">Posted by:</h4>
                                                             <img src="../assets/lib_logo.png" style="max-width: 50%; top: -50px; left: -50px;" class="text-right">
                                                         </div>
-                                                    <!-- </div> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -104,11 +102,8 @@ export default{
     },
 
     methods: {
-        printMaterial(){
-            
-            // const element = document.getElementById("advisory");
-            // html2pdf().from(element).save();
-            const element = document.getElementById('advisory');
+        printMaterial(){ // this is the button wherein we print the post
+            const element = document.getElementById('advisory'); // we fetched the HTML & CSS contents by ID using document.getElementById
             const options = {
                 margin:       0.5,
                 filename:     this.file_date + "_" + 'advisory_post.pdf',
@@ -126,7 +121,7 @@ export default{
     },
 
     mounted: async function(){
-        gapi.load("client:auth2", function () {
+        gapi.load("client:auth2", function () { //this is the Google OAuth API that needs to be rendered
             gapi.auth2.getAuthInstance();
         });
 
@@ -154,14 +149,15 @@ export default{
 
         this.newdate = " " + monthNames[month - 1] + " " + new_day + " " + year;
         this.file_date = monthNames[month - 1] + "-" + new_day + "-" + year;
-        // const new_month = monthNames[month - 1];
         console.log(this.newdate);
         
+        //we fetched all of the data in our database table "Request"
         const Request = Parse.Object.extend("Request");
         const request = new Parse.Query(Request);
         const query = await request.find();
 
         for(let i = 0; i < query.length; i++){
+            //we filtered the data wherein it is final, approved and the date is TODAY
             if(this.newdate === query[i].get("date") && query[i].get("remarks") === 'Final'){
                 if(query[i].get("status") === "Approved"){
                     this.request_arr.push({

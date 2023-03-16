@@ -15,13 +15,7 @@
             </h1>
                 
             <hr style="background-color: black; height: 2px;">
-            <!-- <div @click="check"> -->
-                <!-- <ejs-schedule height="575px" currentView="Month" v-model:selectedDate="schedulerSelectedDate" id="calendar">
-                </ejs-schedule> -->
-                <!-- <VueCal @click="check" ref="vuecal" /> -->
                 <div @click="check" v-if="gapiLoaded === true">
-                    <!-- <ejs-schedule height="575px" currentView="Month" v-model:selectedDate="schedulerSelectedDate" id="calendar">
-                </ejs-schedule> -->
                     <div class="scrollable">
                         <VueCal @time="handleTime" @date="handleEvent" ref="vuecal" />
                         <div v-if="show_selected_popup === true">
@@ -35,7 +29,6 @@
                                                 </div>
                                                 <div class="col-auto">
                                                     <button type="button" class="btn btn-warning text-white" @click="resetArr">Reset</button> &nbsp;
-                                                    <!-- <button type="button" class="btn btn-primary" @click="undoArr">Undo</button> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -135,8 +128,6 @@
                                         <div class="form-group pb-2">
                                             <label for="exampleInputEmail1" class="float-start">Date/s</label>
                                             <input v-model="tempArr" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter the date here">
-                                            <!-- <label for="exampleInputEmail1" class="float-start">Date</label>
-                                            <input v-model="date" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter the date here"> -->
                                         </div>
                                         <div class="row g-3">
                                                 <div class="form-group pb-2 col-sm">
@@ -273,7 +264,6 @@
 </template>
 
 <script>
-// import { ScheduleComponent, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-vue-schedule";
 import AdminModal from "@/components/AdminModal.vue";
 import SidePanelAdmin from "@/components/SidePanelAdmin.vue";
 import VueCal from "@/components/VueCal.vue";
@@ -284,7 +274,6 @@ import $ from 'jquery';
 const gapi = window.gapi;
 export default{
     components: {
-        // 'ejs-schedule': ScheduleComponent,
         AdminModal, SidePanelAdmin, VueCal
     },
     provide: {
@@ -363,46 +352,13 @@ export default{
 
         undoArr(){
             console.log(this.tempArr);
-            // // this.tempArr.pop();
-            // const new_val = this.tempArr.pop(); 3
-            // console.log(new_val);
-
-            // for(let i = 0; i < this.sliced_holder2.length; i++){
-            //     // console.log(new_val === this.sliced_holder2[i]);
-            //     if(this.sliced_holder2.includes(this.sliced_holder2[i]) > 1) {
-            //         console.log("Duplicates!");
-            //     }
-
-            //     if(new_val === this.sliced_holder2[i]){
-            //         let indexToRemove = this.sliced_holder2.indexOf(new_val);
-            //         if(indexToRemove !== -1){
-            //             this.sliced_holder2.splice(indexToRemove, 1);
-            //             console.log(this.sliced_holder2);
-            //             console.log(this.sliced_holder2.includes(this.sliced_holder2[i] > 1));
-            //         }
-            //     } else {
-            //         console.log("not working!");
-            //     }
-            // }
-            // this.sliced_holder2 = [...new Set(this.sliced_holder2)];
-            // this.sliced_holder2.pop();
-            // console.log(this.sliced_holder2);
-            // this.length_ofArr = this.sliced_holder2.length;
-            // this.tempArr = this.sliced_holder2;
-            // this.tempArr.pop();
-            // this.sliced_holder2.pop();
-            // console.log(this.sliced_holder2);
-            // this.length_ofArr = this.sliced_holder2.length;
-            // if(this.length_ofArr === 0){
-            //     this.resetArr();
-            // }
         },
 
         close_error_msg(){
             this.error_message = false;
         },
 
-        handleEvent(evenData) {
+        handleEvent(evenData) { // this handles the selected date of a user
             this.schedulerSelectedDate = evenData.schedulerSelectedDate;
             console.log(this.schedulerSelectedDate);
             let values = Object.values(evenData);
@@ -413,8 +369,6 @@ export default{
             console.log(this.tempArr);
             this.dateToday = String(this.dateToday).slice(0, 15);
             this.length_ofArr = this.tempArr.length;
-            // console.log(this.dateToday);
-            // console.log(this.sliced_holder2);
             this.open_modal = true;
             var dateObj = new Date();
             var month = dateObj.getUTCMonth() + 1; //months from 1-12
@@ -426,7 +380,6 @@ export default{
             } else {
                 new_day = day.toString();
             }
-            // console.log(new_day);
 
             const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -461,21 +414,13 @@ export default{
             }
         },
 
-        handleTime(t){
+        handleTime(t){ // this handles the time that was clicked by the user
             this.time2 = t.time2;
             let values = Object.values(t);
             this.time = String(values).slice(0, 7);
-            // this.endTime = String(this.timeHolder).slice(0, 3);
-            // this.concatTime = `${this.timeHolder} - ${this.endTime}`;
-            // console.log(this.concatTime);
-            // console.log(this.endTime);
-            // console.log(this.time);
         },
         
-        check(){
-            // console.log("Selected date:",this.schedulerSelectedDate);
-            // let date_holder = this.schedulerSelectedDate;
-            // console.log(date_holder);
+        check(){ //checking if there's a selected date in an array
             if(this.schedulerSelectedDate != null){
                 this.open_modal = true;
                 this.sliced_holder = String(this.schedulerSelectedDate).slice(0, 15);
@@ -484,21 +429,14 @@ export default{
                 this.date_slicer = String(this.schedulerSelectedDate).slice(3, 15);
                 this.date = this.date_slicer;
             }
-            // console.log(this.schedulerSelectedDate)
         },
 
-        nextPage(){
+        nextPage(){ // this is the function to navigate to different pages of the form
             this.next_page = true;
             this.next_page_1 = false;
-            // console.log("Full Name: ", this.full_name);
-            // console.log("Email: ", this.user_email);
-            // console.log("Mobile Number: ", this.mobile_number);
-            // console.log("Time: ", this.time);
-            // console.log("Org/Dept: ", this.org_dept);
-            // console.log("Venue: ", this.venue);
-            // console.log("Description: ", this.desc);
-            // console.log("Values of Q: ", this.values_of_q);
         },
+
+        //this is the function to set an appointment
         setAppointment() {
             const number = parseInt(this.mobile_number);
 
@@ -537,17 +475,19 @@ export default{
             const equip_arr = equip_obj.split(",");
             console.log(equip_arr);
 
+            //this statement handles multiple number of reservation
            if (this.tempArr.length > 1) {
                 for (let i = 0; i < this.tempArr.length; i++) {
-                    const fileUploadControl = $("#FileUpload")[0];
+                    const fileUploadControl = $("#FileUpload")[0]; //this is for the file uploading
                     console.log(fileUploadControl);
-                    if (fileUploadControl.files.length > 0) {
+                    if (fileUploadControl.files.length > 0) { // we saved the file temporarily in the cloud
                         const file = fileUploadControl.files[0];
                         const name = file.name;
                         console.log("Upload: ", name);
 
                         const parseFile = new Parse.File(name, file);
                         parseFile.save().then((parseFile) => {
+                            // we saved the data that was inputted by the users in our Request table in our database
                             const Request = Parse.Object.extend("Request");
                             const request = new Request();
 
@@ -584,6 +524,8 @@ export default{
                                 //   denyButtonText: `Don't save`,
                             }).then((result) => {
                                 if (result.isConfirmed) {
+                                    //after a successful saving of the data, we empty the variables
+                                    // preparing for the next reservation process
                                     request.save().then((request) => {
                                         console.log("Success", request);
                                         this.open_modal = false;
@@ -596,51 +538,34 @@ export default{
                                         this.semester = '';
                                         this.remarks = '';
                                         this.desc = '';
-                                        this.$router.push({ name: 'adminHome' });
+                                        this.$router.push('/reload'); // after saving, we will push the page to our reload page for a smooth operation of the system
                                         return request.save();
                                     });
                                     Swal.fire({
                                         icon: 'success', title: 'Reservation Saved!', showConfirmButton: false, timer: 2000,
                                         timerProgressBar: true,
                                     });
-                                    //   document.location.reload();
-                                    // this.$router.push('/reload');
-                                    // location.reload();
                                 }
                                 else if (result.isDenied) {
                                     Swal.fire('Unable to save reservation')
                                 }
                             })
-                            // request.save().then((request) => {
-                            //     console.log("Success", request);
-                            //     this.open_modal = false;
-                            //     this.date = '';
-                            //     this.mobile_number = '';
-                            //     this.time = '';
-                            //     this.org = '';
-                            //     this.dept = '';
-                            //     this.venue = '';
-                            //     this.semester = '';
-                            //     this.remarks = '';
-                            //     this.desc = '';
-                            //     this.$router.go(-2);
-                            //     return request.save();
-                            // });
                         })
                     }
                 } //End of loop
             }
-            else {
+            else { //this statement handles one (1) reservation
                 for (let i = 0; i < this.tempArr.length; i++) {
                     const fileUploadControl = $("#FileUpload")[0];
                     console.log(fileUploadControl);
-                    if (fileUploadControl.files.length > 0) {
+                    if (fileUploadControl.files.length > 0) { 
                         const file = fileUploadControl.files[0];
                         const name = file.name;
                         console.log("Upload: ", name);
 
-                        const parseFile = new Parse.File(name, file);
+                        const parseFile = new Parse.File(name, file); // we saved the file temporarily in the cloud
                         parseFile.save().then((parseFile) => {
+                            // we saved the data that was inputted by the users in our Request table in our database
                             const Request = Parse.Object.extend("Request");
                             const request = new Request();
 
@@ -669,14 +594,14 @@ export default{
                             Swal.fire({
                                 icon: 'info',
                                 title: 'Do you want to save this reservation?',
-                                //   showDenyButton: true,
                                 showCancelButton: true,
                                 confirmButtonText: 'Confirm',
                                 confirmButtonColor: '#00588C',
                                 cancelButtonColor: '#C3C3C9',
-                                //   denyButtonText: `Don't save`,
                             }).then((result) => {
                                 if (result.isConfirmed) {
+                                    //after a successful saving of the data, we empty the variables
+                                    // preparing for the next reservation process
                                     request.save().then((request) => {
                                         console.log("Success", request);
                                         this.open_modal = false;
@@ -689,45 +614,22 @@ export default{
                                         this.semester = '';
                                         this.remarks = '';
                                         this.desc = '';
-                                        this.$router.push({ name: 'home' });
+                                        this.$router.push('/reload'); // after saving, we will push the page to our reload page for a smooth operation of the system
                                         return request.save();
                                     });
                                     Swal.fire({
                                         icon: 'success', title: 'Reservation Saved!', showConfirmButton: false, timer: 2000,
                                         timerProgressBar: true,
                                     });
-                                    //   document.location.reload();
-                                    // this.$router.push('/reload');
-                                    // location.reload();
                                 }
                                 else if (result.isDenied) {
                                     Swal.fire('Unable to save reservation')
                                 }
                             })
-                            // request.save().then((request) => {
-                            //     console.log("Success", request);
-                            //     Swal.fire({
-                            //         icon: 'success', title: 'Reservation saved', showConfirmButton: false, timer: 2000,
-                            //         timerProgressBar: true,
-                            //     });
-                            //     this.open_modal = false;
-                            //     this.date = '';
-                            //     this.mobile_number = '';
-                            //     this.time = '';
-                            //     this.org = '';
-                            //     this.dept = '';
-                            //     this.venue = '';
-                            //     this.semester = '';
-                            //     this.remarks = '';
-                            //     this.desc = '';
-                            //     this.$router.go(-2);
-                            //     return request.save();
-                            // });
                         })
                     }
                 }
             }
-            // this.close_modal();
         },
         cellSelected(cell){
             console.log(cell)

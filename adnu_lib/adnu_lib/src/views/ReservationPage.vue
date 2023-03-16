@@ -16,14 +16,8 @@
                   
                 <hr style="background-color: black; height: 2px;">
                 <div @click="check" v-if="gapiLoaded === true">
-                    <!-- <ejs-schedule height="575px" currentView="Month" v-model:selectedDate="schedulerSelectedDate" id="calendar">
-                    </ejs-schedule> -->
                     <div class="scrollable">
                         <VueCal @time="handleTime" @date="handleEvent" ref="vuecal" />  
-                    <!-- <div class="mt-3">
-                        Number of dates selected: {{ length_ofArr }}
-                        <button type="button" class="ms-2 mb-1 btn btn-secondary" @click="resetArr">Reset</button>
-                    </div>  -->
                         <div v-if="show_selected_popup === true">
                             <div class="floating_counter">
                                 <div class="pt-1 pb-1 pe-2">
@@ -35,7 +29,6 @@
                                                 </div>
                                                 <div class="col-auto">
                                                     <button type="button" class="btn btn-warning text-white" @click="resetArr">Reset</button> &nbsp;
-                                                    <!-- <button type="button" class="btn btn-primary" @click="undoArr">Undo</button> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -274,7 +267,6 @@
 </template>
 
 <script>
-// import { ScheduleComponent, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-vue-schedule";
 import AdminModal from "@/components/AdminModal.vue";
 import SidePanelUser from "@/components/SidePanelUser.vue";
 import VueCal from "@/components/VueCal.vue"
@@ -285,11 +277,7 @@ import $ from 'jquery';
 const gapi = window.gapi;
 export default{
     components: {
-        // 'ejs-schedule': ScheduleComponent,
         AdminModal, SidePanelUser, VueCal
-    },
-    provide: {
-        // schedule: [Day, Week, WorkWeek, Month, Agenda]
     },
     data(){
         return{
@@ -356,17 +344,6 @@ export default{
 
     methods: {
         check(){
-            // console.log("Selected date:",this.schedulerSelectedDate);
-            // let date_holder = this.schedulerSelectedDate;
-            // console.log(date_holder);
-            // if(this.schedulerSelectedDate != null){
-            //     this.open_modal = true;
-            //     this.sliced_holder = String(this.schedulerSelectedDate).slice(0, 15);
-            //     console.log(this.sliced_holder);
-            //     this.picked_date = this.sliced_holder;
-            //     this.date_slicer = String(this.schedulerSelectedDate).slice(3, 15);
-            //     this.date = this.date_slicer;
-            // }
             console.log(this.schedulerSelectedDate);
         },
 
@@ -380,8 +357,8 @@ export default{
 
         },
 
-        close_error_msg(){
-            this.error_message = false;
+        close_error_msg(){ // we have an error message function that triggers,
+            this.error_message = false; //this is the close button of that message
         },
 
         handleEvent(evenData) {
@@ -395,8 +372,6 @@ export default{
             console.log(this.tempArr);
             this.dateToday = String(this.dateToday).slice(0, 15);
             this.length_ofArr = this.tempArr.length;
-            // console.log(this.dateToday);
-            // console.log(this.sliced_holder2);
             this.open_modal = true;
             var dateObj = new Date();
             var month = dateObj.getUTCMonth() + 1; //months from 1-12
@@ -408,7 +383,6 @@ export default{
             } else {
                 new_day = day.toString();
             }
-            // console.log(new_day);
 
             const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -445,24 +419,22 @@ export default{
             // this.flag = 1;
         },
 
+        //when a user clicked on a time, this function handles that process
         handleTime(t) {
             this.time2 = t.time2;
             let values = Object.values(t);
             this.time = String(values).slice(0, 7);
             this.endTime = parseInt(this.timeHolder);
-            // console.log(this.concatTime);
-            // let finalEnd = this.endTime <= 10 ? String(this.endTime).slice(0, 3)+':' : String(this.endTime).slice(0, 2);
-            // this.concatTime = `${this.timeHolder} - ${finalEnd}`;
-            // console.log(finalEnd);
-            // console.log(this.concatTime);
             console.log(this.timeHolder);
         },
 
+        //this is the navigation in our forms
         nextPage(){
             this.next_page = true;
             this.next_page_1 = false;
         },
 
+        //this is the function to set an appointment
         setAppointment(){
             const number = parseInt(this.mobile_number);
 
@@ -493,25 +465,27 @@ export default{
             let i_q = document.querySelectorAll('[id="input_q"]');
             const q_i = [...i_q].map(input => input.value);
             console.log("Values of Q: ", q_i);
-            for(let i = 0; i < q_i.length; i++){
+            for (let i = 0; i < q_i.length; i++) {
                 this.equipment_list.push(parseInt(q_i[i]));
             }
 
             const equip_obj = JSON.stringify(this.equipment_list);
             const equip_arr = equip_obj.split(",");
-            console.log(equip_obj);
+            console.log(equip_arr);
 
-            if (this.tempArr.length > 1) {
+            //this statement handles multiple number of reservation
+           if (this.tempArr.length > 1) {
                 for (let i = 0; i < this.tempArr.length; i++) {
-                    const fileUploadControl = $("#FileUpload")[0];
+                    const fileUploadControl = $("#FileUpload")[0]; //this is for the file uploading
                     console.log(fileUploadControl);
                     if (fileUploadControl.files.length > 0) {
                         const file = fileUploadControl.files[0];
                         const name = file.name;
                         console.log("Upload: ", name);
 
-                        const parseFile = new Parse.File(name, file);
+                        const parseFile = new Parse.File(name, file); // we saved the file temporarily in the cloud
                         parseFile.save().then((parseFile) => {
+                            // we saved the data that was inputted by the users in our Request table in our database
                             const Request = Parse.Object.extend("Request");
                             const request = new Request();
 
@@ -540,15 +514,15 @@ export default{
                             Swal.fire({
                                 icon: 'info',
                                 title: 'Do you want to save this reservation?',
-                                //   showDenyButton: true,
                                 showCancelButton: true,
                                 confirmButtonText: 'Confirm',
                                 confirmButtonColor: '#00588C',
                                 cancelButtonColor: '#C3C3C9',
-                                //   denyButtonText: `Don't save`,
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     request.save().then((request) => {
+                                        //after a successful saving of the data, we empty the variables
+                                        // preparing for the next reservation process
                                         console.log("Success", request);
                                         this.open_modal = false;
                                         this.date = '';
@@ -560,56 +534,34 @@ export default{
                                         this.semester = '';
                                         this.remarks = '';
                                         this.desc = '';
-                                        this.$router.push({ name: 'home' });
+                                        this.$router.push('/reload'); // after saving, we will push the page to our reload page for a smooth operation of the system
                                         return request.save();
                                     });
                                     Swal.fire({
                                         icon: 'success', title: 'Reservation Saved!', showConfirmButton: false, timer: 2000,
                                         timerProgressBar: true,
                                     });
-                                    //   document.location.reload();
-                                    // this.$router.push('/reload');
-                                    // location.reload();
                                 }
                                 else if (result.isDenied) {
                                     Swal.fire('Unable to save reservation')
                                 }
                             })
-
-                            // request.save().then((request) => {
-                            //     console.log("Success", request);
-                            //     Swal.fire({
-                            //         icon: 'success', title: 'Reservation saved', showConfirmButton: false, timer: 2000,
-                            //         timerProgressBar: true,
-                            //     });
-                            //     this.open_modal = false;
-                            //     this.date = '';
-                            //     this.mobile_number = '';
-                            //     this.time = '';
-                            //     this.org = '';
-                            //     this.dept = '';
-                            //     this.venue = '';
-                            //     this.semester = '';
-                            //     this.remarks = '';
-                            //     this.desc = '';
-                            //     this.$router.push({ name: 'home' });
-                            //     return request.save();
-                            // });
                         })
                     }
                 } //End of loop
             }
-            else{
-                for (let i = 0; i < this.tempArr.length; i++){
+            else { //this statement handles one (1) reservation
+                for (let i = 0; i < this.tempArr.length; i++) {
                     const fileUploadControl = $("#FileUpload")[0];
                     console.log(fileUploadControl);
-                    if (fileUploadControl.files.length > 0) {
+                    if (fileUploadControl.files.length > 0) { // we saved the file temporarily in the cloud
                         const file = fileUploadControl.files[0];
                         const name = file.name;
                         console.log("Upload: ", name);
 
                         const parseFile = new Parse.File(name, file);
                         parseFile.save().then((parseFile) => {
+                            // we saved the data that was inputted by the users in our Request table in our database
                             const Request = Parse.Object.extend("Request");
                             const request = new Request();
 
@@ -627,7 +579,7 @@ export default{
                             request.set("remarks", this.remarks);
                             request.set("description", this.desc);
                             request.set("filename", name);
-                            request.set("equipments", equip_arr);
+                            request.set("equipments", equip_obj);
                             request.set("filUploaded", parseFile);
                             request.set("url", parseFile._url);
                             request.set("status", "Pending");
@@ -638,15 +590,15 @@ export default{
                             Swal.fire({
                                 icon: 'info',
                                 title: 'Do you want to save this reservation?',
-                                //   showDenyButton: true,
                                 showCancelButton: true,
                                 confirmButtonText: 'Confirm',
                                 confirmButtonColor: '#00588C',
                                 cancelButtonColor: '#C3C3C9',
-                                //   denyButtonText: `Don't save`,
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     request.save().then((request) => {
+                                        //after a successful saving of the data, we empty the variables
+                                        // preparing for the next reservation process
                                         console.log("Success", request);
                                         this.open_modal = false;
                                         this.date = '';
@@ -658,66 +610,41 @@ export default{
                                         this.semester = '';
                                         this.remarks = '';
                                         this.desc = '';
-                                        this.$router.push({ name: 'home' });
+                                        this.$router.push('/reload'); // after saving, we will push the page to our reload page for a smooth operation of the system
                                         return request.save();
                                     });
                                     Swal.fire({
                                         icon: 'success', title: 'Reservation Saved!', showConfirmButton: false, timer: 2000,
                                         timerProgressBar: true,
                                     });
-                                    //   document.location.reload();
-                                    // this.$router.push('/reload');
-                                    // location.reload();
                                 }
                                 else if (result.isDenied) {
                                     Swal.fire('Unable to save reservation')
                                 }
                             })
-
-                            // request.save().then((request) => {
-                            //     console.log("Success", request);
-                            //     Swal.fire({ icon: 'success', title: 'Reservation saved', showConfirmButton: false, timer: 2000,
-                            //         timerProgressBar: true, });
-                            //     this.open_modal = false;
-                            //     this.date = '';
-                            //     this.mobile_number = '';
-                            //     this.time = '';
-                            //     this.org = '';
-                            //     this.dept = '';
-                            //     this.venue = '';
-                            //     this.semester = '';
-                            //     this.remarks = '';
-                            //     this.desc = '';
-                            //     this.$router.push({ name: 'home' });   
-                            //     return request.save();
-                            // });
                         })
                     }
                 }
             }
-        // this.close_modal();
-        // this.$router.go(-2);
-        // location.reload();
         },
 
-        nextPage_1(){
+        nextPage_1(){ // navigation for the next page in our forms
             this.next_page_1 = true;
         },
 
-        back_btn(){
+        back_btn(){ //this is the back button inside the forms
             this.next_page = false;
             this.next_page_1 = false;
         },
 
-        trigger_modal(){
+        trigger_modal(){ // this allows us to open a pop up modal
             this.open_modal = true;
         },
 
-        close_modal(){
+        close_modal(){ // we reset the values that was inputted in our forms
             this.open_modal = false;
             this.next_page = false;
             this.date = '';
-            // this.mobile_number = '';
             this.time = '';
             this.org = '';
             this.dept = '';
@@ -741,23 +668,25 @@ export default{
         },
     },
 
+    //mounted is a lifecycle hook that renders after the template completely rendered
     mounted: async function(){
-        gapi.load("client:auth2", function () {
+        gapi.load("client:auth2", function () { //this is the Google OAuth API that needs to be rendered
             gapi.auth2.getAuthInstance();
         });
 
-        const googleUser = gapi.auth2.getAuthInstance();
+        const googleUser = gapi.auth2.getAuthInstance(); // we fetched the details of a logged in user
         this.google_user = googleUser;
         console.log(googleUser);
-        this.profileFullName = googleUser.currentUser.get().getBasicProfile().getName();
-        this.user_email = googleUser.currentUser.get().getBasicProfile().getEmail();
+        this.profileFullName = googleUser.currentUser.get().getBasicProfile().getName(); // this is the fullname of a user
+        this.user_email = googleUser.currentUser.get().getBasicProfile().getEmail(); // this is the email of the user
         console.log(this.profileFullName);
-        this.gapiLoaded = true;
+        this.gapiLoaded = true; //this is a flag that the Google API completely loaded
 
-        if(!googleUser) {
-            this.$router.push({name: 'Login'});
+        if(!googleUser) { // this statement allows us to push the user back to the login page when it failed to
+            this.$router.push({name: 'Login'}); //identify that the user is logged out from the system
         }
-            
+        
+        //this allows us to fetched the data from our database with a table name "Equipments"
         const Equipments = Parse.Object.extend("Equipments");
         const equipments = new Parse.Query(Equipments);
         const equip = await equipments.find();

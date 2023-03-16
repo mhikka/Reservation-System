@@ -58,8 +58,6 @@
                 </ul>
             </div>
             <div class="col-md-6 mt-md-0 mt-3 order-md-1 order-2">
-                <!-- <ejs-schedule height="375px" width="auto" currentView="Day" class="rounded">
-                </ejs-schedule> -->
                 <div>
                     <div class="row">
                         <div class="col pb-2">
@@ -303,24 +301,15 @@
 </template>
 
 <script>
-// import HelloWorld from '@/components/HelloWorld.vue';
-// import { ScheduleComponent, Day, Agenda } from "@syncfusion/ej2-vue-schedule";
-// import VueCal from "@/components/VueCalLogin.vue";
 import AdminModal from "@/components/AdminModal.vue";
 import Parse from 'parse';
 
 const gapi = window.gapi;
 export default{
     name: 'LoginPage',
-    // components: {HelloWorld},
     components: {
-        // 'ejs-schedule': ScheduleComponent,
-        // VueCal,
         AdminModal,
     },
-    // provide: {
-    //     schedule: [Day, Agenda]
-    // },
     data(){
         return{
             profileFirstname: '',
@@ -349,38 +338,32 @@ export default{
         }
     },
     methods: {
-        async handleSignIn(){
-            // try {
+        async handleSignIn(){ // this is the login button in our login page, "Continue to Gbox button"
                 let googleUser = await gapi.auth2.getAuthInstance().signIn();
 
-                this.profileFirstname = googleUser.getBasicProfile().getGivenName(); //tw.lv.rZ;
-                this.profileLastname = googleUser.getBasicProfile().getFamilyName(); //tw.lv.EX; 
-                this.profileFullName = googleUser.getBasicProfile().getName(); //tw.lv.Af;  
-                this.profileImage = googleUser.getBasicProfile().getImageUrl(); //tw.lv.nO; 
-                this.profileEmail = googleUser.getBasicProfile().getEmail();  //tw.lv.Xv;  
-                this.profileId = googleUser.getBasicProfile().getId();   //tw.lv.ZX;
+                this.profileFirstname = googleUser.getBasicProfile().getGivenName();
+                this.profileLastname = googleUser.getBasicProfile().getFamilyName(); 
+                this.profileFullName = googleUser.getBasicProfile().getName(); 
+                this.profileImage = googleUser.getBasicProfile().getImageUrl();
+                this.profileEmail = googleUser.getBasicProfile().getEmail(); 
+                this.profileId = googleUser.getBasicProfile().getId();
                 console.log(googleUser);
                 if(googleUser){
-                    // this.$router.push({name: 'home'});
                     console.log("First name: ", this.profileFirstname);
                     console.log("Last name: ", this.profileLastname);
                     console.log("Full name: ", this.profileFullname);
                     console.log("Image: ", this.profileImage);
                     console.log("Email: ", this.profileEmail);
                     console.log("ID: ", this.profileId);
-                    this.api_successs = true;
+                    this.api_successs = true; // flags the system if the login process/data was successfully completed
                 }
 
                 if(googleUser.getBasicProfile() != null && this.api_successs === true){
                     console.log("Success");
-                    // this.popUpAdmin;
-                    this.popup_admin = true;
+                    this.popup_admin = true; //this shows the input field for the admin password
                 } else {
                     console.log("fail");
                 }
-            // } catch(error) {
-            //     console.log(error);
-            // }
         },
 
         popUpAdmin(){
@@ -396,10 +379,10 @@ export default{
         },
 
         continue_admin(){
-            if(this.AdminKey === 'ABC123'){
+            if(this.AdminKey === 'ABC123'){ //if the admin key was correct, the user will be navigated to the admin side of the system
                 this.$router.push({name: 'adminHome'});
-            } else {
-                this.admin_invalid = true;
+            } else { //else, the user will be navigated to the user side of the system
+                this.admin_invalid = true; 
             }
         },
 
@@ -414,15 +397,14 @@ export default{
 
     mounted: async function(){
         try{
-            gapi.load("client:auth2", function () {
+            gapi.load("client:auth2", function () { //this is the Google OAuth API that needs to be rendered
                 gapi.auth2.getAuthInstance();
             });
 
             const googleUser = await gapi.auth2.getAuthInstance();
-            // await this.loadClient();
             console.log("This is the googleUser:", googleUser);
             this.currentUser = googleUser.currentUser.get().getBasicProfile().getName();
-            this.gapiLoaded = true;
+            this.gapiLoaded = true; //this is a flag that the Google API completely loaded
 
         } catch(error){
             console.log(error);
@@ -438,8 +420,6 @@ export default{
         } else {
             new_day = day.toString();
         }
-        // console.log(new_day);
-
         const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
             "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
         ];
@@ -448,6 +428,8 @@ export default{
         this.file_date = year + "-" + new_day + "-" + month;
         console.log(this.newdate);
 
+        // we fetched all of the data in "Request" table in our database
+        // we looked for an event that is happening "TODAY" wherein the status of the request is 'Approved' by the admin
         const Request = Parse.Object.extend("Request");
         const request = new Parse.Query(Request);
         const query = await request.find();
@@ -466,7 +448,8 @@ export default{
         console.log(this.events);
         this.len_request_arr = this.events.length;
 
-        if(this.len_request_arr === 0){
+        // this block allows us to verify if there's a reservation today
+        if(this.len_request_arr === 0){ 
             this.show_list = false;
             console.log(this.show_list);
         } else {
