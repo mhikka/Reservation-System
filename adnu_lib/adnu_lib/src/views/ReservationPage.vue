@@ -227,10 +227,9 @@
                             </div>
                             <input class="form-control" type="file" id="FileUpload">
                             <div class=" text-danger d-flex justify-content-start pb-3 ps-3">
-                                <small>
+                                <small class="pt-2">
                                     Important Note: File name can't contain any of the following characters: \/:*? &lt; &gt; | ( ).
                                 </small>
-  
                             </div>
                             <div class="pt-5">
                                     <button class="btn btn-primary float-start" type="submit" @click="setAppointment();">

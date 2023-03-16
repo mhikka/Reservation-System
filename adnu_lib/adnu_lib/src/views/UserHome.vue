@@ -379,6 +379,20 @@
 
                             <div v-if="next_page_1 === true && next_page === true">
                                 <h5 class="fw-bolder d-flex justify-content-start pb-2">Equipments</h5>
+                                <div class=" d-flex justify-content-center pb-3">
+                                    <span class = "text-danger">
+                                        <small> 
+                                            <lord-icon
+                                                src="https://cdn.lordicon.com/lfqzieho.json"
+                                                trigger="loop"
+                                                delay="2000"
+                                                colors="primary:#DC3545"
+                                                style="width: 18px;height: 18px" class="pt-1 ms-1">
+                                            </lord-icon>
+                                            Important Note: Please fill up all the input fields in this section. If none, input zero(0).
+                                        </small>
+                                    </span>
+                                </div>
                                 <div class="row" v-for="equip in merged_arr" :key="equip">
                                     <div class="col-4">
                                         <div>
@@ -417,6 +431,11 @@
                                                 {{ details.fName }}
                                             </a>
                                         </div>
+                                    </div>
+                                    <div class=" text-danger d-flex justify-content-start pb-3 ps-3">
+                                        <small class="pt-2">
+                                            Important Note: File name can't contain any of the following characters: \/:*? &lt; &gt; | ( ).
+                                        </small>
                                     </div>
                                 </div>
 
