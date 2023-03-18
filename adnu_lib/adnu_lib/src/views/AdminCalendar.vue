@@ -255,7 +255,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Warning</h5>
-                    <p class="card-text">Same day reservation is not allowed.</p>
+                    <p class="card-text">Only future reservation is allowed by the system.</p>
                     <button type="button" class="btn btn-outline-light" @click="close_error_msg">Close</button>
                 </div>
             </div>
@@ -358,6 +358,11 @@ export default{
             this.error_message = false;
         },
 
+        isPastDate(date) {
+            const now = new Date();
+            return now > new Date(date);
+        },
+
         handleEvent(evenData) { // this handles the selected date of a user
             this.schedulerSelectedDate = evenData.schedulerSelectedDate;
             console.log(this.schedulerSelectedDate);
@@ -410,6 +415,17 @@ export default{
                         this.arr_reset = false;
                         this.$router.push({name: 'reload'}); // we push to reload page to reload the page smoothly.
                     }
+                }
+            }
+
+            for(let w = 0; w < this.sliced_holder2.length; w++){
+                if(this.isPastDate(this.sliced_holder2[w])){
+                    this.show_selected_popup = false;
+                    this.sliced_holder2.splice(0, this.sliced_holder2.length); //we delete the parent array
+                    this.tempArr.splice(0, this.tempArr.length); //as well as the child array
+                    this.length_ofArr -= this.length_ofArr; //we decrement the counter
+                    this.show_selected_popup = false; //we hide the counter UI
+                    this.error_message = true;
                 }
             }
         },
