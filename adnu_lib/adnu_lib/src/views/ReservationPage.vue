@@ -29,6 +29,7 @@
                                                 </div>
                                                 <div class="col-auto">
                                                     <button type="button" class="btn btn-warning text-white" @click="resetArr">Reset</button> &nbsp;
+                                                    <button type="button" class="btn btn-primary text-white" @click="bookNow">Book</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -389,6 +390,21 @@ export default{
             return now > new Date(date);
         },
 
+        bookNow(){
+            console.log("THIS IS CLICKED");
+            const headTemp = document.querySelector('.vuecal__menu');
+            const dayView = headTemp.querySelector('.vuecal__view-btn[aria-label="Day view"]');
+            if(dayView){
+                console.log(dayView.textContent);
+                if(dayView.textContent === "Day"){
+                    this.open_modal = true;
+                    this.time = "0:00 am"
+                }
+            } else {
+                console.log("Error");
+            }
+        },
+
         handleEvent(evenData) {
             this.schedulerSelectedDate = evenData.schedulerSelectedDate;
             console.log(this.schedulerSelectedDate);
@@ -712,6 +728,7 @@ export default{
             this.timeEnd = '';
             this.timeHolder = '';
             this.tempArr = [];
+            this.resetArr();
             console.log(this.tempArr);
         },
 
