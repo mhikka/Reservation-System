@@ -263,6 +263,27 @@
             </div>
         </div>
     </div>
+
+    <div v-if="warning_message === true">
+        <div class="mx-auto" id="warning_pop">
+            <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                <div class="card-header">
+                    <lord-icon
+                        src="https://cdn.lordicon.com/dnmvmpfk.json"
+                        trigger="loop"
+                        delay="2000"
+                        colors="primary:#ffffff"
+                        style="width:25px;height:25px" class="pt-1 ms-1">
+                    </lord-icon>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Note</h5>
+                    <p class="card-text"> Reservations must be made at least 3 days in advance of your desired dates. Thank you for your understanding.</p>
+                    <button type="button" class="btn btn-outline-light" @click="close_error_msg">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -338,6 +359,8 @@ export default{
             arr_reset: false,
 
             error_message: false,
+
+            warning_message: false,
         }
     },
 
@@ -358,9 +381,10 @@ export default{
 
         close_error_msg(){ // we have an error message function that triggers,
             this.error_message = false; //this is the close button of that message
+            this.warning_message = false;
         },
 
-        isPastDate(date) {
+        isPastDate(date) { // this functions checks if the selected date was a past date
             const now = new Date();
             return now > new Date(date);
         },
@@ -429,6 +453,23 @@ export default{
                     this.length_ofArr -= this.length_ofArr; //we decrement the counter
                     this.show_selected_popup = false; //we hide the counter UI
                     this.error_message = true;
+                }
+            }
+
+            for(let j = 0; j < this.sliced_holder2.length; j++){
+                const todayDate = new Date(this.newdate); // we convert the date today to new Date to get time
+                const selectedDates = new Date(this.sliced_holder2[j]); // we convert the selected dates to new Date to get time
+                const diff = todayDate.getTime() - selectedDates.getTime(); // we subtract to get the lapsed days
+                const dayOff = Math.floor(diff / (1000 * 60 * 60 * 24)); // we then compute its time differences
+
+                const posDayOff = Math.abs(dayOff); // we converted the negative numbers to positive numbers
+                if(posDayOff <= 3){    // we check if the dates selected was less than or equal to 3 days to limit reservations
+                    this.show_selected_popup = false;
+                    this.sliced_holder2.splice(0, this.sliced_holder2.length); //we delete the parent array
+                    this.tempArr.splice(0, this.tempArr.length); //as well as the child array
+                    this.length_ofArr -= this.length_ofArr; //we decrement the counter
+                    this.show_selected_popup = false; //we hide the counter UI
+                    this.warning_message = true;
                 }
             }
             // this.flag = 1;
