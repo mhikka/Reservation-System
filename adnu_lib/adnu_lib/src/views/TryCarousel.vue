@@ -27,7 +27,7 @@
                                     <img src="../assets/libraryLog.png" width="400" height="auto" class="img-fluidd-inline-block float-end" alt="">
                                         <div class="row">
                                             <div class="px-0 justify-content-start">
-                                                <div class="container-fluid bg-light opacity-75 text-xl mt-10" style=" width:750px; height:auto;margin-top:150px; border-radius:5px;">
+                                                <div class="container-fluid bg-light opacity-75 text-xl mt-10" style=" width:770px; height:auto;margin-top:150px; border-radius:5px;">
                                                     <h1 class="pt-2 fw-bold" style="font-size: 60px; color:DarkBlue; font-family: Times New Roman, Times, serif; margin:20px 50px;">{{ details.room }}</h1>
                                                     <h3 class="pb-4" style="color:MidnightBlue; font-family: Arial, Helvetica, sans-serif;">1st Floor, James J. O’Brien S.J. Library</h3>
                                                 </div>
@@ -52,7 +52,7 @@
                                     <img src="../assets/libraryLog.png" width="400" height="auto" class="img-fluidd-inline-block float-end" alt="">
                                         <div class="row">
                                             <div class="px-0 justify-content-start">
-                                                <div class="container-fluid bg-light opacity-75 text-xl mt-10" style=" width:750px; height:auto;margin-top:150px; border-radius:5px;">
+                                                <div class="container-fluid bg-light opacity-75 text-xl mt-10" style=" width:770px; height:auto;margin-top:150px; border-radius:5px;">
                                                     <h1 class="pt-2 fw-bold" style="font-size: 60px; color:DarkBlue; font-family: Times New Roman, Times, serif; margin:20px 50px;">{{ details.room }}</h1>
                                                     <h3 class="pb-4" style="color:MidnightBlue; font-family: Arial, Helvetica, sans-serif;">1st Floor, James J. O’Brien S.J. Library</h3>
                                                 </div>
@@ -77,7 +77,7 @@
                                     <img src="../assets/libraryLog.png" width="400" height="auto" class="img-fluidd-inline-block float-end" alt="">
                                         <div class="row">
                                             <div class="px-0 justify-content-start">
-                                                <div class="container-fluid bg-light opacity-75 text-xl mt-10" style="width:750px; height:auto;margin-top:150px; border-radius:5px;">
+                                                <div class="container-fluid bg-light opacity-75 text-xl mt-10" style="width:770px; height:auto;margin-top:150px; border-radius:5px;">
                                                     <h1 class="pt-2 fw-bold" style="font-size: 60px; color:DarkBlue; font-family: Times New Roman, Times, serif; margin:20px 50px;">{{ details.room }}</h1>
                                                     <h3 class="pb-4" style="color:MidnightBlue; font-family: Arial, Helvetica, sans-serif;">1st Floor, James J. O’Brien S.J. Library</h3>
                                                 </div>
@@ -102,7 +102,7 @@
                                     <img src="../assets/libraryLog.png" width="400" height="auto" class="img-fluidd-inline-block float-end" alt="">
                                         <div class="row">
                                             <div class="px-0 justify-content-start">
-                                                <div class="container-fluid bg-light opacity-75 text-xl mt-10" style="width:750px; height:auto;margin-top:150px; border-radius:5px;">
+                                                <div class="container-fluid bg-light opacity-75 text-xl mt-10" style="width:770px; height:auto;margin-top:150px; border-radius:5px;">
                                                     <h1 class="pt-2 fw-bold" style="font-size: 60px; color:DarkBlue; font-family: Times New Roman, Times, serif; margin:20px 50px;">{{ details.room }}</h1>
                                                     <h3 class="pb-4" style="color:MidnightBlue; font-family: Arial, Helvetica, sans-serif;">1st Floor, James J. O’Brien S.J. Library</h3>
                                                 </div>
@@ -127,7 +127,7 @@
                                     <img src="../assets/libraryLog.png" width="400" height="auto" class="img-fluidd-inline-block float-end" alt="">
                                         <div class="row">
                                             <div class="px-0 justify-content-start">
-                                                <div class="container-fluid bg-light opacity-75 text-xl mt-10" style="width:750px; height:auto;margin-top:150px; border-radius:5px;">
+                                                <div class="container-fluid bg-light opacity-75 text-xl mt-10" style="width:770px; height:auto;margin-top:150px; border-radius:5px;">
                                                     <h1 class="pt-2 fw-bold" style="font-size: 60px; color:DarkBlue; font-family: Times New Roman, Times, serif; margin:20px 50px;">{{ details.room }}</h1>
                                                     <h3 class="pb-4" style="color:MidnightBlue; font-family: Arial, Helvetica, sans-serif;">1st Floor, James J. O’Brien S.J. Library</h3>
                                                 </div>
