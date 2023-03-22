@@ -233,9 +233,16 @@
                                 </small>
                             </div>
                             <div class="pt-5">
+                                <div v-if="enable_btn === true">
+                                    <button class="btn btn-primary float-start" type="submit" disabled @click="setAppointment();">
+                                        Set Appointment
+                                    </button>
+                                </div>
+                                <div v-else>
                                     <button class="btn btn-primary float-start" type="submit" @click="setAppointment();">
                                         Set Appointment
                                     </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -281,6 +288,29 @@
                     <h5 class="card-title">Note</h5>
                     <p class="card-text"> Reservations must be made at least 3 days in advance of your desired dates. Thank you for your understanding.</p>
                     <button type="button" class="btn btn-outline-light" @click="close_error_msg">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div v-if="enable_btn === true">
+        <div class="mx-auto" id="warning_pop">
+            <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+                <div class="card-header">
+                    <lord-icon
+                        src="https://cdn.lordicon.com/dnmvmpfk.json"
+                        trigger="loop"
+                        delay="2000"
+                        colors="primary:#ffffff"
+                        style="width:25px;height:25px" class="pt-1 ms-1">
+                    </lord-icon>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        The venue and time slot you have selected are already taken. 
+                        Please select a different venue or time slot.
+                    </p>
+                    <button type="button" class="btn btn-outline-light" @click="close_enable_btn">Close</button>
                 </div>
             </div>
         </div>
@@ -362,6 +392,10 @@ export default{
             error_message: false,
 
             warning_message: false,
+
+            remaining_days: '',
+            request_arr: [],
+            enable_btn: false,
         }
     },
 
@@ -385,13 +419,19 @@ export default{
             this.warning_message = false;
         },
 
+        close_enable_btn(){ // we have an error message function that triggers,
+            this.error_message = false; //this is the close button of that message
+            this.warning_message = false;
+            this.enable_btn = false;
+            this.close_modal();
+        },
+
         isPastDate(date) { // this functions checks if the selected date was a past date
             const now = new Date();
             return now > new Date(date);
         },
 
         bookNow(){
-            console.log("THIS IS CLICKED");
             const headTemp = document.querySelector('.vuecal__menu');
             const dayView = headTemp.querySelector('.vuecal__view-btn[aria-label="Day view"]');
             if(dayView){
@@ -702,6 +742,15 @@ export default{
 
         nextPage_1(){ // navigation for the next page in our forms
             this.next_page_1 = true;
+            for(let l = 0; l < this.request_arr.length; l++){
+                if(this.sliced_holder2.includes(this.request_arr[l].date) && this.request_arr[l].venue === this.venue){
+                    if(this.time === this.request_arr[l].time_s && this.timeEnd === this.request_arr[l].time_e){
+                        this.enable_btn = true;
+                    }
+                } else {
+                    this.enable_btn = false;
+                }
+            }
         },
 
         back_btn(){ //this is the back button inside the forms
@@ -770,6 +819,39 @@ export default{
                 num: equip[i].get("Quantity"),
             })
         }
+
+        var dateObj = new Date();
+        var month = dateObj.getUTCMonth() + 1; //months from 1-12
+        var day = dateObj.getUTCDate();
+        var year = dateObj.getUTCFullYear();
+
+        if(day <= 9){
+            var new_day = day.toString().padStart(2, '0');
+        } else {
+            new_day = day.toString();
+        }
+
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        ];
+
+        this.newdate = " " + monthNames[month - 1] + " " + new_day + " " + year;
+
+        const Request = Parse.Object.extend("Request");
+        const request = new Parse.Query(Request);
+        const query = await request.find();
+
+        for(let i = 0; i < query.length; i++){
+            if(query[i].get("status") === 'Approved'){ //filtered all the data that has a status of "Pending"
+                this.request_arr.push({
+                    date: query[i].get("date"),
+                    time_s: query[i].get("time_start"),
+                    time_e: query[i].get("time_end"),
+                    venue: query[i].get("venue"),
+                })
+            }
+            console.log(this.request_arr);
+        }
     }
 }
 </script>
@@ -804,4 +886,28 @@ export default{
     right: 20px;
     z-index: 3;
 }
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
 </style>
