@@ -88,8 +88,6 @@
                 <div class="card-header">
                     <div class="row justify-content-end">
                         <div class="col-sm pt-2">
-                            <!-- <h4 class="fw-bold">Request</h4>
-                            <hr stlye="background-color: black"> -->
                             <div class="row justify-content-end">
                                 <div class="col-4">
                                     <h4 class="fw-bold">Request</h4>
@@ -381,6 +379,20 @@
 
                             <div v-if="next_page_1 === true && next_page === true">
                                 <h5 class="fw-bolder d-flex justify-content-start pb-2">Equipments</h5>
+                                <div class=" d-flex justify-content-center pb-3">
+                                    <span class = "text-danger">
+                                        <small> 
+                                            <lord-icon
+                                                src="https://cdn.lordicon.com/lfqzieho.json"
+                                                trigger="loop"
+                                                delay="2000"
+                                                colors="primary:#DC3545"
+                                                style="width: 18px;height: 18px" class="pt-1 ms-1">
+                                            </lord-icon>
+                                            Important Note: Please fill up all the input fields in this section. If none, input zero(0).
+                                        </small>
+                                    </span>
+                                </div>
                                 <div class="row" v-for="equip in merged_arr" :key="equip">
                                     <div class="col-4">
                                         <div>
@@ -419,6 +431,11 @@
                                                 {{ details.fName }}
                                             </a>
                                         </div>
+                                    </div>
+                                    <div class=" text-danger d-flex justify-content-start pb-3 ps-3">
+                                        <small class="pt-2">
+                                            Important Note: File name can't contain any of the following characters: \/:*? &lt; &gt; | ( ).
+                                        </small>
                                     </div>
                                 </div>
 
@@ -484,46 +501,47 @@ export default{
         }
     },
     methods: {
-        reservationPage(){
-            this.$router.push({name: 'reservation'})
-        },
+        reservationPage(){ //for navigation from one page to another
+            this.$router.push({name: 'reservation'}) // in this case, when reservationPage is clicked, user will
+        }, //navigated to "reservation"
 
-        open_modal(id){
-            this.pop = true;
+        open_modal(id){ //id was passed to open_modal function
+            this.pop = true; // this allows us to open a popup modal; AdminModal component in html template
             console.log(id);
-            this.passed_id = id;
-            for(let i = 0; i < this.request_arr.length; i++){
-                if(this.request_arr[i].id === this.passed_id){
-                    this.fetched_val.push(this.request_arr[i].equipments);
-                    this.identifier = true;
+            this.passed_id = id; // we pass the id to a global variable 'this.passed_id'
+            for(let i = 0; i < this.request_arr.length; i++){ // we iterated through the array 'this.request_arr'
+                if(this.request_arr[i].id === this.passed_id){ // and filtered the array by using if else statement. In this case, we checked if the passed id was exisiting inside the array
+                    this.fetched_val.push(this.request_arr[i].equipments); // we transefered the id that is equal to the passed id to a new array, 'this.fetched_val'
+                    this.identifier = true; //we added a boolean identifier to call another statement below, to skip to a new process.
                 }
             }
 
             if(this.identifier === true){
-                const str = this.fetched_val;
-                const arr = JSON.parse(str);
-                for(let j = 0; j < arr.length; j++){
-                    this.val_arr.push({
+                const str = this.fetched_val; // we assigned the global variable to a local variable str
+                const arr = JSON.parse(str); //and use JSON.parse to make str array from object property array to array
+                for(let j = 0; j < arr.length; j++){ //we iterated through the variable arr 
+                    this.val_arr.push({ //and pushed the values to a new array "this.val_arr"
                         num: arr[j],
                     });
                 }
-                console.log(this.val_arr);
+                console.log(this.val_arr); // we show the values of this.val_arr in the console to check its contents
 
-                for(let x = 0; x < this.equipments_arr.length; x++){
-                    this.item_arr.push({
-                        items: this.equipments_arr[x].items,
+                for(let x = 0; x < this.equipments_arr.length; x++){ // we iterated through the array named: 'this.equipments_arr'
+                    this.item_arr.push({ //pushed those values from a new array 'this.item_arr'
+                        items: this.equipments_arr[x].items, //we only need the 'items' array object from 'this.equipments_arr'
                     });
                 }
 
-                const items_ = this.item_arr;
-                const quantities = this.val_arr;
+                const items_ = this.item_arr; //we identified the items array as a local variable 'items_'
+                const quantities = this.val_arr; // and the quantities that the user inputed to the following items, named 'quantities'
 
+                // we merged those two arrays to a new object property array
                 this.merged_arr = items_.map((item, index) => Object.assign({}, item, quantities[index]));
                 console.log(this.merged_arr);
             }
         },
 
-        close_modal(){
+        close_modal(){ // this function closes the modal, we empty cache of the necessarry variables needed in the forms
             this.passed_id = '';
             this.fetched_val.new_arr = [];
             this.merged_arr.new_arr = [];
@@ -532,18 +550,18 @@ export default{
             this.pop = false;
         },
 
-        editPage(id){
-            this.edit_page = true;
+        editPage(id){ //we fetched the id of the item we wanted to edit
+            this.edit_page = true; //and opened an edit page using the boolean variable 'this.edit_page'
             this.pop = false;
-            this.passed_id = id;
+            this.passed_id = id; //we passed the id to a global variable to access the id at ease.
         },
 
-        nextPage(){
+        nextPage(){ // this functions helps us to transfer from one page to another in our pop up modals
             this.next_page = true;
             this.next_page_1 = false;
         },
 
-        nextPage_1(){
+        nextPage_1(){ // this functions helps us to transfer from one page to another in our pop up modals
             this.next_page_1 = true;
             for(let i = 0; i < this.request_arr.length; i++){
                 if(this.request_arr[i].id === this.passed_id){
@@ -576,18 +594,20 @@ export default{
             }
         },
 
-        back_btn(){
+        back_btn(){ //this is a back button for the pop up modal
             this.next_page = false;
             this.next_page_1 = false;
         },
 
-        close_edit(){
+        close_edit(){ //this allows us to close the modal
             this.edit_page = false;
             this.next_page = false;
             this.passed_id = '';
         },
 
+        //this function helps us to update a reservation
         async updateAppointment(id, name, email, number, date, time, org, dept, venue, desc, equip, status, remarks, semester){
+            //we checked if all of the passed parameters was recieved by the function
             console.log(id);
             console.log(name);
             console.log(email);
@@ -603,34 +623,38 @@ export default{
             console.log(remarks);
             console.log(semester);
 
-            var dateObj = new Date();
+            var dateObj = new Date(); //gives us a date
             var month = dateObj.getUTCMonth() + 1; //months from 1-12
-            var day = dateObj.getUTCDate();
-            var year = dateObj.getUTCFullYear();
+            var day = dateObj.getUTCDate(); //this is the day
+            var year = dateObj.getUTCFullYear(); // this is the year
 
             const monthNames = ["January", "February", "March", "April", "May", "June",
                 "July", "August", "September", "October", "November", "December"
-            ];
+            ]; //we created an array to give us the full list of months based from the indexing or number that 'month' variable
+            //given us
 
-            this.newdate = monthNames[month - 1] + " " + day + ", " + year;
+            this.newdate = monthNames[month - 1] + " " + day + ", " + year; // we combined month, day and year to a format
             const new_month = monthNames[month - 1];
             console.log(this.newdate);
 
-            let i_q = document.querySelectorAll('[id="input_q"]');
-            const q_i = [...i_q].map(input => input.value);
-            // console.log(q_i);
+            let i_q = document.querySelectorAll('[id="input_q"]'); //we fetched an document or HTML tag by ID using document.querySelectorAll
+            const q_i = [...i_q].map(input => input.value); //we created a new variable q_i and passed those values to a new property object array
             for(let i = 0; i < q_i.length; i++){
-                this.equipment_list.push(parseInt(q_i[i]));
+                this.equipment_list.push(parseInt(q_i[i])); // the values from q_i was pushed to a new array, 'this.equipment_list', and parse the values from string to int
             }
 
+            //we then convert the whole array into a string to save it in our database
             const equip_obj = JSON.stringify(this.equipment_list);
 
+
+            // this is our database query
             const Request = Parse.Object.extend("Request");
             const query = new Parse.Query(Request);
 
-            query.equalTo("objectId", id);
+            query.equalTo("objectId", id); // we identified the ID that we wanted to edit, matching all references that is equal to the passed ID
             const reqQuery = await query.first();
 
+            // we assume that all of this variables was edited by the user to retain the values in the database
             reqQuery.set("mobile_number", number);
             reqQuery.set("time", time);
             reqQuery.set("org", org);
@@ -644,15 +668,15 @@ export default{
             reqQuery.set("day", day);
             reqQuery.set("year", year);
 
+            //this is our system pop up about a certain operation, 
+            //provides notification in every action before proceeding to avoid misclicks
             Swal.fire({
                 icon: 'warning',
                 title: 'Do you want to update your pending reservation?',
-                //   showDenyButton: true,
                 showCancelButton: true,
                 confirmButtonText: 'Yes!',
                 confirmButtonColor: '#00588C',
                 cancelButtonColor: '#C3C3C9',
-                //   denyButtonText: `Don't save`,
             }).then((result) => {
                 if (result.isConfirmed) {
                     reqQuery.save();
@@ -661,24 +685,18 @@ export default{
                         icon: 'success', title: 'Reservation Updated!', showConfirmButton: false, timer: 2000,
                         timerProgressBar: true,
                     });
-                    //   document.location.reload();
-                    // this.$router.push('/reload');
-                    // location.reload();
-                    this.$router.push({ name: 'home' });
+                    this.$router.push('/reload');
                 }
                 else if (result.isDenied) {
                     Swal.fire('Reservation not updated')
                 }
             })
-
-            // reqQuery.save().then((reqQuery) => {
-            //     console.log("Successful", reqQuery);
-            //     this.edit_page = false;
-            // });
-
         }
     },
 
+
+    //created is a lifecycle hook of vue that before the template gets rendered,
+    //this is the first function that will be processed by the system.
     async created(){
         var dateObj = new Date();
         var month = dateObj.getUTCMonth() + 1; //months from 1-12
@@ -690,7 +708,6 @@ export default{
         } else {
             new_day = day.toString();
         }
-        // console.log(new_day);
 
         const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
             "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -702,6 +719,7 @@ export default{
         const request = new Parse.Query(Request);
         const query = await request.find();
 
+        //we looked for a specific item that is pending and has a date that we are looking for
         for(let i = 0; i < query.length; i++){
             if(query[i].get("status") === 'Pending'){
                 if(this.newdate === query[i].get("date")){
@@ -729,24 +747,26 @@ export default{
         }
     },
 
+    //mounted is a lifecycle hook that renders after the template completely rendered
     mounted: async function(){
-        gapi.load("client:auth2", function () {
+        gapi.load("client:auth2", function () { //this is the Google OAuth API that needs to be rendered
             gapi.auth2.getAuthInstance();
         });
 
-        const googleUser = gapi.auth2.getAuthInstance();
+        const googleUser = gapi.auth2.getAuthInstance(); // we fetched the details of a logged in user
         this.google_user = googleUser;
         console.log(googleUser);
-        this.profileFullName = googleUser.currentUser.get().getBasicProfile().getName();
-        this.user_email = googleUser.currentUser.get().getBasicProfile().getEmail();
+        this.profileFullName = googleUser.currentUser.get().getBasicProfile().getName(); // this is the fullname of a user
+        this.user_email = googleUser.currentUser.get().getBasicProfile().getEmail(); // this is the email of the user
         console.log(this.profileFullName);
 
-        this.gapiLoaded = true;
+        this.gapiLoaded = true; //this is a flag that the Google API completely loaded
 
-        if(!googleUser) {
-            this.$router.push({name: 'Login'});
+        if(!googleUser) { // this statement allows us to push the user back to the login page when it failed to
+            this.$router.push({name: 'Login'}); //identify that the user is logged out from the system
         }
 
+        // we fetched all the data on our database with a named table "Request"
         const Request = Parse.Object.extend("Request");
         const request = new Parse.Query(Request);
         const query = await request.find();
@@ -756,6 +776,9 @@ export default{
             var month = dateObj.getUTCMonth() + 1; //months from 1-12
             var day = dateObj.getUTCDate();
             var year = dateObj.getUTCFullYear();
+
+            // we filtered the data. This will only show us the data of the logged in user and all the data
+            // that was created by the author(user) this year
             if(this.profileFullName === query[i].get("full_name") && year === query[i].get("year")){
                 if(day <= 9){
                     var new_day = day.toString().padStart(2, '0');
@@ -774,8 +797,10 @@ export default{
                 var diff = Math.abs(t_day.getTime() - b_day.getTime());
                 var days = Math.floor(diff / (1000 * 60 * 60 * 24));
                 console.log(days);
+                // this gives us the remaining days before a pending reservation finalized by the user
                 this.remaining_days = days;
 
+                //we pushed all the necessarry data in an object property array named "this.request_arr"
                 this.request_arr.push({
                     id: query[i].id,
                     date: query[i].get("date"),
@@ -798,54 +823,11 @@ export default{
                     month: query[i].get("month"),
                     remaining: this.remaining_days,
                 })
-                this.request_loaded = true;
+                this.request_loaded = true; //a flag that tells us all of the data that was requested was successfully completed
             }
         }
 
-        // var dateObj = new Date();
-        // var month = dateObj.getUTCMonth() + 1; //months from 1-12
-        // var day = dateObj.getUTCDate();
-        // var year = dateObj.getUTCFullYear();
-
-        // if(day <= 9){
-        //     var new_day = day.toString().padStart(2, '0');
-        // } else {
-        //     new_day = day.toString();
-        // }
-        // // console.log(new_day);
-
-        // const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-        //     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-        // ];
-
-        // // const monthNames_full = ["January", "February", "March", "April", "May", "June",
-        // //     "July", "August", "September", "October", "November", "December"
-        // // ];
-
-        // this.newdate = " " + monthNames[month - 1] + " " + new_day + " " + year;
-        // this.file_date = year + "-" + new_day + "-" + month;
-        // console.log(this.newdate);
-        // for(let x = 0; x < this.request_arr.length; x++){
-        //     if(this.request_arr[x].status === 'Pending'){
-        //         var t_day = new Date(this.newdate);
-        //         var b_day = new Date(this.request_arr[x].date);
-
-        //         var diff = Math.abs(t_day.getTime() - b_day.getTime());
-        //         var days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        //         console.log(days);
-        //         this.remaining_days = days;
-        //         console.log(this.request_arr[x].id);
-        //         if(days <= 7){
-        //             this.id_holder = this.request_arr[x].id;
-        //             this.pending_arr.push({
-        //                 status: this.request_arr[x].status,
-        //                 venue: this.request_arr[x].venue,
-        //                 remaining_date: this.remaining_days,
-        //             })
-        //         }
-        //     }
-        // }
-
+        //this allows us to fetched the data from our database with a table name "Equipments"
         const Equipments = Parse.Object.extend("Equipments");
         const equipments = new Parse.Query(Equipments);
         const equip = await equipments.find();

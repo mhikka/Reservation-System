@@ -9,30 +9,24 @@
 </template>
 
 <script>
-// import Parse from 'parse';
-
-    // const gapi = window.gapi;
-    export default{
-        // props: ['value'],
-        data(){
-            return {
-                messages_post: [],
-                // post_url: this.value,
-            }
+export default{
+    data(){
+        return {
+            messages_post: [],
+        }
+    },
+    methods:{
+        closeModal(){
+            this.$emit('close')
+            document.location.reload();
         },
-        methods:{
-            closeModal(){
-                this.$emit('close')
-                document.location.reload();
-            },
-            createPost(){
-                this.$emit('create')
-                // document.getElementById("btns").innerHTML = document.location.reload();
-            },
-
+        createPost(){
+            this.$emit('create')
         },
 
-    };
+    },
+
+};
 </script>
 <style scoped>
 

@@ -272,16 +272,6 @@ export default{
     data(){
         return{
             pop: false,
-            // fullName:"John Doe",
-            // email:"jdoe@gbox.adnu.edu.ph",
-            // mobileNumber:"09123456789",
-            // date: "January 18, 2023",
-            // time: "11:00AM-1:30PM",
-            // org: "TACTICS",
-            // equipments: "Microphone- 2pcs, Speaker- 3pcs...",
-            // venue: "Richie Fernando Hall",
-            // description: "Lorem ipsum dolor sit amet, consectetur...",
-            // relatedDoc: "Lorem ipsum dolor sit amet.pdf", 
             next_page: false,
             next_page_1: false,
 
@@ -302,7 +292,7 @@ export default{
         }
     },
 
-    async created(){
+    async created(){ 
         var dateObj = new Date();
         var month = dateObj.getUTCMonth() + 1; //months from 1-12
         var day = dateObj.getUTCDate();
@@ -313,7 +303,6 @@ export default{
         } else {
             new_day = day.toString();
         }
-        // console.log(new_day);
 
         const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
             "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -326,11 +315,11 @@ export default{
         const query = await request.find();
 
         for(let i = 0; i < query.length; i++){
-            if(query[i].get("status") === 'Pending'){
+            if(query[i].get("status") === 'Pending'){ // we fetched all pending quests from the database
                 if(this.newdate === query[i].get("date")){
                     this.today_req_id = query[i].id;
                     console.log(this.today_req_id);
-                    this.reject_id = true;
+                    this.reject_id = true; //we flag if this process was successful
                 }
             }
 
@@ -354,7 +343,7 @@ export default{
 
     mounted: async function(){
         try{
-            gapi.load("client:auth2", function () {
+            gapi.load("client:auth2", function () { //this is the Google OAuth API that needs to be rendered
                 gapi.auth2.getAuthInstance();
             });
 
@@ -378,7 +367,6 @@ export default{
         } else {
             new_day = day.toString();
         }
-        // console.log(new_day);
 
         const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
             "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -391,14 +379,14 @@ export default{
         const query = await request.find();
 
         for(let i = 0; i < query.length; i++){
-            if(query[i].get("status") === 'Pending'){
+            if(query[i].get("status") === 'Pending'){ //filtered all the data that has a status of "Pending"
                 var t_day = new Date(this.newdate);
                 var b_day = new Date(query[i].get("date"));
 
                 var diff = Math.abs(t_day.getTime() - b_day.getTime());
                 var days = Math.floor(diff / (1000 * 60 * 60 * 24));
                 console.log(days);
-                this.remaining_days = days;
+                this.remaining_days = days; // we fetched the remaining days to finalize the reservation, this is to inform the user
 
                 this.request_arr.push({
                     id: query[i].id,
@@ -423,34 +411,14 @@ export default{
                 })
 
                 console.log(query[i].get("url"));
-                // if(this.newdate === query[i].get("date")){
-                //     this.today_req_id = query[i].id;
-                //     console.log(this.today_req_id);
-                //     this.reject_id = true;
-                // }
             }
-
-            // if(this.reject_id === true){
-            //     const Request = Parse.Object.extend("Request");
-            //     const query = new Parse.Query(Request);
-
-            //     query.equalTo("objectId", this.today_req_id);
-            //     const reqQuery = await query.first();
-
-            //     reqQuery.set("status", "Unavailable");
-            //     reqQuery.set("remarks", "Final");
-
-            //     reqQuery.save().then((reqQuery) => {
-            //         console.log("Successful", reqQuery);
-            //         this.edit_page = false;
-            //     });
-            // }
         }
 
-        this.len_request_arr = this.request_arr.length;
+        this.len_request_arr = this.request_arr.length; // checking the length of the array with our values from our database
         console.log(this.len_request_arr);
         console.log(this.request_arr);
 
+        //this allows us to fetched the data from our database with a table name "Equipments"
         const Equipments = Parse.Object.extend("Equipments");
         const equipments = new Parse.Query(Equipments);
         const equip = await equipments.find();
@@ -527,7 +495,6 @@ export default{
 
         close_modal(){
             this.pop = false;
-            // this.open_modal = false;
             this.next_page = false;
             this.next_page_1 = false;
             this.passed_id = '';
@@ -549,7 +516,7 @@ export default{
                     icon: 'success', title: 'Request Approved!', showConfirmButton: false, timer: 2000,
                     timerProgressBar: true,
                 });
-                this.$router.push({ name: 'history'})
+                this.$router.push('/reload');
                 this.edit_page = false;
             });
 
@@ -572,8 +539,9 @@ export default{
                     icon: 'success', title: 'Reservation rejected!', showConfirmButton: false, timer: 2000,
                     timerProgressBar: true,
                 });
+                
                 this.edit_page = false;
-                this.$router.push({ name: 'history' })
+                this.$router.push('/reload');
             });
             this.pop = false;
             this.passed_id = '';

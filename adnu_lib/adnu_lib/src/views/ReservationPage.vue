@@ -16,14 +16,8 @@
                   
                 <hr style="background-color: black; height: 2px;">
                 <div @click="check" v-if="gapiLoaded === true">
-                    <!-- <ejs-schedule height="575px" currentView="Month" v-model:selectedDate="schedulerSelectedDate" id="calendar">
-                    </ejs-schedule> -->
                     <div class="scrollable">
                         <VueCal @time="handleTime" @date="handleEvent" ref="vuecal" />  
-                    <!-- <div class="mt-3">
-                        Number of dates selected: {{ length_ofArr }}
-                        <button type="button" class="ms-2 mb-1 btn btn-secondary" @click="resetArr">Reset</button>
-                    </div>  -->
                         <div v-if="show_selected_popup === true">
                             <div class="floating_counter">
                                 <div class="pt-1 pb-1 pe-2">
@@ -35,7 +29,7 @@
                                                 </div>
                                                 <div class="col-auto">
                                                     <button type="button" class="btn btn-warning text-white" @click="resetArr">Reset</button> &nbsp;
-                                                    <!-- <button type="button" class="btn btn-primary" @click="undoArr">Undo</button> -->
+                                                    <button type="button" class="btn btn-primary text-white" @click="bookNow">Book</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -234,15 +228,21 @@
                             </div>
                             <input class="form-control" type="file" id="FileUpload">
                             <div class=" text-danger d-flex justify-content-start pb-3 ps-3">
-                                <small>
+                                <small class="pt-2">
                                     Important Note: File name can't contain any of the following characters: \/:*? &lt; &gt; | ( ).
                                 </small>
-  
                             </div>
                             <div class="pt-5">
+                                <div v-if="enable_btn === true">
+                                    <button class="btn btn-primary float-start" type="submit" disabled @click="setAppointment();">
+                                        Set Appointment
+                                    </button>
+                                </div>
+                                <div v-else>
                                     <button class="btn btn-primary float-start" type="submit" @click="setAppointment();">
                                         Set Appointment
                                     </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -265,8 +265,52 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Warning</h5>
-                    <p class="card-text">Same day reservation is not allowed.</p>
+                    <p class="card-text">Only future reservation is allowed by the system.</p>
                     <button type="button" class="btn btn-outline-light" @click="close_error_msg">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div v-if="warning_message === true">
+        <div class="mx-auto" id="warning_pop">
+            <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                <div class="card-header">
+                    <lord-icon
+                        src="https://cdn.lordicon.com/dnmvmpfk.json"
+                        trigger="loop"
+                        delay="2000"
+                        colors="primary:#ffffff"
+                        style="width:25px;height:25px" class="pt-1 ms-1">
+                    </lord-icon>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Note</h5>
+                    <p class="card-text"> Reservations must be made at least 3 days in advance of your desired dates. Thank you for your understanding.</p>
+                    <button type="button" class="btn btn-outline-light" @click="close_error_msg">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div v-if="enable_btn === true">
+        <div class="mx-auto" id="warning_pop">
+            <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+                <div class="card-header">
+                    <lord-icon
+                        src="https://cdn.lordicon.com/dnmvmpfk.json"
+                        trigger="loop"
+                        delay="2000"
+                        colors="primary:#ffffff"
+                        style="width:25px;height:25px" class="pt-1 ms-1">
+                    </lord-icon>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        The venue and time slot you have selected are already taken. 
+                        Please select a different venue or time slot.
+                    </p>
+                    <button type="button" class="btn btn-outline-light" @click="close_enable_btn">Close</button>
                 </div>
             </div>
         </div>
@@ -274,7 +318,6 @@
 </template>
 
 <script>
-// import { ScheduleComponent, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-vue-schedule";
 import AdminModal from "@/components/AdminModal.vue";
 import SidePanelUser from "@/components/SidePanelUser.vue";
 import VueCal from "@/components/VueCal.vue"
@@ -285,11 +328,7 @@ import $ from 'jquery';
 const gapi = window.gapi;
 export default{
     components: {
-        // 'ejs-schedule': ScheduleComponent,
         AdminModal, SidePanelUser, VueCal
-    },
-    provide: {
-        // schedule: [Day, Week, WorkWeek, Month, Agenda]
     },
     data(){
         return{
@@ -351,22 +390,17 @@ export default{
             arr_reset: false,
 
             error_message: false,
+
+            warning_message: false,
+
+            remaining_days: '',
+            request_arr: [],
+            enable_btn: false,
         }
     },
 
     methods: {
         check(){
-            // console.log("Selected date:",this.schedulerSelectedDate);
-            // let date_holder = this.schedulerSelectedDate;
-            // console.log(date_holder);
-            // if(this.schedulerSelectedDate != null){
-            //     this.open_modal = true;
-            //     this.sliced_holder = String(this.schedulerSelectedDate).slice(0, 15);
-            //     console.log(this.sliced_holder);
-            //     this.picked_date = this.sliced_holder;
-            //     this.date_slicer = String(this.schedulerSelectedDate).slice(3, 15);
-            //     this.date = this.date_slicer;
-            // }
             console.log(this.schedulerSelectedDate);
         },
 
@@ -380,8 +414,35 @@ export default{
 
         },
 
-        close_error_msg(){
-            this.error_message = false;
+        close_error_msg(){ // we have an error message function that triggers,
+            this.error_message = false; //this is the close button of that message
+            this.warning_message = false;
+        },
+
+        close_enable_btn(){ // we have an error message function that triggers,
+            this.error_message = false; //this is the close button of that message
+            this.warning_message = false;
+            this.enable_btn = false;
+            this.close_modal();
+        },
+
+        isPastDate(date) { // this functions checks if the selected date was a past date
+            const now = new Date();
+            return now > new Date(date);
+        },
+
+        bookNow(){
+            const headTemp = document.querySelector('.vuecal__menu');
+            const dayView = headTemp.querySelector('.vuecal__view-btn[aria-label="Day view"]');
+            if(dayView){
+                console.log(dayView.textContent);
+                if(dayView.textContent === "Day"){
+                    this.open_modal = true;
+                    this.time = "0:00 am"
+                }
+            } else {
+                console.log("Error");
+            }
         },
 
         handleEvent(evenData) {
@@ -395,8 +456,6 @@ export default{
             console.log(this.tempArr);
             this.dateToday = String(this.dateToday).slice(0, 15);
             this.length_ofArr = this.tempArr.length;
-            // console.log(this.dateToday);
-            // console.log(this.sliced_holder2);
             this.open_modal = true;
             var dateObj = new Date();
             var month = dateObj.getUTCMonth() + 1; //months from 1-12
@@ -408,7 +467,6 @@ export default{
             } else {
                 new_day = day.toString();
             }
-            // console.log(new_day);
 
             const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -442,27 +500,53 @@ export default{
                     }
                 }
             }
+
+            for(let w = 0; w < this.sliced_holder2.length; w++){
+                if(this.isPastDate(this.sliced_holder2[w])){
+                    this.show_selected_popup = false;
+                    this.sliced_holder2.splice(0, this.sliced_holder2.length); //we delete the parent array
+                    this.tempArr.splice(0, this.tempArr.length); //as well as the child array
+                    this.length_ofArr -= this.length_ofArr; //we decrement the counter
+                    this.show_selected_popup = false; //we hide the counter UI
+                    this.error_message = true;
+                }
+            }
+
+            for(let j = 0; j < this.sliced_holder2.length; j++){
+                const todayDate = new Date(this.newdate); // we convert the date today to new Date to get time
+                const selectedDates = new Date(this.sliced_holder2[j]); // we convert the selected dates to new Date to get time
+                const diff = todayDate.getTime() - selectedDates.getTime(); // we subtract to get the lapsed days
+                const dayOff = Math.floor(diff / (1000 * 60 * 60 * 24)); // we then compute its time differences
+
+                const posDayOff = Math.abs(dayOff); // we converted the negative numbers to positive numbers
+                if(posDayOff <= 3){    // we check if the dates selected was less than or equal to 3 days to limit reservations
+                    this.show_selected_popup = false;
+                    this.sliced_holder2.splice(0, this.sliced_holder2.length); //we delete the parent array
+                    this.tempArr.splice(0, this.tempArr.length); //as well as the child array
+                    this.length_ofArr -= this.length_ofArr; //we decrement the counter
+                    this.show_selected_popup = false; //we hide the counter UI
+                    this.warning_message = true;
+                }
+            }
             // this.flag = 1;
         },
 
+        //when a user clicked on a time, this function handles that process
         handleTime(t) {
             this.time2 = t.time2;
             let values = Object.values(t);
             this.time = String(values).slice(0, 7);
             this.endTime = parseInt(this.timeHolder);
-            // console.log(this.concatTime);
-            // let finalEnd = this.endTime <= 10 ? String(this.endTime).slice(0, 3)+':' : String(this.endTime).slice(0, 2);
-            // this.concatTime = `${this.timeHolder} - ${finalEnd}`;
-            // console.log(finalEnd);
-            // console.log(this.concatTime);
             console.log(this.timeHolder);
         },
 
+        //this is the navigation in our forms
         nextPage(){
             this.next_page = true;
             this.next_page_1 = false;
         },
 
+        //this is the function to set an appointment
         setAppointment(){
             const number = parseInt(this.mobile_number);
 
@@ -493,25 +577,27 @@ export default{
             let i_q = document.querySelectorAll('[id="input_q"]');
             const q_i = [...i_q].map(input => input.value);
             console.log("Values of Q: ", q_i);
-            for(let i = 0; i < q_i.length; i++){
+            for (let i = 0; i < q_i.length; i++) {
                 this.equipment_list.push(parseInt(q_i[i]));
             }
 
             const equip_obj = JSON.stringify(this.equipment_list);
             const equip_arr = equip_obj.split(",");
-            console.log(equip_obj);
+            console.log(equip_arr);
 
-            if (this.tempArr.length > 1) {
+            //this statement handles multiple number of reservation
+           if (this.tempArr.length > 1) {
                 for (let i = 0; i < this.tempArr.length; i++) {
-                    const fileUploadControl = $("#FileUpload")[0];
+                    const fileUploadControl = $("#FileUpload")[0]; //this is for the file uploading
                     console.log(fileUploadControl);
                     if (fileUploadControl.files.length > 0) {
                         const file = fileUploadControl.files[0];
                         const name = file.name;
                         console.log("Upload: ", name);
 
-                        const parseFile = new Parse.File(name, file);
+                        const parseFile = new Parse.File(name, file); // we saved the file temporarily in the cloud
                         parseFile.save().then((parseFile) => {
+                            // we saved the data that was inputted by the users in our Request table in our database
                             const Request = Parse.Object.extend("Request");
                             const request = new Request();
 
@@ -540,15 +626,15 @@ export default{
                             Swal.fire({
                                 icon: 'info',
                                 title: 'Do you want to save this reservation?',
-                                //   showDenyButton: true,
                                 showCancelButton: true,
                                 confirmButtonText: 'Confirm',
                                 confirmButtonColor: '#00588C',
                                 cancelButtonColor: '#C3C3C9',
-                                //   denyButtonText: `Don't save`,
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     request.save().then((request) => {
+                                        //after a successful saving of the data, we empty the variables
+                                        // preparing for the next reservation process
                                         console.log("Success", request);
                                         this.open_modal = false;
                                         this.date = '';
@@ -560,56 +646,34 @@ export default{
                                         this.semester = '';
                                         this.remarks = '';
                                         this.desc = '';
-                                        this.$router.push({ name: 'home' });
+                                        this.$router.push('/reload'); // after saving, we will push the page to our reload page for a smooth operation of the system
                                         return request.save();
                                     });
                                     Swal.fire({
                                         icon: 'success', title: 'Reservation Saved!', showConfirmButton: false, timer: 2000,
                                         timerProgressBar: true,
                                     });
-                                    //   document.location.reload();
-                                    // this.$router.push('/reload');
-                                    // location.reload();
                                 }
                                 else if (result.isDenied) {
                                     Swal.fire('Unable to save reservation')
                                 }
                             })
-
-                            // request.save().then((request) => {
-                            //     console.log("Success", request);
-                            //     Swal.fire({
-                            //         icon: 'success', title: 'Reservation saved', showConfirmButton: false, timer: 2000,
-                            //         timerProgressBar: true,
-                            //     });
-                            //     this.open_modal = false;
-                            //     this.date = '';
-                            //     this.mobile_number = '';
-                            //     this.time = '';
-                            //     this.org = '';
-                            //     this.dept = '';
-                            //     this.venue = '';
-                            //     this.semester = '';
-                            //     this.remarks = '';
-                            //     this.desc = '';
-                            //     this.$router.push({ name: 'home' });
-                            //     return request.save();
-                            // });
                         })
                     }
                 } //End of loop
             }
-            else{
-                for (let i = 0; i < this.tempArr.length; i++){
+            else { //this statement handles one (1) reservation
+                for (let i = 0; i < this.tempArr.length; i++) {
                     const fileUploadControl = $("#FileUpload")[0];
                     console.log(fileUploadControl);
-                    if (fileUploadControl.files.length > 0) {
+                    if (fileUploadControl.files.length > 0) { // we saved the file temporarily in the cloud
                         const file = fileUploadControl.files[0];
                         const name = file.name;
                         console.log("Upload: ", name);
 
                         const parseFile = new Parse.File(name, file);
                         parseFile.save().then((parseFile) => {
+                            // we saved the data that was inputted by the users in our Request table in our database
                             const Request = Parse.Object.extend("Request");
                             const request = new Request();
 
@@ -627,7 +691,7 @@ export default{
                             request.set("remarks", this.remarks);
                             request.set("description", this.desc);
                             request.set("filename", name);
-                            request.set("equipments", equip_arr);
+                            request.set("equipments", equip_obj);
                             request.set("filUploaded", parseFile);
                             request.set("url", parseFile._url);
                             request.set("status", "Pending");
@@ -638,15 +702,15 @@ export default{
                             Swal.fire({
                                 icon: 'info',
                                 title: 'Do you want to save this reservation?',
-                                //   showDenyButton: true,
                                 showCancelButton: true,
                                 confirmButtonText: 'Confirm',
                                 confirmButtonColor: '#00588C',
                                 cancelButtonColor: '#C3C3C9',
-                                //   denyButtonText: `Don't save`,
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     request.save().then((request) => {
+                                        //after a successful saving of the data, we empty the variables
+                                        // preparing for the next reservation process
                                         console.log("Success", request);
                                         this.open_modal = false;
                                         this.date = '';
@@ -658,66 +722,50 @@ export default{
                                         this.semester = '';
                                         this.remarks = '';
                                         this.desc = '';
-                                        this.$router.push({ name: 'home' });
+                                        this.$router.push('/reload'); // after saving, we will push the page to our reload page for a smooth operation of the system
                                         return request.save();
                                     });
                                     Swal.fire({
                                         icon: 'success', title: 'Reservation Saved!', showConfirmButton: false, timer: 2000,
                                         timerProgressBar: true,
                                     });
-                                    //   document.location.reload();
-                                    // this.$router.push('/reload');
-                                    // location.reload();
                                 }
                                 else if (result.isDenied) {
                                     Swal.fire('Unable to save reservation')
                                 }
                             })
-
-                            // request.save().then((request) => {
-                            //     console.log("Success", request);
-                            //     Swal.fire({ icon: 'success', title: 'Reservation saved', showConfirmButton: false, timer: 2000,
-                            //         timerProgressBar: true, });
-                            //     this.open_modal = false;
-                            //     this.date = '';
-                            //     this.mobile_number = '';
-                            //     this.time = '';
-                            //     this.org = '';
-                            //     this.dept = '';
-                            //     this.venue = '';
-                            //     this.semester = '';
-                            //     this.remarks = '';
-                            //     this.desc = '';
-                            //     this.$router.push({ name: 'home' });   
-                            //     return request.save();
-                            // });
                         })
                     }
                 }
             }
-        // this.close_modal();
-        // this.$router.go(-2);
-        // location.reload();
         },
 
-        nextPage_1(){
+        nextPage_1(){ // navigation for the next page in our forms
             this.next_page_1 = true;
+            for(let l = 0; l < this.request_arr.length; l++){
+                if(this.sliced_holder2.includes(this.request_arr[l].date) && this.request_arr[l].venue === this.venue){
+                    if(this.time === this.request_arr[l].time_s && this.timeEnd === this.request_arr[l].time_e){
+                        this.enable_btn = true;
+                    }
+                } else {
+                    this.enable_btn = false;
+                }
+            }
         },
 
-        back_btn(){
+        back_btn(){ //this is the back button inside the forms
             this.next_page = false;
             this.next_page_1 = false;
         },
 
-        trigger_modal(){
+        trigger_modal(){ // this allows us to open a pop up modal
             this.open_modal = true;
         },
 
-        close_modal(){
+        close_modal(){ // we reset the values that was inputted in our forms
             this.open_modal = false;
             this.next_page = false;
             this.date = '';
-            // this.mobile_number = '';
             this.time = '';
             this.org = '';
             this.dept = '';
@@ -729,6 +777,7 @@ export default{
             this.timeEnd = '';
             this.timeHolder = '';
             this.tempArr = [];
+            this.resetArr();
             console.log(this.tempArr);
         },
 
@@ -741,23 +790,25 @@ export default{
         },
     },
 
+    //mounted is a lifecycle hook that renders after the template completely rendered
     mounted: async function(){
-        gapi.load("client:auth2", function () {
+        gapi.load("client:auth2", function () { //this is the Google OAuth API that needs to be rendered
             gapi.auth2.getAuthInstance();
         });
 
-        const googleUser = gapi.auth2.getAuthInstance();
+        const googleUser = gapi.auth2.getAuthInstance(); // we fetched the details of a logged in user
         this.google_user = googleUser;
         console.log(googleUser);
-        this.profileFullName = googleUser.currentUser.get().getBasicProfile().getName();
-        this.user_email = googleUser.currentUser.get().getBasicProfile().getEmail();
+        this.profileFullName = googleUser.currentUser.get().getBasicProfile().getName(); // this is the fullname of a user
+        this.user_email = googleUser.currentUser.get().getBasicProfile().getEmail(); // this is the email of the user
         console.log(this.profileFullName);
-        this.gapiLoaded = true;
+        this.gapiLoaded = true; //this is a flag that the Google API completely loaded
 
-        if(!googleUser) {
-            this.$router.push({name: 'Login'});
+        if(!googleUser) { // this statement allows us to push the user back to the login page when it failed to
+            this.$router.push({name: 'Login'}); //identify that the user is logged out from the system
         }
-            
+        
+        //this allows us to fetched the data from our database with a table name "Equipments"
         const Equipments = Parse.Object.extend("Equipments");
         const equipments = new Parse.Query(Equipments);
         const equip = await equipments.find();
@@ -767,6 +818,39 @@ export default{
                 q:"Quantity Available: " + ' ' + equip[i].get("Quantity"),
                 num: equip[i].get("Quantity"),
             })
+        }
+
+        var dateObj = new Date();
+        var month = dateObj.getUTCMonth() + 1; //months from 1-12
+        var day = dateObj.getUTCDate();
+        var year = dateObj.getUTCFullYear();
+
+        if(day <= 9){
+            var new_day = day.toString().padStart(2, '0');
+        } else {
+            new_day = day.toString();
+        }
+
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        ];
+
+        this.newdate = " " + monthNames[month - 1] + " " + new_day + " " + year;
+
+        const Request = Parse.Object.extend("Request");
+        const request = new Parse.Query(Request);
+        const query = await request.find();
+
+        for(let i = 0; i < query.length; i++){
+            if(query[i].get("status") === 'Approved'){ //filtered all the data that has a status of "Pending"
+                this.request_arr.push({
+                    date: query[i].get("date"),
+                    time_s: query[i].get("time_start"),
+                    time_e: query[i].get("time_end"),
+                    venue: query[i].get("venue"),
+                })
+            }
+            console.log(this.request_arr);
         }
     }
 }
@@ -802,4 +886,28 @@ export default{
     right: 20px;
     z-index: 3;
 }
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
 </style>
