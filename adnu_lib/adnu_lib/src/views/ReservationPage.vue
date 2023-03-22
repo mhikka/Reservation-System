@@ -112,33 +112,43 @@
                                         <input v-model="user_email" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your email here">
                                     </div>
                                     <div class="form-group pb-5">
-                                        <label for="exampleInputPassword1" class="float-start">Mobile Number</label>
+                                        <label for="exampleInputPassword1" class="float-start" required>Mobile Number <small class="text-danger">(Required)</small></label>
                                         <input v-model="mobile_number" type="number" class="form-control" id="exampleInputPassword1" placeholder="Enter your mobile number here">
                                     </div>
                                 </form>
-                                <button class="btn btn-primary float-start" type="submit" @click="nextPage">
-                                    Next
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                                    </svg>
-                                </button>
+                                <div v-if="mobile_number === ''">
+                                    <button class="btn btn-primary float-start" type="submit" disabled @click="nextPage">
+                                        Next
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div v-else>
+                                    <button class="btn btn-primary float-start" type="submit" @click="nextPage">
+                                        Next
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                             <div v-else class="pb-3">
                                 <div v-if="next_page_1 === false">
                                     <form>
                                         <h5 class="fw-bolder d-flex justify-content-start pb-3">Reservation Details</h5>
                                         <div class="form-group pb-2">
-                                            <label for="exampleInputEmail1" class="float-start">Date/s</label>
+                                            <label for="exampleInputEmail1" class="float-start">Date/s <small class="text-danger">(Required)</small></label>
                                             <input v-model="tempArr" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter the date here">
                                         </div>
                                         <div class="row g-3">
                                             <div class="form-group pb-2 col-sm">
-                                                <label for="exampleInputPassword1" class="float-start">Starting Time</label>
-                                                <input v-model="time" type="text" class="form-control" id="exampleInputPassword1" placeholder="(E.g. 10:00am)">
+                                                <label for="exampleInputPassword1" class="float-start">Starting Time <small class="text-danger">(Required)</small></label>
+                                                <input v-model="time" type="text" class="form-control" id="exampleInputPassword1" placeholder="(E.g. 10:00am)" required>
                                             </div>
                                             <div class="form-group pb-2 col-sm">
-                                                    <label for="exampleInputPassword1" class="float-start">Ending Time</label>
-                                                    <input v-model="timeEnd" type="text" class="form-control" id="exampleInputPassword1" placeholder="(E.g. 2:00pm)">
+                                                    <label for="exampleInputPassword1" class="float-start">Ending Time <small class="text-danger">(Required)</small></label>
+                                                    <input v-model="timeEnd" type="text" class="form-control" id="exampleInputPassword1" placeholder="(E.g. 2:00pm)" required>
                                             </div>
                                         </div>
                                         
@@ -147,20 +157,20 @@
                                             <input v-model="org" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your organization here">
                                         </div>
                                         <div class="form-group pb-2">
-                                            <label for="exampleInputPassword1" class="float-start">Department</label>
+                                            <label for="exampleInputPassword1" class="float-start" required>Department <small class="text-danger">(Required)</small></label>
                                             <input v-model="dept" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your department here">
                                         </div>
                                         <div class="form-group pb-3">
-                                            <label for="exampleInputPassword1" class="float-start">Description</label>
+                                            <label for="exampleInputPassword1" class="float-start" required>Description <small class="text-danger">(Required)</small></label>
                                             <input v-model="desc" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter description of your event here">
                                         </div>
                                         <div class="form-group pb-3">
-                                            <label for="exampleInputPassword1" class="float-start">Academic Year</label>
+                                            <label for="exampleInputPassword1" class="float-start" required>Academic Year <small class="text-danger">(Required)</small></label>
                                             <input v-model="acad_year" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the academic year (E.g. 2023-2024)">
                                         </div>
                                         <div class="form-group pb-5 m-50">
-                                            <label for="exampleInputPassword1" class="float-start me-3">Venue</label>
-                                            <select name="plan" id="venue" v-model="venue" class="btn btn-sm border float-start">
+                                            <label for="exampleInputPassword1" class="float-start me-3">Venue <small class="text-danger">(Required)</small></label>
+                                            <select name="plan" id="venue" v-model="venue" class="btn btn-sm border float-start" required>
                                                 <option value="" disabled selected>List of Venues</option>
                                                 <option value="JOBL Conference Room 1st Floor">JOBL Conference Room 1st Floor</option>
                                                 <option value="Consultation Room 1"><small>Consultation Room 1</small></option>
@@ -171,8 +181,8 @@
                                             </select>
                                         </div>
                                         <div class="form-group pb-5 m-50">
-                                            <label for="exampleInputPassword1" class="float-start me-3">Semester</label>
-                                            <select name="plan" id="venue" v-model="semester" class="btn btn-sm border float-start">
+                                            <label for="exampleInputPassword1" class="float-start me-3">Semester <small class="text-danger">(Required)</small></label>
+                                            <select name="plan" id="venue" v-model="semester" class="btn btn-sm border float-start" required>
                                                 <option value="" disabled selected>List of Semesters</option>
                                                 <option value="1st Semester">1st Semester</option>
                                                 <option value="2nd Semester"><small>2nd Semester</small></option>
@@ -180,7 +190,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group pb-5 m-50">
-                                            <label for="exampleInputPassword1" class="float-start me-3">Form Remarks</label>
+                                            <label for="exampleInputPassword1" class="float-start me-3" required>Form Remarks <small class="text-danger">(Required)</small></label>
                                             <select name="plan" id="venue" v-model="remarks" class="btn btn-sm border float-start">
                                                 <option value="" disabled selected>List of Remarks</option>
                                                 <option value="Tentative">Tentative</option>
@@ -189,18 +199,28 @@
                                         </div>
                                     </form>
                                     <br class="pt-2">
-                                    <button class="btn btn-primary float-start" type="submit" @click="nextPage_1">
-                                        Next
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                                        </svg>
-                                    </button>
+                                    <div v-if="timeEnd === '' && acad_year === ''">
+                                        <button class="btn btn-primary float-start" type="submit" disabled @click="nextPage_1">
+                                            Next
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div v-else>
+                                        <button class="btn btn-primary float-start" type="submit" @click="nextPage_1">
+                                            Next
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div v-if="next_page_1 === true && next_page === true">
-                            <h5 class="fw-bolder d-flex justify-content-start">Equipments</h5>
+                            <label class="fw-bolder d-flex justify-content-start"> Equipments <small class="text-danger">(Required)</small></label>
                             <div class=" d-flex justify-content-center pb-3">
                                 <span class = "text-danger">
                                     <small> 
@@ -220,16 +240,16 @@
                                     {{equip.items}}
                                 </div>
                                 <div class="col-8">
-                                    <input type="number" class="form-control" id="input_q" min="1" :v-model="values_of_q" :placeholder="equip.q">
+                                    <input type="number" class="form-control" id="input_q" min="1" :v-model="values_of_q" :placeholder="equip.q" required>
                                 </div>
                             </div>
                             <div class="col d-flex justify-content-start fw-bold pb-2 pt-3">
-                                <label for="formGroupExampleInput">Related Documents</label>
+                                <label for="formGroupExampleInput">Related Documents <small class="text-danger">(Required)</small></label>
                             </div>
-                            <input class="form-control" type="file" id="FileUpload">
+                            <input class="form-control" type="file" id="FileUpload" required>
                             <div class=" text-danger d-flex justify-content-start pb-3 ps-3">
                                 <small class="pt-2">
-                                    Important Note: File name can't contain any of the following characters: \/:*? &lt; &gt; | ( ).
+                                    Important Note: File name can't contain any of the following characters: \ / : * ? &lt; &gt; | ( ).
                                 </small>
                             </div>
                             <div class="pt-5">
