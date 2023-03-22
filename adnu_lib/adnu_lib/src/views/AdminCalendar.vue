@@ -231,9 +231,16 @@
                                 </small>
                             </div>
                                 <div class="pt-5">
-                                    <button class="btn btn-primary float-start" type="submit" @click="setAppointment">
-                                        Set Appointment
-                                    </button>
+                                    <div v-if="enable_btn === true">
+                                        <button class="btn btn-primary float-start" type="submit" disabled @click="setAppointment();">
+                                            Set Appointment
+                                        </button>
+                                    </div>
+                                    <div v-else>
+                                        <button class="btn btn-primary float-start" type="submit" @click="setAppointment();">
+                                            Set Appointment
+                                        </button>
+                                    </div>
                                 </div>
                         </div>
                     </div>
@@ -258,6 +265,29 @@
                     <h5 class="card-title">Warning</h5>
                     <p class="card-text">Only future reservation is allowed by the system.</p>
                     <button type="button" class="btn btn-outline-light" @click="close_error_msg">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div v-if="enable_btn === true">
+        <div class="mx-auto" id="warning_pop">
+            <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+                <div class="card-header">
+                    <lord-icon
+                        src="https://cdn.lordicon.com/dnmvmpfk.json"
+                        trigger="loop"
+                        delay="2000"
+                        colors="primary:#ffffff"
+                        style="width:25px;height:25px" class="pt-1 ms-1">
+                    </lord-icon>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        The venue and time slot you have selected are already taken. 
+                        Please select a different venue or time slot.
+                    </p>
+                    <button type="button" class="btn btn-outline-light" @click="close_enable_btn">Close</button>
                 </div>
             </div>
         </div>
@@ -337,6 +367,9 @@ export default{
             arr_reset: false,
 
             error_message: false,
+
+            request_arr: [],
+            enable_btn: false,
         }
     },
 
@@ -359,6 +392,13 @@ export default{
             this.error_message = false;
         },
 
+        close_enable_btn(){ // we have an error message function that triggers,
+            this.error_message = false; //this is the close button of that message
+            this.enable_btn = false;
+            this.close_modal();
+        },
+
+
         isPastDate(date) {
             const now = new Date();
             return now > new Date(date);
@@ -372,7 +412,7 @@ export default{
                 console.log(dayView.textContent);
                 if(dayView.textContent === "Day"){
                     this.open_modal = true;
-                    this.time = "0:00 am"
+                    this.time = "0:00am"
                 }
             } else {
                 console.log("Error");
@@ -669,6 +709,15 @@ export default{
 
         nextPage_1(){
             this.next_page_1 = true;
+            for(let l = 0; l < this.request_arr.length; l++){
+                if(this.sliced_holder2.includes(this.request_arr[l].date) && this.request_arr[l].venue === this.venue){
+                    if(this.time === this.request_arr[l].time_s && this.timeEnd === this.request_arr[l].time_e){
+                        this.enable_btn = true;
+                    }
+                } else {
+                    this.enable_btn = false;
+                }
+            }
         },
 
         back_btn(){
@@ -720,6 +769,22 @@ export default{
                     q:"Quantity Available: " + ' ' + equip[i].get("Quantity"),
                     num: equip[i].get("Quantity"),
                 })
+            }
+
+            const Request = Parse.Object.extend("Request");
+            const request = new Parse.Query(Request);
+            const query = await request.find();
+
+            for(let i = 0; i < query.length; i++){
+                if(query[i].get("status") === 'Approved'){ //filtered all the data that has a status of "Pending"
+                    this.request_arr.push({
+                        date: query[i].get("date"),
+                        time_s: query[i].get("time_start"),
+                        time_e: query[i].get("time_end"),
+                        venue: query[i].get("venue"),
+                    })
+                }
+                console.log(this.request_arr);
             }
         
     }
