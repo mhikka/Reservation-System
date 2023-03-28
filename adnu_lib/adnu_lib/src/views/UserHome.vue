@@ -61,10 +61,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-else>
-                                    <p class="p-3">
+                                <div class="card text-start p-2" v-else>
+                                    <div class="card-body rounded text-light apprv">
                                         No appointments have been made yet.
-                                    </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

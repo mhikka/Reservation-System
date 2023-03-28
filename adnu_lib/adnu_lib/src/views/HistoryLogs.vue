@@ -42,7 +42,7 @@
                                 </lord-icon>
                             </div>
                             <div class="scrollable">
-                                <div class="text-start p-2">
+                                <div class="text-start p-2" v-if="len_of_requset_arr != 0">
                                     <div v-for="details in request_arr.slice().reverse()" :key="details">
                                         <div class="card pb-2" v-if="details.status === 'Approved'">
                                             <div class="card-body rounded text-light apprv">
@@ -56,6 +56,11 @@
                                                 {{ details.venue }}
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="card text-start p-2" v-else>
+                                    <div class="card-body rounded text-light apprv">
+                                        There are no history logs at this time.
                                     </div>
                                 </div>
                             </div>
@@ -302,6 +307,8 @@ export default{
             var_month: 'month',
             var_year: 'year',
             var_ay: 'academic_year',
+
+            len_of_requset_arr: '',
         }
     },
 
@@ -667,6 +674,8 @@ export default{
             query[i].get("org"), query[i].get("dept"), query[i].get("venue"), query[i].get("semester"), 
             query[i].get("remarks"), query[i].get("description"), query[i].get("status"), query[i].get("academic_year")],);
         }
+
+        this.len_of_requset_arr = this.request_arr.length;
 
         const Equipments = Parse.Object.extend("Equipments");
         const equipments = new Parse.Query(Equipments);

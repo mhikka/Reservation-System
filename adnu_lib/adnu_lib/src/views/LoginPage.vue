@@ -181,7 +181,7 @@
                             manage bookings for various spaces within the University campus. "Kazi" underlines the need 
                             for diligent effort and attention to detail in ensuring that reservations are correctly documented,
                             maintained, and communicated to appropriate parties in this setting. This entails developing a centralized 
-                            reservation platform that allows users to check availability, book venues and/or e, and get reservation
+                            reservation platform that allows users to check availability, book venues and/or equipments, and get reservation
                             confirmation. This system helps to streamline the booking process, reduce conflicts and double bookings,
                             and ensure efficient use of the University's resources. 
                         </small>

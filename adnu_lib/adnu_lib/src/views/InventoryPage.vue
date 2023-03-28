@@ -35,10 +35,7 @@
                             </div>
                             <div class="scrollable">
                                 <div class="text-start p-2">    
-                                    <div class="card" v-if="len_of_arr === 0">
-                                        There are not any open requests at this time.
-                                    </div>
-                                    <div class="card" v-else>
+                                    <div class="card" v-if="len_of_arr != 0">
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <thead>
@@ -58,6 +55,11 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                        </div>
+                                    </div>
+                                    <div class="card text-start p-2" v-else>
+                                        <div class="card-body rounded text-light apprv">
+                                            There are no equipments saved in the system.
                                         </div>
                                     </div>
                                 </div>
@@ -337,5 +339,9 @@ export default{
 .scrollable{
   overflow-y: auto;
   max-height: 525px;
+}
+
+.apprv{
+    background-color: #00588C;
 }
 </style>
