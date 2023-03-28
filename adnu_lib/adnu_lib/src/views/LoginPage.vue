@@ -134,7 +134,7 @@
                         <img src="../assets/Ateneo_de_Naga_University_logo.png" width="80" height="80" class="d-inline-block align-top" alt="">
                     </div>
                     <h6 class="text-weight-normal mt-4">
-                        Welcome to VENUEGO
+                        Welcome to KAZI
                     </h6>
                     <div class="pt-5">
                         <button type="button" class="btn btn-outline-primary rounded-pill" @click="handleSignIn()">
@@ -158,7 +158,7 @@
                                         style="width: 18px;height: 18px" class="pt-1 ">
                                     </lord-icon> Note
                                 </p> 
-                                VenueGo doesn't work on Incognito Mode
+                                KAZI doesn't work on Incognito Mode
                             </small>
                         </div>
                     </h6>
@@ -174,17 +174,16 @@
             <div class="row text-start">
                 <!-- Grid column -->
                 <div class="col-md-6 mt-md-0 mt-3">
-                    <h5 class="font-weight-bold mt-3 mb-4 text-light">VENUEGO</h5>
+                    <h5 class="font-weight-bold mt-3 mb-4 text-light">KAZI</h5>
                     <p class="font-weight-light text-light">
                         <small>
-                            VENUEGO is a digital platform that allows students, faculty members, and staff to 
-                            reserve and manage bookings for various spaces within the University campus. 
-                            These spaces may include lecture halls, classrooms, meeting rooms, conference centers, and other event spaces. 
-                            The booking system typically allows users to view availability, submit booking 
-                            requests, manage bookings, and receive notifications related to their bookings. The system may also 
-                            include features for managing equipments and other resources needed for the events. 
-                            This system helps to streamline the booking process, reduce conflicts and double 
-                            bookings, and ensure efficient use of the University's resources.
+                            KAZI is a reservation system that allows students, faculty members, and staff to reserve and 
+                            manage bookings for various spaces within the University campus. "Kazi" underlines the need 
+                            for diligent effort and attention to detail in ensuring that reservations are correctly documented,
+                            maintained, and communicated to appropriate parties in this setting. This entails developing a centralized 
+                            reservation platform that allows users to check availability, book venues and/or e, and get reservation
+                            confirmation. This system helps to streamline the booking process, reduce conflicts and double bookings,
+                            and ensure efficient use of the University's resources. 
                         </small>
                     </p>
                 </div>
@@ -224,7 +223,7 @@
                     <h5 class="font-weight-bold text-light mt-3 mb-4">Contact Us</h5>
                     <p class="font-weight-light text-light">
                         <small>
-                            If you have questions or suggestions about VenueGO, 
+                            If you have questions or suggestions about KAZI, 
                             please do not hesitate to contact us and we will be happy to assist you through 
                             any of the following:
                             <ul class="list-unstyled text-light">
