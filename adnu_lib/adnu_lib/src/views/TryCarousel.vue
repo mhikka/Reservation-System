@@ -27,11 +27,11 @@
                                     <img src="../assets/libraryLog.png" width="400" height="auto" class="img-fluidd-inline-block float-end" alt="">
                                         <div class="row">
                                             <div class="px-0 justify-content-start">
-                                                <div class="container-fluid bg-light opacity-75 text-xl mt-10" style=" width:750px; height:auto;margin-top:150px; border-radius:5px;">
+                                                <div class="container-fluid bg-light opacity-75 text-xl mt-10" style=" width:770px; height:auto;margin-top:150px; border-radius:5px;">
                                                     <h1 class="pt-2 fw-bold" style="font-size: 60px; color:DarkBlue; font-family: Times New Roman, Times, serif; margin:20px 50px;">{{ details.room }}</h1>
                                                     <h3 class="pb-4" style="color:MidnightBlue; font-family: Arial, Helvetica, sans-serif;">1st Floor, James J. O’Brien S.J. Library</h3>
                                                 </div>
-                                                <div class="container-fluid bg-light opacity-75" style="width: 640px; height:auto; margin-left:40px;border-radius:25px;">
+                                                <div class="container-fluid bg-light opacity-75" style="width: 660px; height:auto; margin-left:40px;border-radius:25px;">
                                                     <h1 class="pt-5 fs-1 fw-bold" style="color:DarkBlue; font-size:100%; font-family:Arial, Helvetica, sans-serif; margin:20px 50px; margin-top:40px;">{{ formattedDate }}</h1>
                                                 <div class="table-responsive pt-10">
                                                     <div class="justify-content-center">
@@ -52,11 +52,11 @@
                                     <img src="../assets/libraryLog.png" width="400" height="auto" class="img-fluidd-inline-block float-end" alt="">
                                         <div class="row">
                                             <div class="px-0 justify-content-start">
-                                                <div class="container-fluid bg-light opacity-75 text-xl mt-10" style=" width:750px; height:auto;margin-top:150px; border-radius:5px;">
+                                                <div class="container-fluid bg-light opacity-75 text-xl mt-10" style=" width:770px; height:auto;margin-top:150px; border-radius:5px;">
                                                     <h1 class="pt-2 fw-bold" style="font-size: 60px; color:DarkBlue; font-family: Times New Roman, Times, serif; margin:20px 50px;">{{ details.room }}</h1>
                                                     <h3 class="pb-4" style="color:MidnightBlue; font-family: Arial, Helvetica, sans-serif;">1st Floor, James J. O’Brien S.J. Library</h3>
                                                 </div>
-                                                <div class="container-fluid bg-light opacity-75" style="width: 640px; height:auto; margin-left:40px;border-radius:25px;">
+                                                <div class="container-fluid bg-light opacity-75" style="width: 660px; height:auto; margin-left:40px;border-radius:25px;">
                                                     <h1 class="pt-5 fs-1 fw-bold" style="color:DarkBlue; font-size:100%; font-family:Arial, Helvetica, sans-serif; margin:20px 50px; margin-top:40px;">{{ formattedDate }}</h1>
                                                 <div class="table-responsive pt-10">
                                                     <div class="justify-content-center">
@@ -71,17 +71,17 @@
                             </div>
                         </div>
                         <div v-else-if="details.room === 'Consultation Room 2'">
-                            <div class="carousel-item" style="object-fit: contain;">
+                            <div class="carousel-item justify-content-center" style="object-fit: contain;">
                                 <img src="../assets/3.png" class="d-block w-100" alt="Slide 5">
                                 <div class="caption" style="position: absolute; top: 5%; left:0%;">
                                     <img src="../assets/libraryLog.png" width="400" height="auto" class="img-fluidd-inline-block float-end" alt="">
                                         <div class="row">
                                             <div class="px-0 justify-content-start">
-                                                <div class="container-fluid bg-light opacity-75 text-xl mt-10" style="width:750px; height:auto;margin-top:150px; border-radius:5px;">
+                                                <div class="container-fluid bg-light opacity-75 text-xl mt-10" style="width:770px; height:auto;margin-top:150px; border-radius:5px;">
                                                     <h1 class="pt-2 fw-bold" style="font-size: 60px; color:DarkBlue; font-family: Times New Roman, Times, serif; margin:20px 50px;">{{ details.room }}</h1>
                                                     <h3 class="pb-4" style="color:MidnightBlue; font-family: Arial, Helvetica, sans-serif;">1st Floor, James J. O’Brien S.J. Library</h3>
                                                 </div>
-                                                <div class="container-fluid bg-light opacity-75" style="width: 640px; height:auto; margin-left:40px;border-radius:25px;">
+                                                <div class="container-fluid bg-light opacity-75" style="width: 660px; height:auto; margin-left:40px;border-radius:25px;">
                                                     <h1 class="pt-5 fs-1 fw-bold" style="color:DarkBlue; font-size:100%; font-family:Arial, Helvetica, sans-serif; margin:20px 50px; margin-top:40px;">{{ formattedDate }}</h1>
                                                 <div class="table-responsive pt-10">
                                                     <div class="justify-content-center">
@@ -102,11 +102,11 @@
                                     <img src="../assets/libraryLog.png" width="400" height="auto" class="img-fluidd-inline-block float-end" alt="">
                                         <div class="row">
                                             <div class="px-0 justify-content-start">
-                                                <div class="container-fluid bg-light opacity-75 text-xl mt-10" style="width:750px; height:auto;margin-top:150px; border-radius:5px;">
+                                                <div class="container-fluid bg-light opacity-75 text-xl mt-10" style="width:770px; height:auto;margin-top:150px; border-radius:5px;">
                                                     <h1 class="pt-2 fw-bold" style="font-size: 60px; color:DarkBlue; font-family: Times New Roman, Times, serif; margin:20px 50px;">{{ details.room }}</h1>
                                                     <h3 class="pb-4" style="color:MidnightBlue; font-family: Arial, Helvetica, sans-serif;">1st Floor, James J. O’Brien S.J. Library</h3>
                                                 </div>
-                                                <div class="container-fluid bg-light opacity-75" style="width: 640px; height:auto; margin-left:40px;border-radius:25px;">
+                                                <div class="container-fluid bg-light opacity-75" style="width: 660px; height:auto; margin-left:40px;border-radius:25px;">
                                                     <h1 class="pt-5 fs-1 fw-bold" style="color:DarkBlue; font-size:100%; font-family:Arial, Helvetica, sans-serif; margin:20px 50px; margin-top:40px;">{{ formattedDate }}</h1>
                                                 <div class="table-responsive pt-10">
                                                     <div class="justify-content-center">
@@ -127,11 +127,11 @@
                                     <img src="../assets/libraryLog.png" width="400" height="auto" class="img-fluidd-inline-block float-end" alt="">
                                         <div class="row">
                                             <div class="px-0 justify-content-start">
-                                                <div class="container-fluid bg-light opacity-75 text-xl mt-10" style="width:750px; height:auto;margin-top:150px; border-radius:5px;">
+                                                <div class="container-fluid bg-light opacity-75 text-xl mt-10" style="width:770px; height:auto;margin-top:150px; border-radius:5px;">
                                                     <h1 class="pt-2 fw-bold" style="font-size: 60px; color:DarkBlue; font-family: Times New Roman, Times, serif; margin:20px 50px;">{{ details.room }}</h1>
                                                     <h3 class="pb-4" style="color:MidnightBlue; font-family: Arial, Helvetica, sans-serif;">1st Floor, James J. O’Brien S.J. Library</h3>
                                                 </div>
-                                                <div class="container-fluid bg-light opacity-75" style="width: 640px; height:auto; margin-left:40px;border-radius:25px;">
+                                                <div class="container-fluid bg-light opacity-75" style="width: 660px; height:auto; margin-left:40px;border-radius:25px;">
                                                     <h1 class="pt-5 fs-1 fw-bold" style="color:DarkBlue; font-size:100%; font-family:Arial, Helvetica, sans-serif; margin:20px 50px; margin-top:40px;">{{ formattedDate }}</h1>
                                                 <div class="table-responsive pt-10">
                                                     <div class="justify-content-center">
