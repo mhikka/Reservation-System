@@ -166,6 +166,8 @@
                                                 <option value="Library - Multipurpose Room"><small>Library - Multipurpose Room</small></option>
                                                 <option value="Library: Fr. A.M. BAUTISTA - Viewing Room"><small>Library: Fr. A.M. BAUTISTA -
                                                     Viewing Room</small></option>
+                                                <option value="Instructional Media Center"><small>Instructional Media Center (IMC)</small></option>
+                                                <option value="Richie Fernando Hall"><small>Richie Fernando Hall</small></option>
                                             </select>
                                         </div>
                                         <div class="form-group pb-5 m-50">

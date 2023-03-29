@@ -182,6 +182,13 @@
                                             </ul>
                                         </div>
                                     </div>
+                                    <div class="p-2 row">
+                                        <div class="col justify-content-end">
+                                            <button type="button" class="btn btn-warning btn-sm text-light" @click="change_res(details.id)">Change Reservation</button>
+                                            &nbsp;
+                                            <button type="button" class="btn btn-danger btn-sm" @click="cancel_res(details.id)">Cancel Reservation</button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="card border border-none" v-if="details.status === 'Pending' && passed_id === details.id">
                                     <div class="card-body rounded text-light pend">
@@ -347,6 +354,8 @@
                                                 <option value="Library - Multipurpose Room"><small>Library - Multipurpose Room</small></option>
                                                 <option value="Library: Fr. A.M. BAUTISTA - Viewing Room"><small>Library: Fr. A.M. BAUTISTA -
                                                     Viewing Room</small></option>
+                                                <option value="Instructional Media Center"><small>Instructional Media Center (IMC)</small></option>
+                                                <option value="Richie Fernando Hall"><small>Richie Fernando Hall</small></option>
                                             </select>
                                         </div>
                                         <div class="form-group pb-5 m-50">
@@ -554,6 +563,35 @@ export default{
             this.edit_page = true; //and opened an edit page using the boolean variable 'this.edit_page'
             this.pop = false;
             this.passed_id = id; //we passed the id to a global variable to access the id at ease.
+        },
+
+        async change_res(id){
+            console.log(id);
+            const Request = Parse.Object.extend("Request");
+            const query = new Parse.Query(Request);
+
+            query.equalTo("objectId", id);
+            const reqQuery = await query.first();
+
+            reqQuery.set("status", "Request | Change of Venue");
+
+            reqQuery.save().then((reqQuery) => {
+                console.log("Successful", reqQuery);
+            });
+        },
+
+        async cancel_res(id){
+            const Request = Parse.Object.extend("Request");
+            const query = new Parse.Query(Request);
+
+            query.equalTo("objectId", id);
+            const reqQuery = await query.first();
+
+            reqQuery.set("status", "Request | Cancellation of Reservation");
+
+            reqQuery.save().then((reqQuery) => {
+                console.log("Successful", reqQuery);
+            });
         },
 
         nextPage(){ // this functions helps us to transfer from one page to another in our pop up modals
