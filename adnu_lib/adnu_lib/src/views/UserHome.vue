@@ -573,10 +573,11 @@ export default{
             query.equalTo("objectId", id);
             const reqQuery = await query.first();
 
-            reqQuery.set("status", "Request | Change of Venue");
+            reqQuery.set("status", "Change of Venue");
 
             reqQuery.save().then((reqQuery) => {
                 console.log("Successful", reqQuery);
+                this.pop = false;
             });
         },
 
@@ -587,10 +588,11 @@ export default{
             query.equalTo("objectId", id);
             const reqQuery = await query.first();
 
-            reqQuery.set("status", "Request | Cancellation of Reservation");
+            reqQuery.set("status", "Cancellation of Reservation");
 
             reqQuery.save().then((reqQuery) => {
                 console.log("Successful", reqQuery);
+                this.pop = false;
             });
         },
 
