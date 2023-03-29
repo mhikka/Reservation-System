@@ -223,8 +223,13 @@
                                     <input type="number" class="form-control" id="input_q" min="1" :v-model="values_of_q" :placeholder="equip.q">
                                 </div>
                             </div>
-                            <div class="col d-flex justify-content-start fw-bold pb-2 pt-3">
+                            <div class="col d-flex justify-content-start fw-bold pt-3">
                                 <label for="formGroupExampleInput">Related Documents</label>
+                            </div>
+                            <div class=" text-danger d-flex justify-content-start ps-3 pb-3">
+                                <small class="pt-2">
+                                 (Please upload in this section the OSA permit in pdf format.)
+                                </small>
                             </div>
                             <input class="form-control" type="file" id="FileUpload">
                             <div class=" text-danger d-flex justify-content-start pb-3 ps-3">

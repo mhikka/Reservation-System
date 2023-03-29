@@ -160,9 +160,19 @@
                                             <label for="exampleInputPassword1" class="float-start" required>Department <small class="text-danger">(Required)</small></label>
                                             <input v-model="dept" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your department here">
                                         </div>
-                                        <div class="form-group pb-3">
-                                            <label for="exampleInputPassword1" class="float-start" required>Description <small class="text-danger">(Required)</small></label>
-                                            <input v-model="desc" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter description of your event here">
+                                        <div class="form-group pb-5 m-50">
+                                        <label for="exampleInputPassword1" class="float-start me-3">Type of Activity <small class="text-danger">(Required)</small></label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Select Activity" aria-label="Select Activity" aria-describedby="basic-addon2" required :value="activity">
+                                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                            <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#" @click.prevent="activity = 'Film Viewing'">Film Viewing</a></li>
+                                            <li><a class="dropdown-item" href="#" @click.prevent="activity = 'Thesis Defense'">Thesis Defense</a></li>
+                                            <li><a class="dropdown-item" href="#" @click.prevent="activity = 'Seminar'">Seminar</a></li>
+                                            <li><a class="dropdown-item" href="#" @click.prevent="activity = 'Review'">Review</a></li>
+                                            <li><a class="dropdown-item" href="#" @click.prevent="activity = 'Meeting Orientation'">Meeting Orientation</a></li>
+                                            </ul>
+                                        </div>
                                         </div>
                                         <div class="form-group pb-3">
                                             <label for="exampleInputPassword1" class="float-start" required>Academic Year <small class="text-danger">(Required)</small></label>
@@ -245,8 +255,13 @@
                                     <input type="number" class="form-control" id="input_q" min="1" :v-model="values_of_q" :placeholder="equip.q" required>
                                 </div>
                             </div>
-                            <div class="col d-flex justify-content-start fw-bold pb-2 pt-3">
-                                <label for="formGroupExampleInput">Related Documents <small class="text-danger">(Required)</small></label>
+                            <div class="col d-flex justify-content-start fw-bold pt-3">
+                                <label for="formGroupExampleInput">Related Documents <small class="text-danger">(Required)</small> </label>
+                            </div>
+                            <div class=" text-danger d-flex justify-content-start ps-3 pb-3">
+                                <small class="pt-2">
+                                 (Please upload in this section the OSA permit in pdf format.)
+                                </small>
                             </div>
                             <input class="form-control" type="file" id="FileUpload" required>
                             <div class=" text-danger d-flex justify-content-start pb-3 ps-3">
@@ -287,7 +302,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Warning</h5>
-                    <p class="card-text">Only future reservation is allowed by the system.</p>
+                    <p class="card-text">Only future reservation is allowed by the system. If you need an urgent reservation, please contact the admin.</p>
                     <button type="button" class="btn btn-outline-light" @click="close_error_msg">Close</button>
                 </div>
             </div>
@@ -308,7 +323,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Note</h5>
-                    <p class="card-text"> Reservations must be made at least 3 days in advance of your desired dates. Thank you for your understanding.</p>
+                    <p class="card-text"> Reservations must be made at least 3 days in advance of your desired dates. If you need an urgent reservation, please contact the admin. Thank you for your understanding.</p>
                     <button type="button" class="btn btn-outline-light" @click="close_error_msg">Close</button>
                 </div>
             </div>
