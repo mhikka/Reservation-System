@@ -148,9 +148,19 @@
                                             <label for="exampleInputPassword1" class="float-start">Department</label>
                                             <input v-model="dept" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your department here">
                                         </div>
-                                        <div class="form-group pb-3">
-                                            <label for="exampleInputPassword1" class="float-start">Description</label>
-                                            <input v-model="desc" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter description of your event here">
+                                        <div class="form-group pb-2 m-50">
+                                            <label for="exampleInputPassword1" class="float-start me-3">Type of Activity <small class="text-danger">(Required)</small></label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" placeholder="Select Activity" aria-label="Select Activity" aria-describedby="basic-addon2" required v-model="desc">
+                                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="#" @click.prevent="desc = 'Film Viewing'">Film Viewing</a></li>
+                                                        <li><a class="dropdown-item" href="#" @click.prevent="desc = 'Thesis Defense'">Thesis Defense</a></li>
+                                                        <li><a class="dropdown-item" href="#" @click.prevent="desc = 'Seminar'">Seminar</a></li>
+                                                        <li><a class="dropdown-item" href="#" @click.prevent="desc = 'Review'">Review</a></li>
+                                                        <li><a class="dropdown-item" href="#" @click.prevent="desc = 'Meeting Orientation'">Meeting Orientation</a></li>
+                                                    </ul>
+                                                </div>
                                         </div>
                                         <div class="form-group pb-3">
                                             <label for="exampleInputPassword1" class="float-start">Academic Year</label>
