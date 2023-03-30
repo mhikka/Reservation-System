@@ -11,8 +11,14 @@ import CalendarCarousel from '../views/CalendarCarousel.vue'
 import AboutPageUser from '../views/AboutPageUser.vue'
 import InventoryPage from '../views/InventoryPage.vue'
 import AdvisoryPage from '../views/AdvisoryPage.vue'
+import RedirectPage from '../views/RedirectPage.vue'
 
 const routes = [
+    {
+        path: '/r',
+        name: 'RedirectPage',
+        component: RedirectPage,
+    },
     {
         path: '/',
         name: 'Login',

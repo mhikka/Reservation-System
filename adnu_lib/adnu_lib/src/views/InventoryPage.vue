@@ -287,13 +287,18 @@ export default{
                         timerProgressBar: true,
                     });
                     this.close_modal();
+                    this.$router.push({name: 'RedirectPage'});
                     //   document.location.reload();
                     // this.$router.push('/reload');
                     // location.reload();
                     // this.$router.push({ name: 'inventory' });
                 }
-                else if (result.isDenied) {
-                    Swal.fire('Equipment not deleted')
+                else {
+                    Swal.fire({
+                        icon: 'info', title: 'Equipment not updated!', showConfirmButton: false, timer: 2000,
+                        timerProgressBar: true,
+                    });
+                    this.$router.push({ name: 'RedirectPage' });
                 }
             })
 

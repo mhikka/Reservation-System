@@ -168,11 +168,11 @@
                                             <label for="exampleInputPassword1" class="float-start me-3">Venue</label>
                                             <select name="plan" id="venue" v-model="venue" class="btn btn-sm border float-start">
                                                 <option value="" disabled selected>List of Venues</option>
-                                                <option value="JOBL Conference Room 1st Floor">JOBL Conference Room 1st Floor</option>
-                                                <option value="Consultation Room 1"><small>Consultation Room 1</small></option>
-                                                <option value="Consultation Room 2"><small>Consultation Room 2</small></option>
-                                                <option value="Library - Multipurpose Room"><small>Library - Multipurpose Room</small></option>
-                                                <option value="Library: Fr. A.M. BAUTISTA - Viewing Room"><small>Library: Fr. A.M. BAUTISTA -
+                                                <option value="JOBL Conference Room 1st Floor" title="Chairs Available: 50, TV Screen: 1">JOBL Conference Room 1st Floor</option>
+                                                <option value="Consultation Room 1" title="Chairs Available: 50, TV Screen: 1"><small>Consultation Room 1</small></option>
+                                                <option value="Consultation Room 2" title="Chairs Available: 50, TV Screen: 1"><small>Consultation Room 2</small></option>
+                                                <option value="Library - Multipurpose Room" title="Chairs Available: 50, TV Screen: 1"><small>Library - Multipurpose Room</small></option>
+                                                <option value="Library: Fr. A.M. BAUTISTA - Viewing Room" title="Chairs Available: 50, TV Screen: 1"><small>Library: Fr. A.M. BAUTISTA -
                                                     Viewing Room</small></option>
                                             </select>
                                         </div>
