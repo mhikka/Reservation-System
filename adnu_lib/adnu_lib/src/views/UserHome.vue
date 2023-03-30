@@ -585,10 +585,32 @@ export default{
 
             reqQuery.set("status", "Change of Venue");
 
-            reqQuery.save().then((reqQuery) => {
-                console.log("Successful", reqQuery);
-                this.pop = false;
-            });
+            Swal.fire({
+                icon: 'warning',
+                title: 'Do you want to change the venue for reservation?',
+                showCancelButton: true,
+                confirmButtonText: 'Yes!',
+                confirmButtonColor: '#00588C',
+                cancelButtonColor: '#C3C3C9',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    reqQuery.save();
+                    this.pop = false;
+                    Swal.fire({
+                        icon: 'success', title: 'Reservation Changed!', showConfirmButton: false, timer: 2000,
+                        timerProgressBar: true,
+                    });
+                    this.$router.push('/reload');
+                }
+                else if (result.isDenied) {
+                    Swal.fire('Reservation not cancelled')
+                }
+            })
+
+            // reqQuery.save().then((reqQuery) => {
+            //     console.log("Successful", reqQuery);
+            //     this.pop = false;
+            // });
         },
 
         async cancel_res(id){
@@ -600,10 +622,32 @@ export default{
 
             reqQuery.set("status", "Cancellation of Reservation");
 
-            reqQuery.save().then((reqQuery) => {
-                console.log("Successful", reqQuery);
-                this.pop = false;
-            });
+            Swal.fire({
+                icon: 'warning',
+                title: 'Do you want to cancel the reservation?',
+                showCancelButton: true,
+                confirmButtonText: 'Yes!',
+                confirmButtonColor: '#00588C',
+                cancelButtonColor: '#C3C3C9',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    reqQuery.save();
+                    this.pop = false;
+                    Swal.fire({
+                        icon: 'success', title: 'Reservation Cancelled!', showConfirmButton: false, timer: 2000,
+                        timerProgressBar: true,
+                    });
+                    this.$router.push('/reload');
+                }
+                else if (result.isDenied) {
+                    Swal.fire('Reservation not cancelled')
+                }
+            })
+
+            // reqQuery.save().then((reqQuery) => {
+            //     console.log("Successful", reqQuery);
+            //     this.pop = false;
+            // });
         },
 
         nextPage(){ // this functions helps us to transfer from one page to another in our pop up modals

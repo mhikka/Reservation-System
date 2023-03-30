@@ -13,6 +13,7 @@ import InventoryPage from '../views/InventoryPage.vue'
 import AdvisoryPage from '../views/AdvisoryPage.vue'
 import TryCarousel from '../views/TryCarousel.vue'
 import reloadDb from '../views/reloadDb.vue'
+import RedirectPage from '../views/RedirectPage.vue'
 
 const routes = [
     {
