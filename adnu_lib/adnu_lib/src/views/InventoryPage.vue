@@ -288,8 +288,12 @@ export default{
                     this.$router.push('/reload'); // after saving, we will push the page to our reload page for a smooth operation of the system
                     this.close_modal();
                 }
-                else if (result.isDenied) {
-                    Swal.fire('Equipment not deleted')
+                else {
+                    Swal.fire({
+                        icon: 'info', title: 'Equipment not updated!', showConfirmButton: false, timer: 2000,
+                        timerProgressBar: true,
+                    });
+                    this.$router.push({ name: 'RedirectPage' });
                 }
             })
         },
