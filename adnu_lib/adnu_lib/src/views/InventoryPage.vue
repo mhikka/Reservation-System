@@ -37,9 +37,9 @@
                                 <div class="text-start p-2">    
                                     <div class="card" v-if="len_of_arr != 0">
                                         <div class="table-responsive">
-                                            <table class="table">
+                                            <table class="table table-hover">
                                                 <thead>
-                                                    <tr>
+                                                    <tr class="table-custom">
                                                         <th scope="col">Item</th>
                                                         <th scope="col">Quantity</th>
                                                         <th scope="col"></th>
@@ -343,5 +343,10 @@ export default{
 
 .apprv{
     background-color: #00588C;
+}
+
+.table-custom{
+    background-color: #00588C;
+    color: white;
 }
 </style>

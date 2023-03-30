@@ -23,16 +23,16 @@
                             <path d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383z"/>
                             <path d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708l3 3z"/>
                         </svg>
-                        Reservation Logs
+                        Generate Logs
                     </button>
                     </div>
                 </div>
                 <hr style="background-color: black; height: 2px;">
                 <div class="row">
                     <div class="col">
-                        <div class="card" style="height: auto;">
+                        <div class="card" style="height: auto; width: auto;">
                             <div class="card-header text-start">
-                                Logs
+                                This month logs
                                 <lord-icon
                                     src="https://cdn.lordicon.com/qmuwmmnl.json"
                                     trigger="loop"
@@ -43,8 +43,8 @@
                             </div>
                             <div class="scrollable">
                                 <div class="text-start p-2" v-if="len_of_requset_arr != 0">
-                                    <div v-for="details in request_arr.slice().reverse()" :key="details">
-                                        <div class="card pb-2" v-if="details.status === 'Approved'">
+                                    <div>
+                                        <!-- <div class="card pb-2" v-if="details.status === 'Approved'">
                                             <div class="card-body rounded text-light apprv">
                                                 <h4>{{ details.status }}</h4>
                                                 {{ details.venue }}
@@ -55,6 +55,36 @@
                                                 <h4>{{ details.status }}</h4>
                                                 {{ details.venue }}
                                             </div>
+                                        </div> -->
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr class="table-custom">
+                                                        <th scope="col" class="h6 fw-bold">Date</th>
+                                                        <th scope="col" class="h6 fw-bold">Email</th>
+                                                        <th scope="col" class="h6 fw-bold">Time</th>
+                                                        <th scope="col" class="h6 fw-bold">Description</th>
+                                                        <th scope="col" class="h6 fw-bold">Venue</th>
+                                                        <th scope="col" class="h6 fw-bold">Organization</th>
+                                                        <th scope="col" class="h6 fw-bold">Department</th>
+                                                        <th scope="col" class="h6 fw-bold">Semester</th>
+                                                        <th scope="col" class="h6 fw-bold">S/Y</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody v-for="details in request_arr.slice().reverse()" :key="details">
+                                                    <tr>
+                                                        <th scope="row" class="h6"><small>{{ details.date }}</small></th>
+                                                        <th scope="row" class="h6"><small>{{ details.email }}</small></th>
+                                                        <th scope="row" class="h6"><small>{{ details.time_s }} - {{ details.time_e }}</small></th>
+                                                        <th scope="row" class="h6"><small>{{ details.desc }}</small></th>
+                                                        <th scope="col" class="h6"><small>{{ details.venue }}</small></th>
+                                                        <th scope="col" class="h6"><small>{{ details.org }}</small></th>
+                                                        <th scope="col" class="h6"><small>{{ details.dept }}</small></th>
+                                                        <th scope="col" class="h6"><small>{{ details.semester }}</small></th>
+                                                        <th scope="col" class="h6"><small>{{ details.sy }}</small></th>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -106,6 +136,8 @@
                                                     <option value="Semester"><small>Semester</small></option>
                                                     <option value="Status"><small>Status</small></option>
                                                     <option value="Month"><small>Month & Year</small></option>
+                                                    <option value="Department/Office"><small>Department/Office</small></option>
+                                                    <option value="Organization"><small>Organization</small></option>
                                                 </select>
                                             </div>
                                         </div>
@@ -176,6 +208,22 @@
                                                 <input type="number" v-model="input_year" class="form-control form-control-sm" id="inputEmail3" placeholder="Year">
                                             </div>
                                         </div>
+                                        <div v-else-if="filter === 'Department/Office'">
+                                            <div class="row float-start">
+                                                <label for="inputEmail3" class="float-start">Department/Office:</label>
+                                                <div class="pb-2">
+                                                    <input type="text" v-model="dept_off" class="form-control" id="inputEmail3" placeholder="E.g.: Department of Computer Studies">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div v-else-if="filter === 'Organization'">
+                                            <div class="row float-start">
+                                                <label for="inputEmail3" class="float-start">Organization:</label>
+                                                <div class="pb-2">
+                                                    <input type="text" v-model="stud_org" class="form-control" id="inputEmail3" placeholder="E.g.: TACTICS">
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div v-else>
                                             <div class="float-start">
                                                 <p class="text-danger text-start">
@@ -244,6 +292,32 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div v-else-if="filter === 'Department/Office'">
+                                    <div class="float-center">
+                                        <div class="d-grid gap-2">
+                                            <button type="button" class="btn btn-outline-primary btn-lg btn-block" @click="dl_deptOffice">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                                    <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/>
+                                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                                                </svg>
+                                                Generate report logs
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-else-if="filter === 'Organization'">
+                                    <div class="float-center">
+                                        <div class="d-grid gap-2">
+                                            <button type="button" class="btn btn-outline-primary btn-lg btn-block" @click="dl_org">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                                    <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/>
+                                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                                                </svg>
+                                                Generate report logs
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div v-else>
                                     <div class="float-center">
                                         <div class="d-grid gap-2">
@@ -300,14 +374,19 @@ export default{
             semester_report: [],
             status_report: [],
             month_year_report: [],
+            dept_off_report: [],
+            org_report: [],
 
             input_year: '',
             acad_year: '',
+            dept_off: '',
+            stud_org: '',
 
             var_month: 'month',
             var_year: 'year',
             var_ay: 'academic_year',
-
+            var_dept: 'dept',
+            var_org: 'org',
             len_of_requset_arr: '',
         }
     },
@@ -326,6 +405,7 @@ export default{
             this.month = '';
             this.input_year = '';
             this.acad_year = '';
+            this.dept_off = '';
         },
 
         dl_Report(){ // this is the function to download all of the results
@@ -342,8 +422,7 @@ export default{
             request.find().then((query) => {
                 for(let i = 0; i < query.length; i++){
                     const obj = query[i];
-                    this.venue_report.push([obj.get("date"), obj.get("full_name"), 
-                    obj.get("email"), obj.get("mobile_number"), obj.get("time_start") + " - " + obj.get("time_end"), 
+                    this.venue_report.push([obj.get("date"), obj.get("email"), obj.get("time_start") + " - " + obj.get("time_end"), 
                     obj.get("org"), obj.get("dept"), obj.get("venue"), obj.get("semester"), 
                     obj.get("remarks"), obj.get("description"), obj.get("status"), obj.get("academic_year")],);
                 }
@@ -362,8 +441,7 @@ export default{
             request.find().then((query) => {
                 for(let i = 0; i < query.length; i++){
                     const obj = query[i];
-                    this.semester_report.push([obj.get("date"), obj.get("full_name"), 
-                    obj.get("email"), obj.get("mobile_number"), obj.get("time_start") + " - " + obj.get("time_end"), 
+                    this.semester_report.push([obj.get("date"), obj.get("email"), obj.get("time_start") + " - " + obj.get("time_end"), 
                     obj.get("org"), obj.get("dept"), obj.get("venue"), obj.get("semester"), 
                     obj.get("remarks"), obj.get("description"), obj.get("status"), obj.get("academic_year")],);
                 }
@@ -381,8 +459,7 @@ export default{
             request.find().then((query) => {
                 for(let i = 0; i < query.length; i++){
                     const obj = query[i];
-                    this.status_report.push([obj.get("date"), obj.get("full_name"), 
-                    obj.get("email"), obj.get("mobile_number"), obj.get("time_start") + " - " + obj.get("time_end"), 
+                    this.status_report.push([obj.get("date"), obj.get("email"), obj.get("time_start") + " - " + obj.get("time_end"), 
                     obj.get("org"), obj.get("dept"), obj.get("venue"), obj.get("semester"), 
                     obj.get("remarks"), obj.get("description"), obj.get("status"), obj.get("academic_year")],);
                 }
@@ -394,35 +471,69 @@ export default{
         },
 
         dl_month(){ // this is the function to download all of the filtered month
-            try{
-                const Request = Parse.Object.extend("Request");
-                const request = new Parse.Query(Request);
-                request.equalTo(this.var_month, this.month);
-                request.equalTo(this.var_year, this.input_year);
+            const Request = Parse.Object.extend("Request");
+            const request = new Parse.Query(Request);
+            request.equalTo(this.var_month, this.month);
+            request.equalTo(this.var_year, this.input_year);
 
-                request.find().then((query) => {
-                    for(let i = 0; i < query.length; i++){
-                        const obj = query[i];
-                        this.month_year_report.push([obj.get("date"), obj.get("full_name"), 
-                        obj.get("email"), obj.get("mobile_number"), obj.get("time_start") + " - " + obj.get("time_end"), 
-                        obj.get("org"), obj.get("dept"), obj.get("venue"), obj.get("semester"), 
-                        obj.get("remarks"), obj.get("description"), obj.get("status"), obj.get("academic_year")],);
-                    }
-                });
-
-                console.log(this.month_year_report);
-                if(this.month_year_report.length != 0){
-                    this.month_yearReport();
+            request.find().then((query) => {
+                for(let i = 0; i < query.length; i++){
+                    const obj = query[i];
+                    this.month_year_report.push([obj.get("date"), obj.get("email"), obj.get("time_start") + " - " + obj.get("time_end"), 
+                    obj.get("org"), obj.get("dept"), obj.get("venue"), obj.get("semester"), 
+                    obj.get("remarks"), obj.get("description"), obj.get("status"), obj.get("academic_year")],);
                 }
-                
-            } catch(error){
-                console.log(error);
+            });
+
+            console.log(this.month_year_report);
+            if(this.month_year_report.length != 0){
+                this.month_yearReport();
+            }
+        },
+
+        dl_deptOffice(){ // this is the function to download all of the filtered month
+            const Request = Parse.Object.extend("Request");
+            const request = new Parse.Query(Request);
+            request.equalTo(this.var_dept, this.dept_off);
+
+            request.find().then((query) => {
+                for(let i = 0; i < query.length; i++){
+                    const obj = query[i];
+                    this.dept_off_report.push([obj.get("date"), obj.get("email"), obj.get("time_start") + " - " + obj.get("time_end"), 
+                    obj.get("org"), obj.get("dept"), obj.get("venue"), obj.get("semester"), 
+                    obj.get("remarks"), obj.get("description"), obj.get("status"), obj.get("academic_year")],);
+                }
+            });
+
+            console.log(this.dept_off_report);
+            if(this.dept_off_report.length != 0){
+                this.dept_offReport();
+            }
+        },
+
+        dl_org(){ // this is the function to download all of the filtered month
+            const Request = Parse.Object.extend("Request");
+            const request = new Parse.Query(Request);
+            request.equalTo(this.var_org, this.stud_org);
+
+            request.find().then((query) => {
+                for(let i = 0; i < query.length; i++){
+                    const obj = query[i];
+                    this.org_report.push([obj.get("date"), obj.get("email"), obj.get("time_start") + " - " + obj.get("time_end"), 
+                    obj.get("org"), obj.get("dept"), obj.get("venue"), obj.get("semester"), 
+                    obj.get("remarks"), obj.get("description"), obj.get("status"), obj.get("academic_year")],);
+                }
+            });
+
+            console.log(this.org_report);
+            if(this.org_report.length != 0){
+                this.stud_org_report();
             }
         },
 
         venueReport(){ //this is the main download module for venues
             var arrResults = [
-                ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status", "Academic Year"],
+                ["Date", "Email", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status", "Academic Year"],
             ];
             console.log(this.venue_report.length);
             if(this.venue_report.length != 0){
@@ -463,7 +574,7 @@ export default{
 
         semesterReport(){ //this is the main download module for semester
             var arrResults = [
-                ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status", "Academic Year"],
+                ["Date", "Email", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Type of Activity", "Status", "Academic Year"],
             ];
             console.log(this.semester_report);
             if(this.semester_report.length != 0){
@@ -504,7 +615,7 @@ export default{
 
         statusReport(){ //this is the main download module for status
             var arrResults = [
-                ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status", "Academic Year"],
+                ["Date", "Email", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Type of Activity", "Status", "Academic Year"],
             ];
             console.log(this.status_report);
             if(this.status_report.length != 0){
@@ -545,7 +656,7 @@ export default{
         generateResult(){ //this is the main download module for all of the results
             if(this.allowed_dl === true){
                 var arrResults = [
-                    ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status", "Academic Year"],
+                    ["Date", "Email", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Type of Activity", "Status", "Academic Year"],
                 ];
                 console.log(this.reports_arr)
                 for(let i = 0; i < this.reports_arr.length; i++){
@@ -582,12 +693,92 @@ export default{
 
         month_yearReport(){ //this is the main download module for month and year
             var arrResults = [
-                ["Date", "Full Name", "Email", "Mobile Number", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Description", "Status", "Academic Year"],
+                ["Date", "Email", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Type of Activity", "Status", "Academic Year"],
             ];
             console.log(this.month_year_report);
             if(this.month_year_report.length != 0){
                 for(let x = 0; x < this.month_year_report.length; x++){
                     arrResults.push(this.month_year_report[x]);
+                }
+                console.log(arrResults);
+                var CsvString = '';
+                arrResults.forEach(function(RowItem, RowIndex) {
+                    RowItem.forEach(function(ColItem, ColIndex) {
+                        CsvString += ColItem + ',';
+                        console.log(RowIndex, ColIndex);
+                    });
+                    CsvString += "\r\n";
+                });
+
+                let classname = "compiled";
+                let classsection = "log";
+                let combinedFilename = classname.concat("-", classsection);
+                let fileExtension = "generated.csv";
+                let finalFilename = combinedFilename.concat("_", fileExtension);
+                CsvString = "data:application/csv," + encodeURIComponent(CsvString);
+                var x = document.createElement("A");
+                x.setAttribute("href", CsvString );
+                x.setAttribute("download", finalFilename);
+                document.body.appendChild(x);
+                x.click();
+                this.close_modal();
+            } else {
+                Swal.fire({
+                    icon: 'error', title: 'Unable to download, Please try again', showConfirmButton: false, timer: 2000,
+                    timerProgressBar: true,
+                });
+                this.close_modal();
+            }
+        },
+
+        dept_offReport(){ //this is the main download module for month and year
+            var arrResults = [
+                ["Date", "Email", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Type of Activity", "Status", "Academic Year"],
+            ];
+            console.log(this.dept_off_report);
+            if(this.dept_off_report.length != 0){
+                for(let x = 0; x < this.dept_off_report.length; x++){
+                    arrResults.push(this.dept_off_report[x]);
+                }
+                console.log(arrResults);
+                var CsvString = '';
+                arrResults.forEach(function(RowItem, RowIndex) {
+                    RowItem.forEach(function(ColItem, ColIndex) {
+                        CsvString += ColItem + ',';
+                        console.log(RowIndex, ColIndex);
+                    });
+                    CsvString += "\r\n";
+                });
+
+                let classname = "compiled";
+                let classsection = "log";
+                let combinedFilename = classname.concat("-", classsection);
+                let fileExtension = "generated.csv";
+                let finalFilename = combinedFilename.concat("_", fileExtension);
+                CsvString = "data:application/csv," + encodeURIComponent(CsvString);
+                var x = document.createElement("A");
+                x.setAttribute("href", CsvString );
+                x.setAttribute("download", finalFilename);
+                document.body.appendChild(x);
+                x.click();
+                this.close_modal();
+            } else {
+                Swal.fire({
+                    icon: 'error', title: 'Unable to download, Please try again', showConfirmButton: false, timer: 2000,
+                    timerProgressBar: true,
+                });
+                this.close_modal();
+            }
+        },
+
+        stud_org_report(){ //this is the main download module for month and year
+            var arrResults = [
+                ["Date", "Email", "Time", "Organization", "Department", "Venue", "Semester", "Remarks", "Type of Activity", "Status", "Academic Year"],
+            ];
+            console.log(this.org_report);
+            if(this.org_report.length != 0){
+                for(let x = 0; x < this.org_report.length; x++){
+                    arrResults.push(this.org_report[x]);
                 }
                 console.log(arrResults);
                 var CsvString = '';
@@ -664,13 +855,15 @@ export default{
                     status: query[i].get("status"),
                     remarks: query[i].get("remarks"),
                     semester: query[i].get("semester"),
+                    time_s: query[i].get("time_start"),
+                    time_e: query[i].get("time_end"),
+                    sy: query[i].get("academic_year"),
                 })
             }
 
             //we transfered all of the necessarry data to be downloaded. We prepared it and
             //stored the data in the variable named 'this.reports_arr'
-            this.reports_arr.push([query[i].get("date"), query[i].get("full_name"), 
-            query[i].get("email"), query[i].get("mobile_number"), query[i].get("time_start") + " - " + query[i].get("time_end"), 
+            this.reports_arr.push([query[i].get("date"), query[i].get("email"), query[i].get("time_start") + " - " + query[i].get("time_end"), 
             query[i].get("org"), query[i].get("dept"), query[i].get("venue"), query[i].get("semester"), 
             query[i].get("remarks"), query[i].get("description"), query[i].get("status"), query[i].get("academic_year")],);
         }
@@ -695,6 +888,7 @@ export default{
 <style scoped>
 .scrollable{
   overflow-y: auto;
+  overflow-x: auto;
   max-height: 525px;
 }
 
@@ -704,6 +898,11 @@ export default{
 
 .apprv{
     background-color: #00588C;
+}
+
+.table-custom{
+    background-color: #00588C;
+    color: white;
 }
 
 .unvble{
