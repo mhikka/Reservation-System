@@ -111,11 +111,11 @@
         <AdminModal>
             <div class="card">
                 <div class="card-header">
-                    <div class="row">
+                    <!-- <div class="row"> -->
                         <div class="container">
                             <div class="row pt-3 justify-content-end">
                                 <div class="col-4 pt-2">
-                                    <h6 class="fw-bold">Reports</h6>
+                                    <h6 class="fw-bold">Filter Reports</h6>
                                     <hr stlye="background-color: black">
                                 </div>
                                 <div class="col-4">
@@ -125,12 +125,12 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div>
-                                    <div class="float-start ps-2 pb-2">
+                                <div class="float-start">
+                                    <div class="ps-2 pb-2">
                                         <div>
-                                            <div class="form-group pb-5 m-50">
-                                                <label for="exampleInputPassword1" class="float-start me-3 fw-bold">Filter by:</label>
-                                                <select name="plan" id="venue" v-model="filter" class="btn btn-sm border float-start">
+                                            <div class="form-group m-50">
+                                                <label for="exampleInputPassword1" class="float-start me-3 pt-1 fw-bold">Filter by:</label>
+                                                <select name="plan" id="venue" v-model="filter" class="btn btn-md border float-start">
                                                     <option value="" disabled selected>Filter</option>
                                                     <option value="Venue">Venue</option>
                                                     <option value="Semester"><small>Semester</small></option>
@@ -148,7 +148,7 @@
                                         <div v-if="filter === 'Venue'">
                                             <div class="form-group pb-5 m-50">
                                                 <label for="exampleInputPassword1" class="float-start me-3">Venue:</label>
-                                                <select name="plan" id="venue" v-model="venue" class="btn btn-sm border float-start">
+                                                <select name="plan" id="venue" v-model="venue" class="btn btn-md border float-start">
                                                     <option value="" disabled selected>List of Venues</option>
                                                     <option value="JOBL Conference Room 1st Floor">JOBL Conference Room 1st Floor</option>
                                                     <option value="Consultation Room 1"><small>Consultation Room 1</small></option>
@@ -156,71 +156,84 @@
                                                     <option value="Library - Multipurpose Room"><small>Library - Multipurpose Room</small></option>
                                                     <option value="Library: Fr. A.M. BAUTISTA - Viewing Room"><small>Library: Fr. A.M. BAUTISTA -
                                                         Viewing Room</small></option>
+                                                    <option value="Instructional Media Center"><small>Instructional Media Center</small></option>
+                                                    <option value="Richie Fernando Hall"><small>Richie Fernando Hall</small></option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div v-else-if="filter === 'Semester'">
-                                            <div class="form-group pb-5 m-50">
-                                                <label for="exampleInputPassword1" class="float-start me-3">Semester:</label>
-                                                <select name="plan" id="venue" v-model="semester" class="btn btn-sm border float-start">
-                                                    <option value="" disabled selected>List of Semesters</option>
-                                                    <option value="1st Semester">1st Semester</option>
-                                                    <option value="2nd Semester"><small>2nd Semester</small></option>
-                                                    <option value="Intersession"><small>Intersession</small></option>
-                                                </select>
-                                            </div>
-                                            <label for="inputEmail3" class="float-start">Academic Year: </label>
-                                            <div class="col-8 pb-2">
-                                                <input type="text" v-model="acad_year" class="form-control form-control-sm" id="inputEmail3" placeholder="(E.g. 2023-2024)">
+                                            <div class="row pb-3 justify-content-between">
+                                                <div class="form-group col-md-4">
+                                                    <label for="exampleInputPassword1">Semester:</label>
+                                                    <select name="plan" id="venue" v-model="semester" class="btn btn-md border">
+                                                        <option value="" disabled selected>List of Semesters</option>
+                                                        <option value="1st Semester">1st Semester</option>
+                                                        <option value="2nd Semester"><small>2nd Semester</small></option>
+                                                        <option value="Intersession"><small>Intersession</small></option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4 ml-auto">
+                                                    <label for="inputEmail3">Academic Year: </label>
+                                                    <div class="pb-2">
+                                                        <input type="text" v-model="acad_year" class="form-control form-control-sm" id="inputEmail3" placeholder="(E.g. 2023-2024)">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div v-else-if="filter === 'Status'">
-                                            <div class="form-group pb-5 m-50">
-                                                <label for="exampleInputPassword1" class="float-start me-3">Status:</label>
-                                                <select name="plan" id="venue" v-model="status" class="btn btn-sm border float-start">
-                                                    <option value="" disabled selected>Types of Request status</option>
-                                                    <option value="Approved">Approved</option>
-                                                    <option value="Pending"><small>Pending</small></option>
-                                                    <option value="Unavailable"><small>Unavailable</small></option>
-                                                </select>
+                                            <div class="row justify-content-start pb-3">
+                                                <div class="form-group m-50 col-6 col-sm-3">
+                                                    <label for="exampleInputPassword1" class=" me-3">Status:</label>
+                                                    <select name="plan" id="venue" v-model="status" class="btn btn-md border">
+                                                        <option value="" disabled selected>Types of Remarks</option>
+                                                        <option value="Approved">Approved</option>
+                                                        <option value="Pending"><small>Pending</small></option>
+                                                        <option value="Unavailable"><small>Unavailable</small></option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                         <div v-else-if="filter === 'Month'">
-                                            <label for="exampleInputPassword1" class="float-start me-3">Month:</label>
-                                            <select name="plan" id="venue" v-model="month" class="btn btn-sm border float-start">
-                                                <option value="" disabled selected>Select a Month</option>
-                                                <option value="January">January</option>
-                                                <option value="February"><small>February</small></option>
-                                                <option value="March"><small>March</small></option>
-                                                <option value="April"><small>April</small></option>
-                                                <option value="May"><small>May</small></option>
-                                                <option value="June"><small>June</small></option>
-                                                <option value="July"><small>July</small></option>
-                                                <option value="August"><small>August</small></option>
-                                                <option value="September"><small>September</small></option>
-                                                <option value="October"><small>October</small></option>
-                                                <option value="November"><small>November</small></option>
-                                                <option value="December"><small>December</small></option>
-                                            </select>
-                                            <br>
-                                            <label for="inputEmail3" class="float-start">Year: </label>
-                                            <div class="col-8 pb-2">
-                                                <input type="number" v-model="input_year" class="form-control form-control-sm" id="inputEmail3" placeholder="Year">
+                                            <div class="row pb-3 justify-content-between">
+                                                <div class="form-group col-md-4">
+                                                    <label for="exampleInputPassword1">Month:</label>
+                                                    <select name="plan" id="venue" v-model="month" class="btn btn-md border">
+                                                        <option value="" disabled selected>Select a Month</option>
+                                                        <option value="January">January</option>
+                                                        <option value="February"><small>February</small></option>
+                                                        <option value="March"><small>March</small></option>
+                                                        <option value="April"><small>April</small></option>
+                                                        <option value="May"><small>May</small></option>
+                                                        <option value="June"><small>June</small></option>
+                                                        <option value="July"><small>July</small></option>
+                                                        <option value="August"><small>August</small></option>
+                                                        <option value="September"><small>September</small></option>
+                                                        <option value="October"><small>October</small></option>
+                                                        <option value="November"><small>November</small></option>
+                                                        <option value="December"><small>December</small></option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4 ml-auto">
+                                                    <label for="inputEmail3">School Year: </label>
+                                                    <div class="pb-2">
+                                                        <input type="text" v-model="input_year" class="form-control form-control-sm" id="inputEmail3" placeholder="Year">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div v-else-if="filter === 'Department/Office'">
-                                            <div class="row float-start">
-                                                <label for="inputEmail3" class="float-start">Department/Office:</label>
+                                            <div class="row pb-3">
+                                                <label for="inputEmail3" class="col-6">Department/Office:</label>
                                                 <div class="pb-2">
-                                                    <input type="text" v-model="dept_off" class="form-control" id="inputEmail3" placeholder="E.g.: Department of Computer Studies">
+                                                    <input type="text" v-model="dept_off" class="form-control" id="inputEmail3" placeholder="E.g. Department of Computer Studies">
                                                 </div>
                                             </div>
                                         </div>
                                         <div v-else-if="filter === 'Organization'">
-                                            <div class="row float-start">
-                                                <label for="inputEmail3" class="float-start">Organization:</label>
+                                            <div class="row pb-3">
+                                                <label for="inputEmail3" class="col-6">Organization:</label>
                                                 <div class="pb-2">
-                                                    <input type="text" v-model="stud_org" class="form-control" id="inputEmail3" placeholder="E.g.: TACTICS">
+                                                    <input type="text" v-model="stud_org" class="form-control" id="inputEmail3" placeholder="E.g. TACTICS">
                                                 </div>
                                             </div>
                                         </div>
@@ -234,7 +247,7 @@
                                                         colors="primary:#dc3545"
                                                         style="width: 18px;height: 18px" class="pt-1">
                                                     </lord-icon> Important note: 
-                                                    All of the unfiltered reports will be generated when you click the generate button.
+                                                    All of the unfiltered reports will be generated when you click the generate button below.
                                                 </p>
                                             </div>
                                         </div>
@@ -333,7 +346,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    <!-- </div> -->
                 </div>
             </div>
         </AdminModal>

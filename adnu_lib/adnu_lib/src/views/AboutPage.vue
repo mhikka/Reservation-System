@@ -26,30 +26,30 @@
                                     </svg>
                                 </div>
                                 <div class="card-body text-start ">
-                                    <h6 class="fw-bold mb-0">0.1.0</h6>
+                                    <!-- <h6 class="fw-bold mb-0">0.1.0</h6>
                                         <ul style="mb-0">
                                             <li>updates / new features / fixed bugs</li>
                                             <div class="row nav-row">
                                                 <button type="button" class="btn btn-info text-light text-pt-0 btn-sm d-inline-flex py-0" style="width: 3.7rem; height: 1.5rem; border-radius: 20px;" disabled>feature</button>
                                             &nbsp; Added feature/s
                                             </div>
-                                        </ul>
-                                    <h6 class="fw-bold mb-0">Beta 0.1.0 - February 2023 </h6>
+                                        </ul> -->
+                                    <h6 class="fw-bold mb-0">Beta 0.1.0 - April 2023 </h6>
                                         <ul style="mb-0">
-                                            <li>updates / new features / fixed bugs</li>
-                                            <div class="row nav-row">
-                                                <button type="button" class="btn btn-info text-light text-pt-0 btn-sm d-inline-flex py-0" style="width: 3.7rem; height: 1.5rem; border-radius: 20px;" disabled>feature</button>
-                                            &nbsp; Added feature/s
-                                            </div>
-                                            <li>updates / new features / fixed bugs</li>
+                                            <li>Updates / New features</li>
+                                                <div class="row nav-row">
+                                                    <button type="button" class="btn btn-info text-light text-pt-0 btn-sm d-inline-flex py-0" style="width: 3.7rem; height: 1.5rem; border-radius: 20px;" disabled>feature</button>
+                                                    &nbsp; Updated User Interface
+                                                </div>
+                                            <!-- <li>updates / new features / fixed bugs</li>
                                             <div class="row nav-row pb-1">
                                                 <button type="button" class="btn btn-success text-light text-pt-0 btn-sm d-inline-flex py-0" style="width: 3.4rem; height: 1.5rem; border-radius: 20px;" disabled>bugfix</button>
-                                            &nbsp; Fixed Bugs
+                                                &nbsp; Fixed Bugs
                                             </div>
                                             <div class="row nav-row">
                                                 <button type="button" class="btn btn-info text-light text-pt-0 btn-sm d-inline-flex py-0" style="width: 3.7rem; height: 1.5rem; border-radius: 20px;" disabled>feature</button>
-                                            &nbsp; Added feature/s
-                                            </div>
+                                                &nbsp; Added feature/s
+                                            </div> -->
                                         </ul>
                                 </div>
                             </div>

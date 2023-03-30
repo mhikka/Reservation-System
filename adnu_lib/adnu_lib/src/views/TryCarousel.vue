@@ -12,6 +12,8 @@
                         <li data-bs-target="#myCarousel" data-bs-slide-to="3"></li>
                         <li data-bs-target="#myCarousel" data-bs-slide-to="4"></li>
                         <li data-bs-target="#myCarousel" data-bs-slide-to="5"></li>
+                        <li data-bs-target="#myCarousel" data-bs-slide-to="6"></li>
+                        <li data-bs-target="#myCarousel" data-bs-slide-to="7"></li>
                     </ol>
                     <!-- Slides -->
                     <div class="carousel-inner carousel-fade">
@@ -96,7 +98,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div v-else-if="details.room === 'Library Multipurpose Room'">
+                            <div v-else-if="details.room === 'Library - Multipurpose Room'">
                                 <div class="carousel-item" style="object-fit: contain;">
                                     <img src="../assets/4.png" class="d-block w-100" alt="Slide 5">
                                     <div class="caption" style="position: absolute; top: 5%; left:0%;">
@@ -122,6 +124,56 @@
                                 </div>
                             </div>
                             <div v-else-if="details.room === 'Library: Fr. A.M. BAUTISTA - Viewing Room'">
+                                <div class="carousel-item" style="object-fit: contain;">
+                                    <img src="../assets/5.png" class="d-block w-100" alt="Slide 5">
+                                    <div class="caption" style="position: absolute; top: 5%; left:0%;">
+                                        <img src="../assets/libraryLog.png" width="400" height="auto" class="img-fluidd-inline-block float-end" alt="">
+                                            <div class="row">
+                                                <div class="px-0 justify-content-start">
+                                                    <div class="container-fluid bg-light opacity-75 text-xl mt-10" style="width:770px; height:auto;margin-top:150px; border-radius:5px;">
+                                                        <h1 class="pt-2 fw-bold" style="font-size: 60px; color:DarkBlue; font-family: Times New Roman, Times, serif; margin:20px 50px;">{{ details.room }}</h1>
+                                                        <h3 class="pb-4" style="color:MidnightBlue; font-family: Arial, Helvetica, sans-serif;">1st Floor, James J. O’Brien S.J. Library</h3>
+                                                    </div>
+                                                    <div class="container-fluid bg-light opacity-75" style="width: 640px; height:auto; margin-left:40px;border-radius:25px;">
+                                                        <h1 class="pt-5 fs-1 fw-bold" style="color:DarkBlue; font-size:100%; font-family:Arial, Helvetica, sans-serif; margin:20px 50px; margin-top:40px;">{{ formattedDate }}</h1>
+                                                    <div class="table-responsive pt-10">
+                                                        <div class="justify-content-center">
+                                                            <h1 class="pt-5 fw-bold" style="color:DarkBlue; font-size: 80px; font-family:Arial, Helvetica, sans-serif; margin:20px 20px; margin-top:30px;">{{ details.desc }}</h1>
+                                                            <h2 class="pb-10 fw-bold" style="color:DarkBlue; font-size: 30px; font-family:Arial, Helvetica, sans-serif; margin:20px 50px; margin-bottom:100px;"> Time: {{ details.time_start }} - {{ details.time_end }} </h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-else-if="details.room === 'Instructional Media Center'">
+                                <div class="carousel-item" style="object-fit: contain;">
+                                    <img src="../assets/5.png" class="d-block w-100" alt="Slide 5">
+                                    <div class="caption" style="position: absolute; top: 5%; left:0%;">
+                                        <img src="../assets/libraryLog.png" width="400" height="auto" class="img-fluidd-inline-block float-end" alt="">
+                                            <div class="row">
+                                                <div class="px-0 justify-content-start">
+                                                    <div class="container-fluid bg-light opacity-75 text-xl mt-10" style="width:770px; height:auto;margin-top:150px; border-radius:5px;">
+                                                        <h1 class="pt-2 fw-bold" style="font-size: 60px; color:DarkBlue; font-family: Times New Roman, Times, serif; margin:20px 50px;">{{ details.room }}</h1>
+                                                        <h3 class="pb-4" style="color:MidnightBlue; font-family: Arial, Helvetica, sans-serif;">1st Floor, James J. O’Brien S.J. Library</h3>
+                                                    </div>
+                                                    <div class="container-fluid bg-light opacity-75" style="width: 640px; height:auto; margin-left:40px;border-radius:25px;">
+                                                        <h1 class="pt-5 fs-1 fw-bold" style="color:DarkBlue; font-size:100%; font-family:Arial, Helvetica, sans-serif; margin:20px 50px; margin-top:40px;">{{ formattedDate }}</h1>
+                                                    <div class="table-responsive pt-10">
+                                                        <div class="justify-content-center">
+                                                            <h1 class="pt-5 fw-bold" style="color:DarkBlue; font-size: 80px; font-family:Arial, Helvetica, sans-serif; margin:20px 20px; margin-top:30px;">{{ details.desc }}</h1>
+                                                            <h2 class="pb-10 fw-bold" style="color:DarkBlue; font-size: 30px; font-family:Arial, Helvetica, sans-serif; margin:20px 50px; margin-bottom:100px;"> Time: {{ details.time_start }} - {{ details.time_end }} </h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-else-if="details.room === 'Richie Fernando Hall'">
                                 <div class="carousel-item" style="object-fit: contain;">
                                     <img src="../assets/5.png" class="d-block w-100" alt="Slide 5">
                                     <div class="caption" style="position: absolute; top: 5%; left:0%;">
