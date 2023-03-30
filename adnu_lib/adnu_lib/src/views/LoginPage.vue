@@ -58,8 +58,6 @@
                 </ul>
             </div>
             <div class="col-md-6 mt-md-0 mt-3 order-md-1 order-2">
-                <!-- <ejs-schedule height="375px" width="auto" currentView="Day" class="rounded">
-                </ejs-schedule> -->
                 <div>
                     <div class="row">
                         <div class="col pb-2">
@@ -136,7 +134,7 @@
                         <img src="../assets/Ateneo_de_Naga_University_logo.png" width="80" height="80" class="d-inline-block align-top" alt="">
                     </div>
                     <h6 class="text-weight-normal mt-4">
-                        Welcome to VENUEGO
+                        Welcome to KAZI
                     </h6>
                     <div class="pt-5">
                         <button type="button" class="btn btn-outline-primary rounded-pill" @click="handleSignIn()">
@@ -160,7 +158,7 @@
                                         style="width: 18px;height: 18px" class="pt-1 ">
                                     </lord-icon> Note
                                 </p> 
-                                VenueGo doesn't work on Incognito Mode
+                                KAZI doesn't work on Incognito Mode
                             </small>
                         </div>
                     </h6>
@@ -176,17 +174,16 @@
             <div class="row text-start">
                 <!-- Grid column -->
                 <div class="col-md-6 mt-md-0 mt-3">
-                    <h5 class="font-weight-bold mt-3 mb-4 text-light">VENUEGO</h5>
+                    <h5 class="font-weight-bold mt-3 mb-4 text-light">KAZI</h5>
                     <p class="font-weight-light text-light">
                         <small>
-                            VENUEGO is a digital platform that allows students, faculty members, and staff to 
-                            reserve and manage bookings for various spaces within the University campus. 
-                            These spaces may include lecture halls, classrooms, meeting rooms, conference centers, and other event spaces. 
-                            The booking system typically allows users to view availability, submit booking 
-                            requests, manage bookings, and receive notifications related to their bookings. The system may also 
-                            include features for managing equipments and other resources needed for the events. 
-                            This system helps to streamline the booking process, reduce conflicts and double 
-                            bookings, and ensure efficient use of the University's resources.
+                            KAZI is a reservation system that allows students, faculty members, and staff to reserve and 
+                            manage bookings for various spaces within the University campus. "Kazi" underlines the need 
+                            for diligent effort and attention to detail in ensuring that reservations are correctly documented,
+                            maintained, and communicated to appropriate parties in this setting. This entails developing a centralized 
+                            reservation platform that allows users to check availability, book venues and/or equipments, and get reservation
+                            confirmation. This system helps to streamline the booking process, reduce conflicts and double bookings,
+                            and ensure efficient use of the University's resources. 
                         </small>
                     </p>
                 </div>
@@ -208,6 +205,13 @@
                             <li>
                                 <a href="https://adnulib.adnu.edu.ph/" class="link-primary" style="text-decoration: none;">ADNU Library</a>
                             </li>
+                            <li>
+                                <a href="#" class="link-primary" style="text-decoration: none;">
+                                    <router-link :to="{name: 'tryCarousel'}" style="text-decoration: none;">
+                                        TV Calendar
+                                    </router-link>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <!-- Grid column -->
@@ -219,7 +223,7 @@
                     <h5 class="font-weight-bold text-light mt-3 mb-4">Contact Us</h5>
                     <p class="font-weight-light text-light">
                         <small>
-                            If you have questions or suggestions about VenueGO, 
+                            If you have questions or suggestions about KAZI, 
                             please do not hesitate to contact us and we will be happy to assist you through 
                             any of the following:
                             <ul class="list-unstyled text-light">
@@ -296,24 +300,15 @@
 </template>
 
 <script>
-// import HelloWorld from '@/components/HelloWorld.vue';
-// import { ScheduleComponent, Day, Agenda } from "@syncfusion/ej2-vue-schedule";
-// import VueCal from "@/components/VueCalLogin.vue";
 import AdminModal from "@/components/AdminModal.vue";
 import Parse from 'parse';
 
 const gapi = window.gapi;
 export default{
     name: 'LoginPage',
-    // components: {HelloWorld},
     components: {
-        // 'ejs-schedule': ScheduleComponent,
-        // VueCal,
         AdminModal,
     },
-    // provide: {
-    //     schedule: [Day, Agenda]
-    // },
     data(){
         return{
             profileFirstname: '',
@@ -342,38 +337,32 @@ export default{
         }
     },
     methods: {
-        async handleSignIn(){
-            // try {
+        async handleSignIn(){ // this is the login button in our login page, "Continue to Gbox button"
                 let googleUser = await gapi.auth2.getAuthInstance().signIn();
 
-                this.profileFirstname = googleUser.getBasicProfile().getGivenName(); //tw.lv.rZ;
-                this.profileLastname = googleUser.getBasicProfile().getFamilyName(); //tw.lv.EX; 
-                this.profileFullName = googleUser.getBasicProfile().getName(); //tw.lv.Af;  
-                this.profileImage = googleUser.getBasicProfile().getImageUrl(); //tw.lv.nO; 
-                this.profileEmail = googleUser.getBasicProfile().getEmail();  //tw.lv.Xv;  
-                this.profileId = googleUser.getBasicProfile().getId();   //tw.lv.ZX;
+                this.profileFirstname = googleUser.getBasicProfile().getGivenName();
+                this.profileLastname = googleUser.getBasicProfile().getFamilyName(); 
+                this.profileFullName = googleUser.getBasicProfile().getName(); 
+                this.profileImage = googleUser.getBasicProfile().getImageUrl();
+                this.profileEmail = googleUser.getBasicProfile().getEmail(); 
+                this.profileId = googleUser.getBasicProfile().getId();
                 console.log(googleUser);
                 if(googleUser){
-                    // this.$router.push({name: 'home'});
                     console.log("First name: ", this.profileFirstname);
                     console.log("Last name: ", this.profileLastname);
                     console.log("Full name: ", this.profileFullname);
                     console.log("Image: ", this.profileImage);
                     console.log("Email: ", this.profileEmail);
                     console.log("ID: ", this.profileId);
-                    this.api_successs = true;
+                    this.api_successs = true; // flags the system if the login process/data was successfully completed
                 }
 
                 if(googleUser.getBasicProfile() != null && this.api_successs === true){
                     console.log("Success");
-                    // this.popUpAdmin;
-                    this.popup_admin = true;
+                    this.popup_admin = true; //this shows the input field for the admin password
                 } else {
                     console.log("fail");
                 }
-            // } catch(error) {
-            //     console.log(error);
-            // }
         },
 
         popUpAdmin(){
@@ -389,10 +378,10 @@ export default{
         },
 
         continue_admin(){
-            if(this.AdminKey === 'ABC123'){
+            if(this.AdminKey === 'ABC123'){ //if the admin key was correct, the user will be navigated to the admin side of the system
                 this.$router.push({name: 'adminHome'});
-            } else {
-                this.admin_invalid = true;
+            } else { //else, the user will be navigated to the user side of the system
+                this.admin_invalid = true; 
             }
         },
 
@@ -407,15 +396,14 @@ export default{
 
     mounted: async function(){
         try{
-            gapi.load("client:auth2", function () {
+            gapi.load("client:auth2", function () { //this is the Google OAuth API that needs to be rendered
                 gapi.auth2.getAuthInstance();
             });
 
             const googleUser = await gapi.auth2.getAuthInstance();
-            // await this.loadClient();
             console.log("This is the googleUser:", googleUser);
             this.currentUser = googleUser.currentUser.get().getBasicProfile().getName();
-            this.gapiLoaded = true;
+            this.gapiLoaded = true; //this is a flag that the Google API completely loaded
 
         } catch(error){
             console.log(error);
@@ -431,8 +419,6 @@ export default{
         } else {
             new_day = day.toString();
         }
-        // console.log(new_day);
-
         const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
             "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
         ];
@@ -441,6 +427,8 @@ export default{
         this.file_date = year + "-" + new_day + "-" + month;
         console.log(this.newdate);
 
+        // we fetched all of the data in "Request" table in our database
+        // we looked for an event that is happening "TODAY" wherein the status of the request is 'Approved' by the admin
         const Request = Parse.Object.extend("Request");
         const request = new Parse.Query(Request);
         const query = await request.find();
@@ -459,7 +447,8 @@ export default{
         console.log(this.events);
         this.len_request_arr = this.events.length;
 
-        if(this.len_request_arr === 0){
+        // this block allows us to verify if there's a reservation today
+        if(this.len_request_arr === 0){ 
             this.show_list = false;
             console.log(this.show_list);
         } else {

@@ -1,5 +1,5 @@
 <template>
-    <div class="col-2" style="background-color: #414141;"> <!--col-auto col-md-3 col-xl-2 px-sm-2 px-0-->
+    <div class="col-2" style="background-color: #414141;">
         <div class="d-flex flex-column align-items-center align-items-sm-center px-3 pt-2 text-white min-vh-100">
             <div class="d-flex align-items-center text-white text-decoration-none pt-3">
                 <img src="../assets/Ateneo_de_Naga_University_logo.png" class="img-fluid logo rounded-circle me-1" alt="" width="120" height="120">

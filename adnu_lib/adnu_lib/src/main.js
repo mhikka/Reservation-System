@@ -6,6 +6,7 @@ import { registerLicense } from '@syncfusion/ej2-base';
 // import VCalendar from 'v-calendar'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import VueCarousel from 'vue-carousel';
 
 registerLicense("ORg4AjUWIQA/Gnt2VVhkQlFadVdJX3xLe0x0RWFab1Z6d1ZMYllBJAtUQF1hSn5SdENhWXxacXxVTmNY");
 const app = createApp(App).use(router);
@@ -32,3 +33,5 @@ app.use(gAuthPlugin, {
 // app.user(VCalendar)
 
 app.mount('#app')
+
+app.use(VueCarousel);

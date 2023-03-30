@@ -1,10 +1,6 @@
 <template>
     <div @click="fetchData(); onDayClick();" class="hello">
-        <!-- <vue-cal style="height: 620px" :time-from="8 * 60" :time-to="20 * 60" :time-step="30" :twelveHour="true" hide-weekends active-view="month" :disable-views="['years', 'year', 'week']" /> -->
         <vue-cal @day-click="onDayClick" v-model:selected-date="schedulerSelectedDate" style="height: 620px" :time-from="8 * 60" :time-to="20 * 60" :time-step="30" :twelveHour="true" active-view="month" :disable-views="['years', 'year', 'week']" :events="events" />
-        <!-- <template slot="time" slot-scope="{ time }">
-
-        </template> -->
     </div>
 </template>
 
@@ -38,16 +34,8 @@ export default {
         onDayClick(day){
             console.log(day);
             let date = new Date();
-            // const collection = document.getElementsByClassName("vuecal__time-cell-label");
 
             const elements = document.querySelectorAll(".vuecal__time-cell-label");
-            
-            // for (let i = 0; i < elements.length; i++) {
-            //     elements[i].addEventListener("click", (event) => {
-            //         console.log("Clicked element value: " + event.target.textContent);
-            //         console.log("Clicked element index: " + i);
-            //     });
-            // }
             elements.forEach((element) => {
                 element.addEventListener("click", (event) => {
                     let value = event.target.textContent;
@@ -56,7 +44,6 @@ export default {
                 })
             })
             this.selectedTime = `${date.getHours()}:${date.getMinutes()}`;
-            // console.log(this.selectedTime);
             console.log(this.time);
             this.$emit('time',{Time: this.time});
         }

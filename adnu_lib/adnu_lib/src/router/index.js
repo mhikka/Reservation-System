@@ -11,7 +11,8 @@ import CalendarCarousel from '../views/CalendarCarousel.vue'
 import AboutPageUser from '../views/AboutPageUser.vue'
 import InventoryPage from '../views/InventoryPage.vue'
 import AdvisoryPage from '../views/AdvisoryPage.vue'
-import RedirectPage from '../views/RedirectPage.vue'
+import TryCarousel from '../views/TryCarousel.vue'
+import reloadDb from '../views/reloadDb.vue'
 
 const routes = [
     {
@@ -79,6 +80,16 @@ const routes = [
         name: 'CalendarCarousel',
         component: CalendarCarousel,
     },
+    {
+        path: '/tryCarousel',
+        name: 'tryCarousel',
+        component: TryCarousel,
+    },
+    {
+        path: '/reload',
+        name: 'reloadDb',
+        component: reloadDb,
+    }
 ]
 
 const router = createRouter({

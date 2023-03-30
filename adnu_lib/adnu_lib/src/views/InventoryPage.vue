@@ -35,10 +35,7 @@
                             </div>
                             <div class="scrollable">
                                 <div class="text-start p-2">    
-                                    <div class="card" v-if="len_of_arr === 0">
-                                        There are not any open requests at this time.
-                                    </div>
-                                    <div class="card" v-else>
+                                    <div class="card" v-if="len_of_arr != 0">
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <thead>
@@ -58,6 +55,11 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                        </div>
+                                    </div>
+                                    <div class="card text-start p-2" v-else>
+                                        <div class="card-body rounded text-light apprv">
+                                            There are no equipments saved in the system.
                                         </div>
                                     </div>
                                 </div>
@@ -103,7 +105,7 @@
                                         </div>
                                         <div class="form-group pb-2">
                                             <label for="exampleInputPassword1" class="float-start">Quantity</label>
-                                            <input v-model="details.quantity" type="text" class="form-control" id="exampleInputPassword1" placeholder="Edit the quantity">
+                                            <input v-model="details.quantity" type="number" class="form-control" id="exampleInputPassword1" placeholder="Edit the quantity">
                                         </div>
                                         <div class="pt-4">
                                             <button class="btn btn-primary float-start" type="submit" @click="updateEquipment(details.items, details.quantity)">
@@ -149,7 +151,7 @@
                                         </div>
                                         <div class="form-group pb-2">
                                             <label for="exampleInputPassword1" class="float-start">Quantity</label>
-                                            <input v-model="quantity" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the quantity here">
+                                            <input v-model="quantity" type="number" class="form-control" id="exampleInputPassword1" placeholder="Enter the quantity here">
                                         </div>
                                         <div class="pt-4">
                                             <button class="btn btn-primary float-start" type="submit" @click="add(item, quantity)">
@@ -196,17 +198,18 @@ export default{
     },
 
     mounted: async function(){
-        gapi.load("client:auth2", function () {
+        gapi.load("client:auth2", function () { //this is the Google OAuth API that needs to be rendered
             gapi.auth2.getAuthInstance();
         });
 
-        const googleUser = gapi.auth2.getAuthInstance();
+        const googleUser = gapi.auth2.getAuthInstance(); 
         console.log(googleUser);
 
         if(!googleUser){
             this.$router.push({name: 'Login'});
         }
         
+        //this allows us to fetched the data from our database with a table name "Equipments"
         const Equipments = Parse.Object.extend("Equipments");
         const equipments = new Parse.Query(Equipments);
         const query = await equipments.find();
@@ -223,19 +226,18 @@ export default{
     },
 
     methods: {
-        editItem(id){
+        editItem(id){ //this function allows us to edit an item
             console.log(id);
             this.id_holder = id;
-            this.open_modal = true;
-            // this.updateEquipment(id);
+            this.open_modal = true; //this triggers the pop up modal to edit the data
         },
 
-        addEquipments(){
+        addEquipments(){ //this allows us to add an item
             console.log("This is clicked");
-            this.open_add = true;
+            this.open_add = true; // this triggers the pop up modal
         },
 
-        add(){
+        add(){ //this is the function to add the item to our database
             const Equipments = Parse.Object.extend("Equipments");
             const equipments = new Equipments;
 
@@ -252,15 +254,14 @@ export default{
                     timer: 2000,
                     timerProgressBar: true,
                 });
-                // this.$router.push({ name: 'inventory' });
                 console.log(equip.id);
             });
+            this.$router.push('/reload'); // after saving, we will push the page to our reload page for a smooth operation of the system
             this.close_modal();
         },
 
         async updateEquipment(item, quantity){
             console.log("This is the ID: ", this.id_holder);
-            // console.log(item, quantity);
             const Equipments = Parse.Object.extend("Equipments");
             const equipments = new Parse.Query(Equipments);
 
@@ -273,12 +274,10 @@ export default{
             Swal.fire({
                 icon: 'warning',
                 title: 'Do you want to update this equipment?',
-                //   showDenyButton: true,
                 showCancelButton: true,
                 confirmButtonText: 'Yes, update it!',
                 confirmButtonColor: '#00588C',
                 cancelButtonColor: '#C3C3C9',
-                //   denyButtonText: `Don't save`,
             }).then((result) => {
                 if (result.isConfirmed) {
                     equip.save();
@@ -286,12 +285,8 @@ export default{
                         icon: 'success', title: 'Equipment updated!', showConfirmButton: false, timer: 2000,
                         timerProgressBar: true,
                     });
+                    this.$router.push('/reload'); // after saving, we will push the page to our reload page for a smooth operation of the system
                     this.close_modal();
-                    this.$router.push({name: 'RedirectPage'});
-                    //   document.location.reload();
-                    // this.$router.push('/reload');
-                    // location.reload();
-                    // this.$router.push({ name: 'inventory' });
                 }
                 else {
                     Swal.fire({
@@ -301,13 +296,9 @@ export default{
                     this.$router.push({ name: 'RedirectPage' });
                 }
             })
-
-            // equip.save().then((equip) => {
-            //         console.log(equip.id);
-            // });
         },
 
-        async deleteItem(id){
+        async deleteItem(id){ // this is the delete function. We looked for the passed ID
             console.log(id);
             const Equipments = Parse.Object.extend("Equipments");
             const equipments = new Parse.Query(Equipments);
@@ -315,16 +306,13 @@ export default{
             equipments.equalTo("objectId", id);
             const equip = await equipments.first();
 
-            // equip.destroy();
             Swal.fire({
                 icon: 'warning',
                 title: 'Do you want to delete this equipment?',
-                //   showDenyButton: true,
                 showCancelButton: true,
                 confirmButtonText: 'Yes, delete it!',
                 confirmButtonColor: '#00588C',
                 cancelButtonColor: '#C3C3C9',
-                //   denyButtonText: `Don't save`,
             }).then((result) => {
                 if (result.isConfirmed) {
                     equip.destroy();
@@ -332,17 +320,12 @@ export default{
                         icon: 'success', title: 'Equipment deleted', showConfirmButton: false, timer: 2000,
                         timerProgressBar: true,
                     });
-                    //   document.location.reload();
-                    // this.$router.push('/reload');
-                    // location.reload();
-                    // this.$router.push({ name: 'inventory' });
+                    this.$router.push('/reload');
                 }
                 else if (result.isDenied) {
                     Swal.fire('Equipment not deleted')
                 }
             })
-            // alert("Equipment Deleted!");
-            // location.reload();
         },
 
         close_modal(){
@@ -362,9 +345,7 @@ export default{
   max-height: 525px;
 }
 
-/* .swal2-confirm, .swal2-styled, .my-confirm-button-class {
-  background-color: red;
-  color: white;
-  font-size: 16px;
-} */
+.apprv{
+    background-color: #00588C;
+}
 </style>

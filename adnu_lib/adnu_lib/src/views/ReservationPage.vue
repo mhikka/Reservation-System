@@ -16,14 +16,8 @@
                   
                 <hr style="background-color: black; height: 2px;">
                 <div @click="check" v-if="gapiLoaded === true">
-                    <!-- <ejs-schedule height="575px" currentView="Month" v-model:selectedDate="schedulerSelectedDate" id="calendar">
-                    </ejs-schedule> -->
                     <div class="scrollable">
                         <VueCal @time="handleTime" @date="handleEvent" ref="vuecal" />  
-                    <!-- <div class="mt-3">
-                        Number of dates selected: {{ length_ofArr }}
-                        <button type="button" class="ms-2 mb-1 btn btn-secondary" @click="resetArr">Reset</button>
-                    </div>  -->
                         <div v-if="show_selected_popup === true">
                             <div class="floating_counter">
                                 <div class="pt-1 pb-1 pe-2">
@@ -35,7 +29,7 @@
                                                 </div>
                                                 <div class="col-auto">
                                                     <button type="button" class="btn btn-warning text-white" @click="resetArr">Reset</button> &nbsp;
-                                                    <!-- <button type="button" class="btn btn-primary" @click="undoArr">Undo</button> -->
+                                                    <button type="button" class="btn btn-primary text-white" @click="bookNow">Book</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -118,33 +112,43 @@
                                         <input v-model="user_email" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your email here">
                                     </div>
                                     <div class="form-group pb-5">
-                                        <label for="exampleInputPassword1" class="float-start">Mobile Number</label>
+                                        <label for="exampleInputPassword1" class="float-start" required>Mobile Number <small class="text-danger">(Required)</small></label>
                                         <input v-model="mobile_number" type="number" class="form-control" id="exampleInputPassword1" placeholder="Enter your mobile number here">
                                     </div>
                                 </form>
-                                <button class="btn btn-primary float-start" type="submit" @click="nextPage">
-                                    Next
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                                    </svg>
-                                </button>
+                                <div v-if="mobile_number === ''">
+                                    <button class="btn btn-primary float-start" type="submit" disabled @click="nextPage">
+                                        Next
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div v-else>
+                                    <button class="btn btn-primary float-start" type="submit" @click="nextPage">
+                                        Next
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                             <div v-else class="pb-3">
                                 <div v-if="next_page_1 === false">
                                     <form>
                                         <h5 class="fw-bolder d-flex justify-content-start pb-3">Reservation Details</h5>
                                         <div class="form-group pb-2">
-                                            <label for="exampleInputEmail1" class="float-start">Date/s</label>
+                                            <label for="exampleInputEmail1" class="float-start">Date/s <small class="text-danger">(Required)</small></label>
                                             <input v-model="tempArr" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter the date here">
                                         </div>
                                         <div class="row g-3">
                                             <div class="form-group pb-2 col-sm">
-                                                <label for="exampleInputPassword1" class="float-start">Starting Time</label>
-                                                <input v-model="time" type="text" class="form-control" id="exampleInputPassword1" placeholder="(E.g. 10:00am)">
+                                                <label for="exampleInputPassword1" class="float-start">Starting Time <small class="text-danger">(Required)</small></label>
+                                                <input v-model="time" type="text" class="form-control" id="exampleInputPassword1" placeholder="(E.g. 10:00am)" required>
                                             </div>
                                             <div class="form-group pb-2 col-sm">
-                                                    <label for="exampleInputPassword1" class="float-start">Ending Time</label>
-                                                    <input v-model="timeEnd" type="text" class="form-control" id="exampleInputPassword1" placeholder="(E.g. 2:00pm)">
+                                                    <label for="exampleInputPassword1" class="float-start">Ending Time <small class="text-danger">(Required)</small></label>
+                                                    <input v-model="timeEnd" type="text" class="form-control" id="exampleInputPassword1" placeholder="(E.g. 2:00pm)" required>
                                             </div>
                                         </div>
                                         
@@ -153,20 +157,30 @@
                                             <input v-model="org" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your organization here">
                                         </div>
                                         <div class="form-group pb-2">
-                                            <label for="exampleInputPassword1" class="float-start">Department</label>
+                                            <label for="exampleInputPassword1" class="float-start" required>Department <small class="text-danger">(Required)</small></label>
                                             <input v-model="dept" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your department here">
                                         </div>
-                                        <div class="form-group pb-3">
-                                            <label for="exampleInputPassword1" class="float-start">Description</label>
-                                            <input v-model="desc" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter description of your event here">
+                                        <div class="form-group pb-2 m-50">
+                                            <label for="exampleInputPassword1" class="float-start me-3">Type of Activity <small class="text-danger">(Required)</small></label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" placeholder="Select Activity" aria-label="Select Activity" aria-describedby="basic-addon2" required v-model="desc">
+                                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="#" @click.prevent="desc = 'Film Viewing'">Film Viewing</a></li>
+                                                        <li><a class="dropdown-item" href="#" @click.prevent="desc = 'Thesis Defense'">Thesis Defense</a></li>
+                                                        <li><a class="dropdown-item" href="#" @click.prevent="desc = 'Seminar'">Seminar</a></li>
+                                                        <li><a class="dropdown-item" href="#" @click.prevent="desc = 'Review'">Review</a></li>
+                                                        <li><a class="dropdown-item" href="#" @click.prevent="desc = 'Meeting Orientation'">Meeting Orientation</a></li>
+                                                    </ul>
+                                                </div>
                                         </div>
                                         <div class="form-group pb-3">
-                                            <label for="exampleInputPassword1" class="float-start">Academic Year</label>
+                                            <label for="exampleInputPassword1" class="float-start" required>Academic Year <small class="text-danger">(Required)</small></label>
                                             <input v-model="acad_year" type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter the academic year (E.g. 2023-2024)">
                                         </div>
                                         <div class="form-group pb-5 m-50">
-                                            <label for="exampleInputPassword1" class="float-start me-3">Venue</label>
-                                            <select name="plan" id="venue" v-model="venue" class="btn btn-sm border float-start">
+                                            <label for="exampleInputPassword1" class="float-start me-3">Venue <small class="text-danger">(Required)</small></label>
+                                            <select name="plan" id="venue" v-model="venue" class="btn btn-sm border float-start" required>
                                                 <option value="" disabled selected>List of Venues</option>
                                                 <option value="JOBL Conference Room 1st Floor" title="Chairs Available: 50, TV Screen: 1">JOBL Conference Room 1st Floor</option>
                                                 <option value="Consultation Room 1" title="Chairs Available: 50, TV Screen: 1"><small>Consultation Room 1</small></option>
@@ -174,11 +188,13 @@
                                                 <option value="Library - Multipurpose Room" title="Chairs Available: 50, TV Screen: 1"><small>Library - Multipurpose Room</small></option>
                                                 <option value="Library: Fr. A.M. BAUTISTA - Viewing Room" title="Chairs Available: 50, TV Screen: 1"><small>Library: Fr. A.M. BAUTISTA -
                                                     Viewing Room</small></option>
+                                                <option value="Instructional Media Center"><small>Instructional Media Center (IMC)</small></option>
+                                                <option value="Richie Fernando Hall"><small>Richie Fernando Hall</small></option>
                                             </select>
                                         </div>
                                         <div class="form-group pb-5 m-50">
-                                            <label for="exampleInputPassword1" class="float-start me-3">Semester</label>
-                                            <select name="plan" id="venue" v-model="semester" class="btn btn-sm border float-start">
+                                            <label for="exampleInputPassword1" class="float-start me-3">Semester <small class="text-danger">(Required)</small></label>
+                                            <select name="plan" id="venue" v-model="semester" class="btn btn-sm border float-start" required>
                                                 <option value="" disabled selected>List of Semesters</option>
                                                 <option value="1st Semester">1st Semester</option>
                                                 <option value="2nd Semester"><small>2nd Semester</small></option>
@@ -186,7 +202,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group pb-5 m-50">
-                                            <label for="exampleInputPassword1" class="float-start me-3">Form Remarks</label>
+                                            <label for="exampleInputPassword1" class="float-start me-3" required>Form Remarks <small class="text-danger">(Required)</small></label>
                                             <select name="plan" id="venue" v-model="remarks" class="btn btn-sm border float-start">
                                                 <option value="" disabled selected>List of Remarks</option>
                                                 <option value="Tentative">Tentative</option>
@@ -195,18 +211,28 @@
                                         </div>
                                     </form>
                                     <br class="pt-2">
-                                    <button class="btn btn-primary float-start" type="submit" @click="nextPage_1">
-                                        Next
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                                        </svg>
-                                    </button>
+                                    <div v-if="timeEnd === '' && acad_year === ''">
+                                        <button class="btn btn-primary float-start" type="submit" disabled @click="nextPage_1">
+                                            Next
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div v-else>
+                                        <button class="btn btn-primary float-start" type="submit" @click="nextPage_1">
+                                            Next
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div v-if="next_page_1 === true && next_page === true">
-                            <h5 class="fw-bolder d-flex justify-content-start">Equipments</h5>
+                            <label class="fw-bolder d-flex justify-content-start"> Equipments <small class="text-danger">(Required)</small></label>
                             <div class=" d-flex justify-content-center pb-3">
                                 <span class = "text-danger">
                                     <small> 
@@ -226,18 +252,34 @@
                                     {{equip.items}}
                                 </div>
                                 <div class="col-8">
-                                    <input type="number" class="form-control" id="input_q" min="1" :v-model="values_of_q" :placeholder="equip.q">
+                                    <input type="number" class="form-control" id="input_q" min="1" :v-model="values_of_q" :placeholder="equip.q" required>
                                 </div>
                             </div>
-                            <div class="col d-flex justify-content-start fw-bold pb-2 pt-3">
-                                <label for="formGroupExampleInput">Related Documents</label>
+                            <div class="col d-flex justify-content-start fw-bold pt-3">
+                                <label for="formGroupExampleInput">Related Documents <small class="text-danger">(Required)</small> </label>
                             </div>
-                            <input class="form-control" type="file" id="FileUpload">
-
+                            <div class=" text-danger d-flex justify-content-start ps-3 pb-3">
+                                <small class="pt-2">
+                                 (Please upload in this section the OSA permit in pdf format.)
+                                </small>
+                            </div>
+                            <input class="form-control" type="file" id="FileUpload" required>
+                            <div class=" text-danger d-flex justify-content-start pb-3 ps-3">
+                                <small class="pt-2">
+                                    Important Note: File name can't contain any of the following characters: \ / : * ? &lt; &gt; | ( ).
+                                </small>
+                            </div>
                             <div class="pt-5">
+                                <div v-if="enable_btn === true">
+                                    <button class="btn btn-primary float-start" type="submit" disabled @click="setAppointment();">
+                                        Set Appointment
+                                    </button>
+                                </div>
+                                <div v-else>
                                     <button class="btn btn-primary float-start" type="submit" @click="setAppointment();">
                                         Set Appointment
                                     </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -260,8 +302,52 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Warning</h5>
-                    <p class="card-text">Same day reservation is not allowed.</p>
+                    <p class="card-text">Only future reservation is allowed by the system. If you need an urgent reservation, please contact the admin.</p>
                     <button type="button" class="btn btn-outline-light" @click="close_error_msg">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div v-if="warning_message === true">
+        <div class="mx-auto" id="warning_pop">
+            <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                <div class="card-header">
+                    <lord-icon
+                        src="https://cdn.lordicon.com/dnmvmpfk.json"
+                        trigger="loop"
+                        delay="2000"
+                        colors="primary:#ffffff"
+                        style="width:25px;height:25px" class="pt-1 ms-1">
+                    </lord-icon>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Note</h5>
+                    <p class="card-text"> Reservations must be made at least 3 days in advance of your desired dates. If you need an urgent reservation, please contact the admin. Thank you for your understanding.</p>
+                    <button type="button" class="btn btn-outline-light" @click="close_error_msg">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div v-if="enable_btn === true">
+        <div class="mx-auto" id="warning_pop">
+            <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+                <div class="card-header">
+                    <lord-icon
+                        src="https://cdn.lordicon.com/dnmvmpfk.json"
+                        trigger="loop"
+                        delay="2000"
+                        colors="primary:#ffffff"
+                        style="width:25px;height:25px" class="pt-1 ms-1">
+                    </lord-icon>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        The venue and time slot you have selected are already taken. 
+                        Please select a different venue or time slot.
+                    </p>
+                    <button type="button" class="btn btn-outline-light" @click="close_enable_btn">Close</button>
                 </div>
             </div>
         </div>
@@ -269,7 +355,6 @@
 </template>
 
 <script>
-// import { ScheduleComponent, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-vue-schedule";
 import AdminModal from "@/components/AdminModal.vue";
 import SidePanelUser from "@/components/SidePanelUser.vue";
 import VueCal from "@/components/VueCal.vue"
@@ -280,11 +365,7 @@ import $ from 'jquery';
 const gapi = window.gapi;
 export default{
     components: {
-        // 'ejs-schedule': ScheduleComponent,
         AdminModal, SidePanelUser, VueCal
-    },
-    provide: {
-        // schedule: [Day, Week, WorkWeek, Month, Agenda]
     },
     data(){
         return{
@@ -346,22 +427,17 @@ export default{
             arr_reset: false,
 
             error_message: false,
+
+            warning_message: false,
+
+            remaining_days: '',
+            request_arr: [],
+            enable_btn: false,
         }
     },
 
     methods: {
         check(){
-            // console.log("Selected date:",this.schedulerSelectedDate);
-            // let date_holder = this.schedulerSelectedDate;
-            // console.log(date_holder);
-            // if(this.schedulerSelectedDate != null){
-            //     this.open_modal = true;
-            //     this.sliced_holder = String(this.schedulerSelectedDate).slice(0, 15);
-            //     console.log(this.sliced_holder);
-            //     this.picked_date = this.sliced_holder;
-            //     this.date_slicer = String(this.schedulerSelectedDate).slice(3, 15);
-            //     this.date = this.date_slicer;
-            // }
             console.log(this.schedulerSelectedDate);
         },
 
@@ -375,8 +451,35 @@ export default{
 
         },
 
-        close_error_msg(){
-            this.error_message = false;
+        close_error_msg(){ // we have an error message function that triggers,
+            this.error_message = false; //this is the close button of that message
+            this.warning_message = false;
+        },
+
+        close_enable_btn(){ // we have an error message function that triggers,
+            this.error_message = false; //this is the close button of that message
+            this.warning_message = false;
+            this.enable_btn = false;
+            this.close_modal();
+        },
+
+        isPastDate(date) { // this functions checks if the selected date was a past date
+            const now = new Date();
+            return now > new Date(date);
+        },
+
+        bookNow(){
+            const headTemp = document.querySelector('.vuecal__menu');
+            const dayView = headTemp.querySelector('.vuecal__view-btn[aria-label="Day view"]');
+            if(dayView){
+                console.log(dayView.textContent);
+                if(dayView.textContent === "Day"){
+                    this.open_modal = true;
+                    this.time = "0:00 am"
+                }
+            } else {
+                console.log("Error");
+            }
         },
 
         handleEvent(evenData) {
@@ -390,8 +493,6 @@ export default{
             console.log(this.tempArr);
             this.dateToday = String(this.dateToday).slice(0, 15);
             this.length_ofArr = this.tempArr.length;
-            // console.log(this.dateToday);
-            // console.log(this.sliced_holder2);
             this.open_modal = true;
             var dateObj = new Date();
             var month = dateObj.getUTCMonth() + 1; //months from 1-12
@@ -403,7 +504,6 @@ export default{
             } else {
                 new_day = day.toString();
             }
-            // console.log(new_day);
 
             const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -437,27 +537,53 @@ export default{
                     }
                 }
             }
+
+            for(let w = 0; w < this.sliced_holder2.length; w++){
+                if(this.isPastDate(this.sliced_holder2[w])){
+                    this.show_selected_popup = false;
+                    this.sliced_holder2.splice(0, this.sliced_holder2.length); //we delete the parent array
+                    this.tempArr.splice(0, this.tempArr.length); //as well as the child array
+                    this.length_ofArr -= this.length_ofArr; //we decrement the counter
+                    this.show_selected_popup = false; //we hide the counter UI
+                    this.error_message = true;
+                }
+            }
+
+            for(let j = 0; j < this.sliced_holder2.length; j++){
+                const todayDate = new Date(this.newdate); // we convert the date today to new Date to get time
+                const selectedDates = new Date(this.sliced_holder2[j]); // we convert the selected dates to new Date to get time
+                const diff = todayDate.getTime() - selectedDates.getTime(); // we subtract to get the lapsed days
+                const dayOff = Math.floor(diff / (1000 * 60 * 60 * 24)); // we then compute its time differences
+
+                const posDayOff = Math.abs(dayOff); // we converted the negative numbers to positive numbers
+                if(posDayOff <= 3){    // we check if the dates selected was less than or equal to 3 days to limit reservations
+                    this.show_selected_popup = false;
+                    this.sliced_holder2.splice(0, this.sliced_holder2.length); //we delete the parent array
+                    this.tempArr.splice(0, this.tempArr.length); //as well as the child array
+                    this.length_ofArr -= this.length_ofArr; //we decrement the counter
+                    this.show_selected_popup = false; //we hide the counter UI
+                    this.warning_message = true;
+                }
+            }
             // this.flag = 1;
         },
 
+        //when a user clicked on a time, this function handles that process
         handleTime(t) {
             this.time2 = t.time2;
             let values = Object.values(t);
             this.time = String(values).slice(0, 7);
             this.endTime = parseInt(this.timeHolder);
-            // console.log(this.concatTime);
-            // let finalEnd = this.endTime <= 10 ? String(this.endTime).slice(0, 3)+':' : String(this.endTime).slice(0, 2);
-            // this.concatTime = `${this.timeHolder} - ${finalEnd}`;
-            // console.log(finalEnd);
-            // console.log(this.concatTime);
             console.log(this.timeHolder);
         },
 
+        //this is the navigation in our forms
         nextPage(){
             this.next_page = true;
             this.next_page_1 = false;
         },
 
+        //this is the function to set an appointment
         setAppointment(){
             const number = parseInt(this.mobile_number);
 
@@ -488,25 +614,27 @@ export default{
             let i_q = document.querySelectorAll('[id="input_q"]');
             const q_i = [...i_q].map(input => input.value);
             console.log("Values of Q: ", q_i);
-            for(let i = 0; i < q_i.length; i++){
+            for (let i = 0; i < q_i.length; i++) {
                 this.equipment_list.push(parseInt(q_i[i]));
             }
 
             const equip_obj = JSON.stringify(this.equipment_list);
             const equip_arr = equip_obj.split(",");
-            console.log(equip_obj);
+            console.log(equip_arr);
 
-            if (this.tempArr.length > 1) {
+            //this statement handles multiple number of reservation
+           if (this.tempArr.length > 1) {
                 for (let i = 0; i < this.tempArr.length; i++) {
-                    const fileUploadControl = $("#FileUpload")[0];
+                    const fileUploadControl = $("#FileUpload")[0]; //this is for the file uploading
                     console.log(fileUploadControl);
                     if (fileUploadControl.files.length > 0) {
                         const file = fileUploadControl.files[0];
                         const name = file.name;
                         console.log("Upload: ", name);
 
-                        const parseFile = new Parse.File(name, file);
+                        const parseFile = new Parse.File(name, file); // we saved the file temporarily in the cloud
                         parseFile.save().then((parseFile) => {
+                            // we saved the data that was inputted by the users in our Request table in our database
                             const Request = Parse.Object.extend("Request");
                             const request = new Request();
 
@@ -535,15 +663,15 @@ export default{
                             Swal.fire({
                                 icon: 'info',
                                 title: 'Do you want to save this reservation?',
-                                //   showDenyButton: true,
                                 showCancelButton: true,
                                 confirmButtonText: 'Confirm',
                                 confirmButtonColor: '#00588C',
                                 cancelButtonColor: '#C3C3C9',
-                                //   denyButtonText: `Don't save`,
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     request.save().then((request) => {
+                                        //after a successful saving of the data, we empty the variables
+                                        // preparing for the next reservation process
                                         console.log("Success", request);
                                         this.open_modal = false;
                                         this.date = '';
@@ -555,56 +683,34 @@ export default{
                                         this.semester = '';
                                         this.remarks = '';
                                         this.desc = '';
-                                        this.$router.push({ name: 'home' });
+                                        this.$router.push('/reload'); // after saving, we will push the page to our reload page for a smooth operation of the system
                                         return request.save();
                                     });
                                     Swal.fire({
                                         icon: 'success', title: 'Reservation Saved!', showConfirmButton: false, timer: 2000,
                                         timerProgressBar: true,
                                     });
-                                    //   document.location.reload();
-                                    // this.$router.push('/reload');
-                                    // location.reload();
                                 }
                                 else if (result.isDenied) {
                                     Swal.fire('Unable to save reservation')
                                 }
                             })
-
-                            // request.save().then((request) => {
-                            //     console.log("Success", request);
-                            //     Swal.fire({
-                            //         icon: 'success', title: 'Reservation saved', showConfirmButton: false, timer: 2000,
-                            //         timerProgressBar: true,
-                            //     });
-                            //     this.open_modal = false;
-                            //     this.date = '';
-                            //     this.mobile_number = '';
-                            //     this.time = '';
-                            //     this.org = '';
-                            //     this.dept = '';
-                            //     this.venue = '';
-                            //     this.semester = '';
-                            //     this.remarks = '';
-                            //     this.desc = '';
-                            //     this.$router.push({ name: 'home' });
-                            //     return request.save();
-                            // });
                         })
                     }
                 } //End of loop
             }
-            else{
-                for (let i = 0; i < this.tempArr.length; i++){
+            else { //this statement handles one (1) reservation
+                for (let i = 0; i < this.tempArr.length; i++) {
                     const fileUploadControl = $("#FileUpload")[0];
                     console.log(fileUploadControl);
-                    if (fileUploadControl.files.length > 0) {
+                    if (fileUploadControl.files.length > 0) { // we saved the file temporarily in the cloud
                         const file = fileUploadControl.files[0];
                         const name = file.name;
                         console.log("Upload: ", name);
 
                         const parseFile = new Parse.File(name, file);
                         parseFile.save().then((parseFile) => {
+                            // we saved the data that was inputted by the users in our Request table in our database
                             const Request = Parse.Object.extend("Request");
                             const request = new Request();
 
@@ -622,7 +728,7 @@ export default{
                             request.set("remarks", this.remarks);
                             request.set("description", this.desc);
                             request.set("filename", name);
-                            request.set("equipments", equip_arr);
+                            request.set("equipments", equip_obj);
                             request.set("filUploaded", parseFile);
                             request.set("url", parseFile._url);
                             request.set("status", "Pending");
@@ -633,15 +739,15 @@ export default{
                             Swal.fire({
                                 icon: 'info',
                                 title: 'Do you want to save this reservation?',
-                                //   showDenyButton: true,
                                 showCancelButton: true,
                                 confirmButtonText: 'Confirm',
                                 confirmButtonColor: '#00588C',
                                 cancelButtonColor: '#C3C3C9',
-                                //   denyButtonText: `Don't save`,
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     request.save().then((request) => {
+                                        //after a successful saving of the data, we empty the variables
+                                        // preparing for the next reservation process
                                         console.log("Success", request);
                                         this.open_modal = false;
                                         this.date = '';
@@ -653,66 +759,50 @@ export default{
                                         this.semester = '';
                                         this.remarks = '';
                                         this.desc = '';
-                                        this.$router.push({ name: 'home' });
+                                        this.$router.push('/reload'); // after saving, we will push the page to our reload page for a smooth operation of the system
                                         return request.save();
                                     });
                                     Swal.fire({
                                         icon: 'success', title: 'Reservation Saved!', showConfirmButton: false, timer: 2000,
                                         timerProgressBar: true,
                                     });
-                                    //   document.location.reload();
-                                    // this.$router.push('/reload');
-                                    // location.reload();
                                 }
                                 else if (result.isDenied) {
                                     Swal.fire('Unable to save reservation')
                                 }
                             })
-
-                            // request.save().then((request) => {
-                            //     console.log("Success", request);
-                            //     Swal.fire({ icon: 'success', title: 'Reservation saved', showConfirmButton: false, timer: 2000,
-                            //         timerProgressBar: true, });
-                            //     this.open_modal = false;
-                            //     this.date = '';
-                            //     this.mobile_number = '';
-                            //     this.time = '';
-                            //     this.org = '';
-                            //     this.dept = '';
-                            //     this.venue = '';
-                            //     this.semester = '';
-                            //     this.remarks = '';
-                            //     this.desc = '';
-                            //     this.$router.push({ name: 'home' });   
-                            //     return request.save();
-                            // });
                         })
                     }
                 }
             }
-        // this.close_modal();
-        // this.$router.go(-2);
-        // location.reload();
         },
 
-        nextPage_1(){
+        nextPage_1(){ // navigation for the next page in our forms
             this.next_page_1 = true;
+            for(let l = 0; l < this.request_arr.length; l++){
+                if(this.sliced_holder2.includes(this.request_arr[l].date) && this.request_arr[l].venue === this.venue){
+                    if(this.time === this.request_arr[l].time_s && this.timeEnd === this.request_arr[l].time_e){
+                        this.enable_btn = true;
+                    }
+                } else {
+                    this.enable_btn = false;
+                }
+            }
         },
 
-        back_btn(){
+        back_btn(){ //this is the back button inside the forms
             this.next_page = false;
             this.next_page_1 = false;
         },
 
-        trigger_modal(){
+        trigger_modal(){ // this allows us to open a pop up modal
             this.open_modal = true;
         },
 
-        close_modal(){
+        close_modal(){ // we reset the values that was inputted in our forms
             this.open_modal = false;
             this.next_page = false;
             this.date = '';
-            // this.mobile_number = '';
             this.time = '';
             this.org = '';
             this.dept = '';
@@ -724,6 +814,7 @@ export default{
             this.timeEnd = '';
             this.timeHolder = '';
             this.tempArr = [];
+            this.resetArr();
             console.log(this.tempArr);
         },
 
@@ -736,23 +827,25 @@ export default{
         },
     },
 
+    //mounted is a lifecycle hook that renders after the template completely rendered
     mounted: async function(){
-        gapi.load("client:auth2", function () {
+        gapi.load("client:auth2", function () { //this is the Google OAuth API that needs to be rendered
             gapi.auth2.getAuthInstance();
         });
 
-        const googleUser = gapi.auth2.getAuthInstance();
+        const googleUser = gapi.auth2.getAuthInstance(); // we fetched the details of a logged in user
         this.google_user = googleUser;
         console.log(googleUser);
-        this.profileFullName = googleUser.currentUser.get().getBasicProfile().getName();
-        this.user_email = googleUser.currentUser.get().getBasicProfile().getEmail();
+        this.profileFullName = googleUser.currentUser.get().getBasicProfile().getName(); // this is the fullname of a user
+        this.user_email = googleUser.currentUser.get().getBasicProfile().getEmail(); // this is the email of the user
         console.log(this.profileFullName);
-        this.gapiLoaded = true;
+        this.gapiLoaded = true; //this is a flag that the Google API completely loaded
 
-        if(!googleUser) {
-            this.$router.push({name: 'Login'});
+        if(!googleUser) { // this statement allows us to push the user back to the login page when it failed to
+            this.$router.push({name: 'Login'}); //identify that the user is logged out from the system
         }
-            
+        
+        //this allows us to fetched the data from our database with a table name "Equipments"
         const Equipments = Parse.Object.extend("Equipments");
         const equipments = new Parse.Query(Equipments);
         const equip = await equipments.find();
@@ -762,6 +855,39 @@ export default{
                 q:"Quantity Available: " + ' ' + equip[i].get("Quantity"),
                 num: equip[i].get("Quantity"),
             })
+        }
+
+        var dateObj = new Date();
+        var month = dateObj.getUTCMonth() + 1; //months from 1-12
+        var day = dateObj.getUTCDate();
+        var year = dateObj.getUTCFullYear();
+
+        if(day <= 9){
+            var new_day = day.toString().padStart(2, '0');
+        } else {
+            new_day = day.toString();
+        }
+
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        ];
+
+        this.newdate = " " + monthNames[month - 1] + " " + new_day + " " + year;
+
+        const Request = Parse.Object.extend("Request");
+        const request = new Parse.Query(Request);
+        const query = await request.find();
+
+        for(let i = 0; i < query.length; i++){
+            if(query[i].get("status") === 'Approved'){ //filtered all the data that has a status of "Pending"
+                this.request_arr.push({
+                    date: query[i].get("date"),
+                    time_s: query[i].get("time_start"),
+                    time_e: query[i].get("time_end"),
+                    venue: query[i].get("venue"),
+                })
+            }
+            console.log(this.request_arr);
         }
     }
 }
@@ -797,4 +923,28 @@ export default{
     right: 20px;
     z-index: 3;
 }
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
 </style>

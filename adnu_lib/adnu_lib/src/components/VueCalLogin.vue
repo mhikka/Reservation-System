@@ -23,53 +23,11 @@ export default {
         return{
             newdate: '',
             file_date: '',
-            // events: [
-            //     {
-            //         start: '2023-2-22 10:30',
-            //         end: '2023-2-22 11:30',
-            //         // You can also define event dates with Javascript Date objects:
-            //         // start: new Date(2018, 11 - 1, 16, 10, 30),
-            //         // end: new Date(2018, 11 - 1, 16, 11, 30),
-            //         title: 'Doctor appointment',
-            //         content: '<i class="icon material-icons">local_hospital</i>',
-            //         class: 'health'
-            //     },
-            // ],
             events: [],
 
             show_cal: false,
         }
     },
-
-    // created() {
-    //     var dateObj = new Date();
-    //     var month = dateObj.getUTCMonth() + 1; //months from 1-12
-    //     var day = dateObj.getUTCDate();
-    //     var year = dateObj.getUTCFullYear();
-
-    //     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    //         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-    //     ];
-
-    //     this.newdate = " " + monthNames[month - 1] + " " + day + " " + year;
-    //     this.file_date = year + "-" + day + "-" + month;
-
-    //     const Event = Parse.Object.extend('Request');
-    //     const query = new Parse.Query(Event);
-
-    //     query.find().then((results) => {
-    //     // var s_time = request[i].get("time");
-    //     // var time_s = s_time.slice(0, 5);
-    //     // var time_e = s_time.slice(10, 14);
-    //         this.events = results.map((event) => ({
-    //             title: event.get('description'),
-    //             start: new Date(this.file_date),
-    //             end: new Date(this.file_date),
-    //         }));
-    //     });
-    //     console.log(this.events);
-    // },
-      
 
     mounted: async function(){
         var dateObj = new Date();
@@ -91,35 +49,14 @@ export default {
 
         for(let i = 0; i < query.length; i++){
             if(this.newdate === query[i].get("date") && query[i].get("status") === 'Approved'){
-                // var s_time = query[i].get("time");
-                // var time_s = s_time.slice(0, 5);
-                // var time_e = s_time.slice(10, 14);
                 this.events.push({
                     start: this.file_date + " " + query[i].get("time_start"),
                     end: this.file_date + " " + query[i].get("time_end"),
                     title: query[i].get("description"),
-                    // id: query[i].id,
-                    // date: query[i].get("date"),
-                    // fullName: query[i].get("full_name"),
-                    // email: query[i].get("email"),
-                    // mobile_number: query[i].get("mobile_number"),
-                    // time: query[i].get("time"),
-                    // orgDept: query[i].get("org_dept"),
-                    // org: query[i].get("org"),
-                    // dept: query[i].get("dept"),
-                    // venue: query[i].get("venue"),
-                    // desc: query[i].get("description"),
-                    // equipments: query[i].get("equipments"),
-                    // status: query[i].get("status"),
-                    // remarks: query[i].get("remarks"),
-                    // semester: query[i].get("semester"),
-                    // fName: query[i].get("filename"),
-                    // url_link: query[i].get("url"),
                 })
             }
         }
-
-        // this.show_cal = true;
+        
         console.log(this.events);   
     }
 
