@@ -367,14 +367,14 @@
                                             <label for="exampleInputPassword1" class="float-start me-3">Venue</label>
                                             <select name="plan" id="venue" v-model="details.venue" class="btn btn-sm border float-start">
                                                 <option value="" disabled selected>List of Venues</option>
-                                                <option value="JOBL Conference Room 1st Floor">JOBL Conference Room 1st Floor</option>
-                                                <option value="Consultation Room 1"><small>Consultation Room 1</small></option>
-                                                <option value="Consultation Room 2"><small>Consultation Room 2</small></option>
-                                                <option value="Library - Multipurpose Room"><small>Library - Multipurpose Room</small></option>
-                                                <option value="Library: Fr. A.M. BAUTISTA - Viewing Room"><small>Library: Fr. A.M. BAUTISTA -
+                                                <option value="JOBL Conference Room 1st Floor" title="Maximum Capacity: 5">JOBL Conference Room 1st Floor</option>
+                                                <option value="Consultation Room 1" title="Reserve this venue for online interactive classes"><small>Consultation Room 1</small></option>
+                                                <option value="Consultation Room 2" title="Reserve this venue for online interactive classes"><small>Consultation Room 2</small></option>
+                                                <option value="Library - Multipurpose Room" title="Maximum Capacity: 80"><small>Library - Multipurpose Room</small></option>
+                                                <option value="Library: Fr. A.M. BAUTISTA - Viewing Room" title="Maximum Capacity: 50"><small>Library: Fr. A.M. BAUTISTA -
                                                     Viewing Room</small></option>
-                                                <option value="Instructional Media Center"><small>Instructional Media Center (IMC)</small></option>
-                                                <option value="Richie Fernando Hall"><small>Richie Fernando Hall</small></option>
+                                                <option value="Instructional Media Center" title="Minimum Capacity: 40, Maximum Capacity: 150"><small>Instructional Media Center (IMC)</small></option>
+                                                <option value="Richie Fernando Hall" title="Minimum Capacity: 50 or 1 Class, Maximum Capacity: 150"><small>Richie Fernando Hall</small></option>
                                             </select>
                                         </div>
                                         <div class="form-group pb-5 m-50">
